@@ -13,6 +13,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeDi - Decentralized Directory for Public Registries</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="DeDi is a decentralized directory protocol for public registries. Publish and verify public keys, membership lists, and revocation lists with cryptographic trust.">
+    <meta name="author" content="DeDi">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1a73e8">
+    <link rel="canonical" href="https://dedi.global/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dedi.global/">
+    <meta property="og:title" content="DeDi - Decentralized Directory for Public Registries">
+    <meta property="og:description" content="Build trust infrastructure with DeDi. Publish and verify public keys, membership lists, and revocation lists with cryptographic guarantees.">
+    <meta property="og:image" content="https://dedi.global/dedi-logo.svg">
+    <meta property="og:site_name" content="DeDi">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DeDi - Decentralized Directory for Public Registries">
+    <meta name="twitter:description" content="Build trust infrastructure with DeDi. Publish and verify public keys, membership lists, and revocation lists with cryptographic guarantees.">
+    <meta name="twitter:image" content="https://dedi.global/dedi-logo.svg">
+
     <link rel="icon" type="image/svg+xml" href="dedi-logo.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -295,6 +317,35 @@
         .chip-green { background: linear-gradient(135deg, rgba(52,168,83,0.08), rgba(255,255,255,0.9)); border-color: rgba(52,168,83,0.20); }
         .chip-purple { background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(255,255,255,0.9)); border-color: rgba(124,58,237,0.20); }
     </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "DeDi",
+      "alternateName": "Decentralized Directory",
+      "url": "https://dedi.global",
+      "logo": "https://dedi.global/dedi-logo.svg",
+      "description": "DeDi is a decentralized directory protocol for public registries.",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Linux Foundation Decentralized Trust",
+        "url": "https://www.lfdecentralizedtrust.org/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "DeDi",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "url": "https://publish.dedi.global/"
+    }
+    </script>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -302,47 +353,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <!-- DeDi Logo -->
-                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mr-3">
-                        <!-- Main D shape with network nodes -->
-                        <g>
-                            <!-- Outer D shape -->
-                            <path d="M 25 20 L 50 20 Q 75 20 75 50 Q 75 80 50 80 L 25 80 L 25 20" 
-                                  fill="none" 
-                                  stroke="url(#logo-gradient)" 
-                                  stroke-width="3"/>
-                            
-                            <!-- Network nodes -->
-                            <circle cx="25" cy="20" r="6" fill="url(#logo-gradient)"/>
-                            <circle cx="50" cy="20" r="6" fill="url(#logo-gradient)"/>
-                            <circle cx="75" cy="35" r="6" fill="url(#logo-gradient)"/>
-                            <circle cx="75" cy="65" r="6" fill="url(#logo-gradient)"/>
-                            <circle cx="50" cy="80" r="6" fill="url(#logo-gradient)"/>
-                            <circle cx="25" cy="80" r="6" fill="url(#logo-gradient)"/>
-                            <circle cx="25" cy="50" r="6" fill="url(#logo-gradient)"/>
-                            
-                            <!-- Connection lines -->
-                            <line x1="25" y1="20" x2="50" y2="20" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            <line x1="50" y1="20" x2="75" y2="35" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            <line x1="75" y1="35" x2="75" y2="65" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            <line x1="75" y1="65" x2="50" y2="80" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            <line x1="50" y1="80" x2="25" y2="80" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            <line x1="25" y1="80" x2="25" y2="50" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            <line x1="25" y1="50" x2="25" y2="20" stroke="url(#logo-gradient)" stroke-width="1.5" opacity="0.5"/>
-                            
-                            <!-- Inner connections -->
-                            <line x1="25" y1="50" x2="50" y2="50" stroke="url(#logo-gradient)" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
-                            <line x1="50" y1="50" x2="75" y2="50" stroke="url(#logo-gradient)" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
-                            
-                            <!-- Gradient definition -->
-                            <defs>
-                                <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#1a73e8;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#34a853;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                        </g>
-                    </svg>
                     <h1 class="text-2xl font-bold gradient-text">DeDi</h1>
                 </div>
                 <div class="hidden md:flex space-x-8">
@@ -1260,38 +1270,6 @@
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <div class="flex items-center mb-4">
-                        <!-- DeDi Logo for dark background -->
-                        <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mr-2">
-                            <g>
-                                <!-- Outer D shape -->
-                                <path d="M 25 20 L 50 20 Q 75 20 75 50 Q 75 80 50 80 L 25 80 L 25 20" 
-                                      fill="none" 
-                                      stroke="white" 
-                                      stroke-width="3"/>
-                                
-                                <!-- Network nodes -->
-                                <circle cx="25" cy="20" r="6" fill="white"/>
-                                <circle cx="50" cy="20" r="6" fill="white"/>
-                                <circle cx="75" cy="35" r="6" fill="white"/>
-                                <circle cx="75" cy="65" r="6" fill="white"/>
-                                <circle cx="50" cy="80" r="6" fill="white"/>
-                                <circle cx="25" cy="80" r="6" fill="white"/>
-                                <circle cx="25" cy="50" r="6" fill="white"/>
-                                
-                                <!-- Connection lines -->
-                                <line x1="25" y1="20" x2="50" y2="20" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="50" y1="20" x2="75" y2="35" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="75" y1="35" x2="75" y2="65" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="75" y1="65" x2="50" y2="80" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="50" y1="80" x2="25" y2="80" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="25" y1="80" x2="25" y2="50" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="25" y1="50" x2="25" y2="20" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                                
-                                <!-- Inner connections -->
-                                <line x1="25" y1="50" x2="50" y2="50" stroke="white" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
-                                <line x1="50" y1="50" x2="75" y2="50" stroke="white" stroke-width="1" opacity="0.3" stroke-dasharray="2,2"/>
-                            </g>
-                        </svg>
                         <h3 class="text-white font-bold text-xl">DeDi</h3>
                     </div>
                     <p class="text-sm">
