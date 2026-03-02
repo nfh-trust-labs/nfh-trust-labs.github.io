@@ -1,1398 +1,2241 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YTSTVK4Y8V"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YTSTVK4Y8V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-YTSTVK4Y8V');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeDi — Decentralized Directory for Public Registries</title>
+  <meta name="description"
+    content="DeDi is a decentralized directory protocol for public registries. Publish and verify public keys, membership lists, and revocation lists with cryptographic trust.">
+  <meta name="theme-color" content="#fafaf9">
+  <link rel="canonical" href="https://dedi.global/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dedi.global/">
+  <meta property="og:title" content="DeDi — Decentralized Directory for Public Registries">
+  <meta property="og:description"
+    content="Build trust infrastructure with DeDi. Publish and verify public keys, membership lists, and revocation lists with cryptographic guarantees.">
+  <meta property="og:image" content="https://dedi.global/dedi-logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="dedi-logo.svg">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"DeDi","url":"https://dedi.global","logo":"https://dedi.global/dedi-logo.svg","description":"DeDi is a decentralized directory protocol for public registries.","parentOrganization":{"@type":"Organization","name":"Linux Foundation Decentralized Trust","url":"https://www.lfdecentralizedtrust.org/"}}
+</script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-      gtag('config', 'G-YTSTVK4Y8V');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeDi - Decentralized Directory for Public Registries</title>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="DeDi is a decentralized directory protocol for public registries. Publish and verify public keys, membership lists, and revocation lists with cryptographic trust.">
-    <meta name="author" content="DeDi">
-    <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#1a73e8">
-    <link rel="canonical" href="https://dedi.global/">
+    :root {
+      --bg: #fafaf9;
+      --bg-warm: #f5f4f0;
+      --surface: #ffffff;
+      --border: #e0e0e0;
+      --border-light: #e8e6e1;
+      --text: #1a1a1a;
+      --text-secondary: #555;
+      --text-muted: #6b6b6b;
+      --amber: #D97706;
+      --amber-light: #FEF3C7;
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Geist', -apple-system, sans-serif;
+      --mono: 'IBM Plex Mono', 'SF Mono', monospace;
+    }
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dedi.global/">
-    <meta property="og:title" content="DeDi - Decentralized Directory for Public Registries">
-    <meta property="og:description" content="Build trust infrastructure with DeDi. Publish and verify public keys, membership lists, and revocation lists with cryptographic guarantees.">
-    <meta property="og:image" content="https://dedi.global/dedi-logo.svg">
-    <meta property="og:site_name" content="DeDi">
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="DeDi - Decentralized Directory for Public Registries">
-    <meta name="twitter:description" content="Build trust infrastructure with DeDi. Publish and verify public keys, membership lists, and revocation lists with cryptographic guarantees.">
-    <meta name="twitter:image" content="https://dedi.global/dedi-logo.svg">
+    [id] {
+      scroll-margin-top: 70px;
+    }
 
-    <link rel="icon" type="image/svg+xml" href="dedi-logo.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .gradient-text {
-            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        /* Animations for stacked layout */
-        @keyframes fade-in {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slide-right {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        .animate-fade-in {
-            animation: fade-in 0.6s ease-out forwards;
-            opacity: 0;
-        }
-        
-        .animate-slide-right {
-            animation: slide-right 0.6s ease-out forwards;
-            opacity: 0;
-        }
-        .hero-pattern {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 50%, #e6f3ff 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-pattern::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 15% 85%, rgba(26, 115, 232, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 85% 15%, rgba(52, 168, 83, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 70% 70%, rgba(26, 115, 232, 0.04) 0%, transparent 50%),
-                radial-gradient(circle at 30% 30%, rgba(52, 168, 83, 0.04) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .hero-pattern::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='connected-dots' x='0' y='0' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3C!-- Dots --%3E%3Ccircle cx='20' cy='20' r='2' fill='%231a73e8' fill-opacity='0.15'/%3E%3Ccircle cx='50' cy='10' r='1.5' fill='%2334a853' fill-opacity='0.12'/%3E%3Ccircle cx='80' cy='20' r='2' fill='%231a73e8' fill-opacity='0.15'/%3E%3Ccircle cx='10' cy='50' r='1.5' fill='%2334a853' fill-opacity='0.12'/%3E%3Ccircle cx='50' cy='50' r='2.5' fill='%231a73e8' fill-opacity='0.18'/%3E%3Ccircle cx='90' cy='50' r='1.5' fill='%2334a853' fill-opacity='0.12'/%3E%3Ccircle cx='20' cy='80' r='2' fill='%231a73e8' fill-opacity='0.15'/%3E%3Ccircle cx='50' cy='90' r='1.5' fill='%2334a853' fill-opacity='0.12'/%3E%3Ccircle cx='80' cy='80' r='2' fill='%231a73e8' fill-opacity='0.15'/%3E%3C!-- Connections --%3E%3Cline x1='20' y1='20' x2='50' y2='10' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='50' y1='10' x2='80' y2='20' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='20' y1='20' x2='10' y2='50' stroke='%2334a853' stroke-width='0.5' stroke-opacity='0.04'/%3E%3Cline x1='20' y1='20' x2='50' y2='50' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='80' y1='20' x2='50' y2='50' stroke='%2334a853' stroke-width='0.5' stroke-opacity='0.04'/%3E%3Cline x1='80' y1='20' x2='90' y2='50' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='10' y1='50' x2='20' y2='80' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='50' y1='50' x2='20' y2='80' stroke='%2334a853' stroke-width='0.5' stroke-opacity='0.04'/%3E%3Cline x1='50' y1='50' x2='80' y2='80' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='50' y1='50' x2='50' y2='90' stroke='%2334a853' stroke-width='0.5' stroke-opacity='0.04'/%3E%3Cline x1='90' y1='50' x2='80' y2='80' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3Cline x1='20' y1='80' x2='50' y2='90' stroke='%2334a853' stroke-width='0.5' stroke-opacity='0.04'/%3E%3Cline x1='50' y1='90' x2='80' y2='80' stroke='%231a73e8' stroke-width='0.5' stroke-opacity='0.05'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23connected-dots)'/%3E%3C/svg%3E");
-            pointer-events: none;
-        }
-        
-        .floating-element {
-            position: absolute;
-            opacity: 0.3;
-            animation: float 8s ease-in-out infinite;
-            filter: drop-shadow(0 4px 8px rgba(26, 115, 232, 0.1));
-        }
-        
-        .floating-element:nth-child(2) { animation-delay: -2s; opacity: 0.25; }
-        .floating-element:nth-child(3) { animation-delay: -4s; opacity: 0.35; }
-        .floating-element:nth-child(4) { animation-delay: -6s; opacity: 0.2; }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(2deg); }
-        }
-        
-        .trust-icon {
-            position: absolute;
-            font-size: 2.5rem;
-            animation: pulse 6s ease-in-out infinite;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-        
-        .trust-icon:nth-child(odd) {
-            color: rgba(26, 115, 232, 0.25);
-        }
-        
-        .trust-icon:nth-child(even) {
-            color: rgba(52, 168, 83, 0.25);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.25; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.15); }
-        }
-        
-        /* Definitive styles for flicker-free typing animation */
-        @keyframes cursor-pulse {
-            50% { opacity: 0; }
-        }
-        #animated-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        #rotating-text-wrapper {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            min-width: 650px;
-            max-width: 100%;
-            height: 7rem; /* Increased height for better descender visibility */
-        }
-        #rotating-text {
-            text-align: center;
-            width: 100%;
-        }
-        #rotating-text::after {
-            content: '|';
-            color: #2563EB; /* Tailwind's text-blue-600 */
-            animation: cursor-pulse 1.2s infinite;
-        }
-        
-        @media (max-width: 768px) {
-            #rotating-text-wrapper {
-                min-width: 90vw; /* Use viewport width for tablets */
-            }
-        }
-        
-        @media (max-width: 640px) {
-            #animated-container {
-                flex-direction: column;
-                align-items: center; /* Explicitly center items horizontally */
-            }
-            #rotating-text-wrapper {
-                height: 5rem;
-                min-width: 100%;
-                justify-content: center;
-                text-align: center;
-            }
-            #rotating-text {
-                display: inline-block; /* Helps with centering and wrapping behavior */
-            }
-        }
-        
-        /* Mobile optimizations to prevent flickering */
-        @media (max-width: 768px) {
-            /* Disable complex animations on mobile */
-            .floating-element {
-                animation: none;
-                opacity: 0.2;
-            }
-            
-            .trust-icon {
-                animation: none;
-                opacity: 0.2;
-            }
-            
-            /* Reduce background complexity on mobile */
-            .hero-pattern::after {
-                display: none;
-            }
-            
-            /* Force hardware acceleration for smoother performance */
-            body {
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            /* Optimize typing animation container for mobile */
-            #rotating-text {
-                min-width: 250px !important;
-                min-height: 2rem !important;
-                text-align: center !important;
-            }
-            
-            /* Ensure consistent height for mobile hero text */
-            .text-3xl.md\\:text-5xl {
-                min-height: 3rem !important;
-                flex-direction: column !important;
-                gap: 0.25rem !important;
-            }
-            
-            /* Stack the typing text on mobile for better readability */
-            @media (max-width: 640px) {
-                .text-3xl.md\\:text-5xl {
-                    flex-direction: column !important;
-                    text-align: center !important;
-                }
-                
-                #rotating-text {
-                    min-width: 100% !important;
-                    min-height: 4rem !important; /* Increased min-height for mobile */
-                    text-align: center !important;
-                }
-            }
-        }
-        
-        /* Reduced motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            .floating-element,
-            .trust-icon,
-            .animate-fade-in,
-            .animate-slide-right {
-                animation: none !important;
-            }
-        }
-        
-        .mesh-gradient {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                conic-gradient(from 0deg at 20% 30%, rgba(26, 115, 232, 0.1) 0deg, transparent 60deg),
-                conic-gradient(from 180deg at 80% 70%, rgba(52, 168, 83, 0.1) 0deg, transparent 60deg);
-            pointer-events: none;
-        }
-        .feature-icon {
-            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .timeline-dot {
-            background: linear-gradient(135deg, #1a73e8 0%, #34a853 100%);
-        }
-        .use-case-tag {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .use-case-tag:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        /* Strapline chips */
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.375rem 0.75rem; /* px-3 py-1.5 */
-            border-radius: 9999px;
-            border: 1px solid rgba(17,24,39,0.08); /* gray-900 @ 8% */
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-            transition: transform 150ms ease, box-shadow 200ms ease;
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
-            -webkit-backdrop-filter: blur(2px);
-            backdrop-filter: blur(2px);
-        }
-        .chip:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.10); }
-        .chip .label {
-            position: relative;
-            line-height: 1.25;
-            /* Underline animation */
-            background-image: linear-gradient(currentColor, currentColor);
-            background-repeat: no-repeat;
-            background-position: 0 100%;
-            background-size: 0% 2px;
-            transition: background-size 200ms ease;
-        }
-        .chip:hover .label { background-size: 100% 2px; }
-        .chip-blue { background: linear-gradient(135deg, rgba(26,115,232,0.08), rgba(255,255,255,0.9)); border-color: rgba(26,115,232,0.20); }
-        .chip-green { background: linear-gradient(135deg, rgba(52,168,83,0.08), rgba(255,255,255,0.9)); border-color: rgba(52,168,83,0.20); }
-        .chip-purple { background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(255,255,255,0.9)); border-color: rgba(124,58,237,0.20); }
-    </style>
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "DeDi",
-      "alternateName": "Decentralized Directory",
-      "url": "https://dedi.global",
-      "logo": "https://dedi.global/dedi-logo.svg",
-      "description": "DeDi is a decentralized directory protocol for public registries.",
-      "parentOrganization": {
-        "@type": "Organization",
-        "name": "Linux Foundation Decentralized Trust",
-        "url": "https://www.lfdecentralizedtrust.org/"
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 250, 249, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-brand-name {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      color: var(--text);
+    }
+
+    .nav-brand-sub {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 450;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--surface);
+      background: var(--text);
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: #333;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: var(--text);
+      padding: 4px;
+      line-height: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 2rem 80px;
+      position: relative;
+      background:
+        radial-gradient(circle 1px at center, var(--border) 0.5px, transparent 0.5px),
+        radial-gradient(ellipse 50% 60% at 30% 20%, rgba(217, 119, 6, 0.04) 0%, transparent 70%),
+        var(--bg);
+      background-size: 24px 24px, 100% 100%, 100% 100%;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow-line {
+      width: 28px;
+      height: 1.5px;
+      background: var(--amber);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 2px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: var(--font-body);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #b45309;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 13px 28px;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .hero-meta a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hero-meta a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    /* ── STATS STRIP ── */
+    .proof-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .proof-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .proof-stat {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .proof-stat:last-child {
+      border-right: none;
+    }
+
+    .proof-stat-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .proof-stat-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+
+    /* ── FEATURES / PRINCIPLES ── */
+    .features {
+      padding: 100px 2rem;
+      background: var(--surface);
+    }
+
+    .features-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+
+    .features-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .features-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      max-width: 320px;
+      text-align: right;
+      line-height: 1.65;
+    }
+
+    .features-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .feat {
+      padding: 2.5rem;
+      border-right: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .feat:last-child {
+      border-right: none;
+    }
+
+    .feat-num {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.2rem;
+    }
+
+    .feat h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      margin-bottom: 0.7rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .feat p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── USE CASES ── */
+    .bento {
+      padding: 100px 2rem;
+      background: var(--bg-warm);
+    }
+
+    .bento-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .bento-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+
+    .bento-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .bento-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      max-width: 320px;
+      text-align: right;
+      line-height: 1.65;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .bento-cell {
+      background: var(--surface);
+      padding: 2.4rem 2.2rem;
+      transition: background 0.3s ease;
+    }
+
+    .bento-cell:hover {
+      background: var(--bg);
+    }
+
+    .bento-cell-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .bento-cell-label.badge-finance { color: #1a5276; background: rgba(26, 82, 118, 0.08); }
+    .bento-cell-label.badge-commerce { color: #8b5e0a; background: rgba(139, 94, 10, 0.08); }
+    .bento-cell-label.badge-cred { color: #0d6e5e; background: rgba(13, 110, 94, 0.08); }
+    .bento-cell-label.badge-trade { color: #5b2d8e; background: rgba(91, 45, 142, 0.08); }
+    .bento-cell-label.badge-health { color: #b5393a; background: rgba(181, 57, 58, 0.08); }
+    .bento-cell-label.badge-identity { color: #37474f; background: rgba(55, 71, 79, 0.08); }
+
+    .bento-cell h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 0.65rem;
+      line-height: 1.25;
+    }
+
+    .bento-cell p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── BEFORE / AFTER ── */
+    .compare-section {
+      padding: 5rem 2rem;
+      background: var(--bg);
+    }
+
+    .compare-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .compare-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .compare-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .compare-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .compare-grid {
+        grid-template-columns: 1fr;
       }
     }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "DeDi",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "url": "https://publish.dedi.global/"
+
+    .compare-grid {
+      align-items: stretch;
     }
-    </script>
+
+    .compare-card {
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .compare-card.before {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .compare-card.after {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .compare-card-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .compare-card.before .compare-card-label {
+      color: #dc2626;
+    }
+
+    .compare-card.after .compare-card-label {
+      color: #16a34a;
+    }
+
+    .compare-card h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .compare-step {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .compare-step:first-of-type {
+      margin-top: 0;
+    }
+
+    .compare-step strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .compare-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0.25rem;
+    }
+
+    .compare-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: var(--text-secondary);
+    }
+
+    .compare-endpoint {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 6px 0;
+      color: var(--text-secondary);
+    }
+
+    .compare-summary {
+      margin-top: auto;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .compare-card.before .compare-summary {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .compare-card.after .compare-summary {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .compare-tagline {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .compare-tagline strong {
+      color: var(--amber);
+    }
+
+    .lookup-hl {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* ── ARCHITECTURE ── */
+    .arch-section {
+      padding: 100px 2rem;
+      background: var(--bg);
+    }
+
+    .arch-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .arch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+
+    .arch-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .arch-header-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      max-width: 320px;
+      text-align: right;
+      line-height: 1.65;
+    }
+
+    /* Architecture Pipeline */
+    .arch-pipeline {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 3rem 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .arch-pipeline::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .arch-flow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .arch-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .arch-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .arch-step-card {
+      width: 136px;
+      height: 112px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .arch-step-card svg {
+      width: 30px;
+      height: 30px;
+      color: var(--text);
+    }
+
+    .arch-step-card-label {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+
+    .arch-step-sub {
+      font-size: 0.7rem;
+      color: var(--amber);
+      margin-top: 6px;
+    }
+
+    .arch-step-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .arch-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      background: #fff;
+    }
+
+    .arch-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 64px;
+      flex-shrink: 0;
+      padding-top: calc(0.65rem * 1.2 + 1rem + 48px);
+    }
+
+    .arch-connector-line {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+    }
+
+    .arch-connector-line::after {
+      content: '';
+      position: absolute;
+      right: -1px;
+      top: -3.5px;
+      border-left: 6px solid var(--border);
+      border-top: 3.5px solid transparent;
+      border-bottom: 3.5px solid transparent;
+    }
+
+    .arch-connector-badge {
+      font-family: var(--font-mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.02em;
+      color: var(--amber);
+      background: var(--surface);
+      padding: 2px 7px;
+      border: 1px solid rgba(217, 119, 6, 0.2);
+      border-radius: 10px;
+      margin-top: 6px;
+      white-space: nowrap;
+    }
+
+    .arch-categories {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid var(--border);
+      margin-top: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .arch-cat {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .arch-cat:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+
+    .arch-cat-title {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .arch-cat p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.85;
+    }
+
+    .arch-doc-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--amber);
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .arch-doc-link:hover {
+      text-decoration: underline;
+    }
+
+    .flow-line {
+      stroke-dasharray: 6 10;
+      stroke-dashoffset: 0;
+      animation: dash-flow 1.5s linear infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-line {
+        animation: none;
+      }
+    }
+
+    .flow-node {
+      transition: filter 0.2s;
+    }
+
+    .flow-node:hover {
+      filter: drop-shadow(0 0 6px rgba(217, 119, 6, 0.3));
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      margin-top: 4rem;
+    }
+
+    .how-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .how-steps {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 0;
+    }
+
+    .how-step {
+      padding: 2rem 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .how-step:last-child {
+      border-bottom: none;
+    }
+
+    .how-step-num {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--amber);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .how-step h4 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .how-step p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Terminal card */
+    .terminal-wrap {
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 380px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .terminal-bar {
+      padding: 10px 16px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .terminal-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .terminal-body {
+      padding: 20px;
+      background: var(--surface);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 2;
+      color: var(--text-muted);
+    }
+
+    .t-amber {
+      color: var(--amber);
+    }
+
+    .t-text {
+      color: var(--text);
+    }
+
+    .t-dim {
+      color: var(--border);
+    }
+
+
+    /* ── PRICING ── */
+    .pricing-section {
+      padding: 100px 2rem;
+      background: var(--surface);
+    }
+
+    .pricing-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pricing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+
+    .pricing-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .pricing-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      max-width: 320px;
+      text-align: right;
+      line-height: 1.65;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .pricing-info {
+      padding: 3rem;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+    }
+
+    .pricing-info p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-info p strong {
+      color: var(--text);
+    }
+
+    .pricing-info p a {
+      color: var(--amber);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .pricing-info p a:hover {
+      text-decoration: underline;
+    }
+
+    .pricing-table-wrap {
+      padding: 0;
+      background: var(--surface);
+    }
+
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .pricing-row:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-row h4 {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .pricing-row .desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .pricing-val {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--amber);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .pricing-val small {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      display: block;
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      padding: 100px 2rem;
+      background: var(--bg-warm);
+    }
+
+    .faq-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .faq-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .faq-header-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      max-width: 320px;
+      text-align: right;
+      line-height: 1.65;
+    }
+
+    .faq-header-desc a {
+      color: var(--amber);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .faq-header-desc a:hover {
+      text-decoration: underline;
+    }
+
+    .faq-list {
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      width: 100%;
+      padding: 1.5rem 2rem;
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .faq-q h3 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .faq-q:hover h3 {
+      color: var(--amber);
+    }
+
+    .faq-toggle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      width: 20px;
+      text-align: center;
+    }
+
+    .faq-toggle.open {
+      transform: rotate(45deg);
+    }
+
+    .faq-a {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-a.open {
+      max-height: 400px;
+    }
+
+    .faq-a-inner {
+      padding: 0 2rem 1.5rem;
+    }
+
+    .faq-a p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .faq-a a {
+      color: var(--amber);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .faq-a a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── CTA ── */
+    .bottom-cta {
+      padding: 120px 2rem;
+      text-align: center;
+      background: #1a1a1a;
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bottom-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .bottom-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+      color: #fafaf9;
+      position: relative;
+    }
+
+    .bottom-cta p {
+      font-size: 0.95rem;
+      color: #999;
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    .bottom-cta-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .bottom-cta .btn-secondary {
+      border-color: #444;
+      color: #ccc;
+    }
+
+    .bottom-cta .btn-secondary:hover {
+      border-color: #888;
+      color: #fff;
+    }
+
+    /* ── PARTNERS ── */
+    .partners-bar {
+      padding: 2rem 2rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .partners-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .partners-inner a {
+      display: flex;
+      align-items: center;
+    }
+
+    .partners-inner img {
+      height: 24px;
+      object-fit: contain;
+      opacity: 0.4;
+      filter: grayscale(100%);
+      transition: opacity 0.2s;
+    }
+
+    .partners-inner a:hover img {
+      opacity: 0.8;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      background: var(--bg);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .footer-brand-sub {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    .footer-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 8px;
+      max-width: 260px;
+    }
+
+    .footer-nfh {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-nfh a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .footer-nfh a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-col h5 {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .reveal.visible {
+      animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Stagger children in grids */
+    .reveal-stagger > .visible:nth-child(1) { animation-delay: 0ms; }
+    .reveal-stagger > .visible:nth-child(2) { animation-delay: 80ms; }
+    .reveal-stagger > .visible:nth-child(3) { animation-delay: 160ms; }
+    .reveal-stagger > .visible:nth-child(4) { animation-delay: 240ms; }
+    .reveal-stagger > .visible:nth-child(5) { animation-delay: 300ms; }
+    .reveal-stagger > .visible:nth-child(6) { animation-delay: 360ms; }
+    .reveal-stagger > .visible:nth-child(7) { animation-delay: 420ms; }
+    .reveal-stagger > .visible:nth-child(8) { animation-delay: 480ms; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+
+      .features-header,
+      .bento-header,
+      .arch-header,
+      .pricing-header,
+      .faq-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .features-subtitle,
+      .bento-desc,
+      .arch-header-desc,
+      .pricing-desc,
+      .faq-header-desc {
+        text-align: left;
+        max-width: none;
+      }
+
+      .features-row {
+        grid-template-columns: 1fr;
+      }
+
+      .feat {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .feat:last-child {
+        border-bottom: none;
+      }
+
+      .arch-flow {
+        flex-wrap: wrap;
+        gap: 1rem 0;
+      }
+
+      .arch-connector {
+        width: 40px;
+        padding-top: calc(0.65rem * 1.2 + 1rem + 48px);
+      }
+
+      .arch-step-card {
+        width: 120px;
+        height: 100px;
+      }
+
+      .arch-categories {
+        grid-template-columns: 1fr;
+      }
+
+      .arch-cat:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .how-steps {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .bento-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-info {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .proof-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .proof-stat:nth-child(2) {
+        border-right: none;
+      }
+
+      .proof-stat:nth-child(1),
+      .proof-stat:nth-child(2) {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--bg);
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+        z-index: 99;
+        border-top: 1px solid var(--border);
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-stat {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .proof-stat:last-child {
+        border-bottom: none;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition-duration: 0s !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50" style="transform: translateZ(0); -webkit-transform: translateZ(0); backface-visibility: hidden; -webkit-backface-visibility: hidden;">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold gradient-text">DeDi</h1>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#use-cases" class="text-gray-700 hover:text-blue-600 transition">Use Cases</a>
-                    <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 transition">How It Works</a>
-                    <a href="#implementation" class="text-gray-700 hover:text-blue-600 transition">Implementation</a>
-                    <a href="#pricing" class="text-gray-700 hover:text-blue-600 transition">Pricing</a>
-                    <a href="#faq" class="text-gray-700 hover:text-blue-600 transition">FAQ</a>
-                    <a href="https://forms.gle/KcBNDhaCdUZ6kYa2A" target="_blank" class="text-gray-700 hover:text-blue-600 transition">Support</a>
-                    <a href="https://dedi-global.gitbook.io/docs" target="_blank" class="text-gray-700 hover:text-blue-600 transition">Documentation</a>
-                </div>
-                <a href="https://publish.dedi.global/" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Get Started
-                </a>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="relative hero-pattern" style="min-height: calc(100vh - 120px); display: flex; align-items: center;">
-        <!-- Background Design Elements -->
-        <div class="trust-icon" style="top: 10%; left: 5%;"><i class="fas fa-shield-alt"></i></div>
-        <div class="trust-icon" style="top: 15%; right: 8%;"><i class="fas fa-lock"></i></div>
-        <div class="trust-icon" style="top: 60%; left: 8%;"><i class="fas fa-network-wired"></i></div>
-        <div class="trust-icon" style="bottom: 20%; right: 5%;"><i class="fas fa-globe"></i></div>
-        <div class="trust-icon" style="bottom: 15%; left: 10%;"><i class="fas fa-key"></i></div>
-        <div class="trust-icon" style="top: 40%; right: 15%;"><i class="fas fa-certificate"></i></div>
-        <div class="trust-icon" style="top: 70%; right: 25%;"><i class="fas fa-database"></i></div>
-        <div class="trust-icon" style="bottom: 40%; left: 20%;"><i class="fas fa-fingerprint"></i></div>
+<body>
 
-        <!-- Floating geometric elements -->
-        <div class="floating-element" style="top: 20%; left: 15%; width: 60px; height: 60px;">
-            <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="30,5 55,45 5,45" fill="rgba(26, 115, 232, 0.05)" stroke="rgba(26, 115, 232, 0.1)" stroke-width="1"/>
-            </svg>
-        </div>
-        <div class="floating-element" style="top: 50%; right: 10%; width: 40px; height: 40px;">
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="18" fill="rgba(52, 168, 83, 0.05)" stroke="rgba(52, 168, 83, 0.1)" stroke-width="1"/>
-            </svg>
-        </div>
-        <div class="floating-element" style="bottom: 30%; left: 12%; width: 50px; height: 50px;">
-            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                <rect x="5" y="5" width="40" height="40" fill="rgba(26, 115, 232, 0.05)" stroke="rgba(26, 115, 232, 0.1)" stroke-width="1" rx="8"/>
-            </svg>
-        </div>
+  <!-- ADOPTION BANNER -->
+  <div style="background:var(--text);color:#fff;text-align:center;padding:0.65rem 2rem;">
+    <p style="font-size:0.78rem;font-weight:500;line-height:1.4;max-width:1100px;margin:0 auto;letter-spacing:0.01em;">
+      <strong>Trust infrastructure for the open internet.</strong> DeDi is an open standard under LF Decentralized Trust.
+    </p>
+  </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-16">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                    <span class="gradient-text">DeDi.global</span> — Trust Backbone for Public Directories
-                </h1>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-lg md:text-xl text-gray-700 mb-12 max-w-5xl mx-auto font-medium">
-                    <div class="flex items-center">
-                        <i class="fas fa-globe text-indigo-600 mr-3"></i>
-                        <span>Universal DPI</span>
-                    </div>
-                    <span class="hidden sm:inline text-gray-400">•</span>
-                    <div class="flex items-center">
-                        <i class="fas fa-robot text-blue-600 mr-3"></i>
-                        <span>Agent-Ready</span>
-                    </div>
-                    <span class="hidden sm:inline text-gray-400">•</span>
-                    <div class="flex items-center">
-                        <i class="fas fa-shield-alt text-green-600 mr-3"></i>
-                        <span>Tamper-Resistant</span>
-                    </div>
-                    <span class="hidden sm:inline text-gray-400">•</span>
-                    <div class="flex items-center">
-                        <i class="fas fa-link text-purple-600 mr-3"></i>
-                        <span>Anchored On-Chain</span>
-                    </div>
-                </div>
-                
-                <!-- Single CTA -->
-                <div class="flex gap-4 justify-center mb-16">
-                    <a href="https://publish.dedi.global/" target="_blank" class="inline-block bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-semibold text-lg">
-                        Start Using →
-                    </a>
-                    <a href="#use-cases" class="inline-block bg-white border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-full hover:border-blue-600 hover:text-blue-600 transition-all duration-300 font-semibold text-lg">
-                        Learn More
-                    </a>
-                </div>
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-brand-name">DeDi</span>
+        <span class="nav-brand-sub">.global</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links"
+        onclick="const n=document.getElementById('nav-links');const open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);this.textContent=open?'✕':'☰'">☰</button>
+      <div class="nav-links" id="nav-links" role="navigation">
+        <a href="#use-cases" class="nav-link">Use Cases</a>
+        <a href="#architecture" class="nav-link">Architecture</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="nav-link">Docs</a>
+        <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="nav-cta">Start Publishing</a>
+      </div>
+    </div>
+  </nav>
 
-                <!-- Animated Value Proposition -->
-                <div id="animated-container" class="text-center text-3xl md:text-5xl font-semibold text-gray-700 leading-relaxed">
-                    <span class="text-blue-600">With DeDi</span>
-                    <span class="text-gray-400 mx-2 sm:mx-4">→</span>
-                    <span id="rotating-text-wrapper">
-                        <span id="rotating-text" class="gradient-text"></span>
-                    </span>
-                </div>
-                <div class="mt-4 flex justify-center">
-                    <div class="inline-flex items-center gap-2 text-xs md:text-sm text-gray-700 bg-white/80 backdrop-blur-sm border border-gray-200 px-3 md:px-4 py-1.5 rounded-full shadow-sm">
-                        <a href="https://www.lfdecentralizedtrust.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-2 py-0.5 rounded-full bg-gradient-to-r from-blue-600/10 to-green-600/10 text-blue-700 font-semibold relative hover:text-blue-800 transition group">
-                            Open Standard under LFDT
-                            <span class="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-10">
-                                Linux Foundation Decentralised Trust
-                            </span>
-                        </a>
-                        <span class="text-gray-600">Built on the Global</span>
-                        <a href="https://github.com/LF-Decentralized-Trust-labs/DeDi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-semibold text-blue-600 hover:text-blue-800 transition">
-                            <span>Decentralized Directory Protocol</span>
-                            <i class="fab fa-github text-gray-800"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow"><span class="eyebrow-line"></span> Decentralized Directory Protocol</div>
+        <h1>The trust layer for<br>public <em>registries.</em></h1>
+        <p class="hero-subtitle">Publish and verify public keys, membership lists, and revocation records with
+          cryptographic guarantees. Universal infrastructure, open to everyone.</p>
+        <div class="hero-actions">
+          <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary">Start Publishing
+            →</a>
+          <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener"
+            class="btn btn-secondary">Documentation</a>
         </div>
+        <div class="hero-meta">An open standard under <a href="https://www.lfdecentralizedtrust.org/" target="_blank"
+            rel="noopener">LF Decentralized Trust</a>. A <a href="https://networksforhumanity.org/" target="_blank"
+            rel="noopener">Networks for Humanity</a> initiative.</div>
+      </div>
     </section>
 
-    <!-- Use Cases Section -->
-    <section id="use-cases" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center mb-4">
-                    <div class="h-1 w-16 bg-gradient-to-r from-blue-600 to-green-600 rounded"></div>
-                    <div class="mx-3 p-2 bg-gradient-to-br from-blue-100 to-green-100 rounded-full">
-                        <i class="fas fa-shield-alt text-3xl text-blue-600"></i>
-                    </div>
-                    <div class="h-1 w-16 bg-gradient-to-r from-green-600 to-blue-600 rounded"></div>
-                </div>
-                <h2 class="text-4xl font-bold gradient-text mb-4">
-                    Three Critical Trust Gaps DeDi Solves
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Every day, organizations struggle with verifying critical public information. 
-                    DeDi provides the universal infrastructure for cryptographic trust.
-                </p>
-            </div>
-
-            <!-- Stacked Use Cases Container -->
-            <div class="max-w-6xl mx-auto space-y-8">
-                <!-- Use Case 1: Public Keys -->
-                <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-8 shadow-lg transform transition-all duration-300 hover:scale-[1.02]">
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div>
-                            <div class="flex items-center mb-4">
-                                <div class="animate-pulse">
-                                    <i class="fas fa-key text-4xl feature-icon mr-4"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold">Public Key Registries</h3>
-                            </div>
-                            <p class="text-gray-700 mb-4 leading-relaxed">
-                                <strong class="block mb-3">The Problem:</strong> Public key certificates are buried in websites, 
-                                rotated frequently, and require manual discovery. There's no seamless way to 
-                                automatically verify authenticity.
-                            </p>
-                            <p class="text-gray-700 leading-relaxed">
-                                <strong class="block mb-3">DeDi Solution:</strong> A universal, always-current registry where public keys 
-                                are instantly discoverable and cryptographically verifiable. No more manual exchanges 
-                                or trust assumptions.
-                            </p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-lg">
-                            <div class="text-sm font-mono">
-                                <div class="text-green-600 mb-2 animate-fade-in">// Before DeDi</div>
-                                <div class="text-gray-600 mb-4">Manual search → Download → Verify → Hope it's current</div>
-                                <div class="text-green-600 mb-2 animate-fade-in" style="animation-delay: 0.3s">// With DeDi</div>
-                                <div class="text-gray-600">Automatic discovery → Instant verification → Always current</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Use Case 2: Membership Lists -->
-                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 shadow-lg transform transition-all duration-300 hover:scale-[1.02]">
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div class="order-2 md:order-1">
-                            <div class="bg-white p-6 rounded-lg shadow-lg">
-                                <h4 class="font-semibold mb-3">Global Trust Chain Example:</h4>
-                                <div class="space-y-2">
-                                    <div class="flex items-center animate-slide-right" style="animation-delay: 0.1s">
-                                        <div class="w-3 h-3 bg-purple-500 rounded-full mr-2 animate-pulse"></div>
-                                        <span class="text-sm">International Bank trusts Home Central Bank</span>
-                                    </div>
-                                    <div class="flex items-center ml-6 animate-slide-right" style="animation-delay: 0.3s">
-                                        <div class="w-3 h-3 bg-indigo-500 rounded-full mr-2 animate-pulse"></div>
-                                        <span class="text-sm">Home Central Bank recognizes Foreign Central Bank</span>
-                                    </div>
-                                    <div class="flex items-center ml-12 animate-slide-right" style="animation-delay: 0.5s">
-                                        <div class="w-3 h-3 bg-purple-500 rounded-full mr-2 animate-pulse"></div>
-                                        <span class="text-sm">Foreign Central Bank approves Local Bank → International Bank trusts Local Bank</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2">
-                            <div class="flex items-center mb-4">
-                                <div class="animate-pulse">
-                                    <i class="fas fa-users text-4xl feature-icon mr-4"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold">Membership Lists</h3>
-                            </div>
-                            <p class="text-gray-700 mb-4 leading-relaxed">
-                                <strong class="block mb-3">The Problem:</strong> Regulators publish member lists (approved banks, 
-                                certified manufacturers, accredited schools) but there's no standardized way 
-                                to consume or verify this information.
-                            </p>
-                            <p class="text-gray-700 leading-relaxed">
-                                <strong class="block mb-3">DeDi Solution:</strong> Create chains of trust where organizations can 
-                                recognize each other's registries, building a global web of verifiable memberships.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Use Case 3: Revocation Lists -->
-                <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8 shadow-lg transform transition-all duration-300 hover:scale-[1.02]">
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div>
-                            <div class="flex items-center mb-4">
-                                <div class="animate-pulse">
-                                    <i class="fas fa-ban text-4xl text-red-600 mr-4"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold">Revocation Lists</h3>
-                            </div>
-                            <p class="text-gray-700 mb-4 leading-relaxed">
-                                <strong class="block mb-3">The Problem:</strong> Credentials expire, licenses get revoked, 
-                                ratings downgrade - but these critical updates are scattered across 
-                                disconnected systems.
-                            </p>
-                            <p class="text-gray-700 leading-relaxed">
-                                <strong class="block mb-3">DeDi Solution:</strong> Real-time revocation propagation across 
-                                all connected systems. When a credential is revoked, everyone knows instantly.
-                            </p>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
-                                <span class="font-semibold">Trade License #12345</span>
-                                <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm">Revoked</span>
-                            </div>
-                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
-                                <span class="font-semibold">Credit Rating AAA</span>
-                                <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">Downgraded</span>
-                            </div>
-                            <div class="text-center text-sm text-gray-600 mt-2">
-                                <i class="fas fa-sync-alt mr-2 animate-spin"></i>Updates propagate instantly
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
+    <!-- STATS STRIP -->
+    <div class="proof-strip">
+      <div class="proof-inner">
+        <div class="proof-stat">
+          <div class="proof-stat-value">99.99%</div>
+          <div class="proof-stat-label">Uptime SLA</div>
         </div>
+        <div class="proof-stat">
+          <div class="proof-stat-value">&lt;200ms</div>
+          <div class="proof-stat-label">Verification time</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-stat-value">Free</div>
+          <div class="proof-stat-label">Forever</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-stat-value">Open</div>
+          <div class="proof-stat-label">Standard &amp; protocol</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORE PRINCIPLES -->
+    <section class="features" id="principles">
+      <div class="features-inner">
+        <div class="features-header reveal">
+          <div class="features-title">Built on three<br>foundations.</div>
+          <div class="features-subtitle">DeDi is digital public infrastructure — not a commercial product.</div>
+        </div>
+        <div class="features-row reveal">
+          <div class="feat">
+            <div class="feat-num">01</div>
+            <h3>Decentralized</h3>
+            <p>No single point of failure. Registries are cryptographically anchored and replicated across the network.
+              No vendor lock-in, ever.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-num">02</div>
+            <h3>Verifiable</h3>
+            <p>Every record carries cryptographic proof of authenticity. Verification is instant, machine-readable, and
+              works without contacting the original source.</p>
+          </div>
+          <div class="feat">
+            <div class="feat-num">03</div>
+            <h3>Universal</h3>
+            <p>Works across use cases, sectors, and geographies. From governments to startups — one protocol for all
+              public registries.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center justify-center mb-4">
-                    <div class="h-1 w-16 bg-gradient-to-r from-green-600 to-blue-600 rounded"></div>
-                    <div class="mx-3 p-2 bg-gradient-to-br from-green-100 to-blue-100 rounded-full">
-                        <i class="fas fa-exchange-alt text-3xl text-green-600"></i>
-                    </div>
-                    <div class="h-1 w-16 bg-gradient-to-r from-blue-600 to-green-600 rounded"></div>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">
-                    Make public registries interoperable, verifiable, and agent ready.
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Transform traditional directories into a unified trust network that works seamlessly across platforms.
-                </p>
+    <!-- USE CASES -->
+    <section class="bento" id="use-cases">
+      <div class="bento-inner">
+        <div class="bento-header reveal">
+          <div class="bento-title">Solving the trust gaps<br>in public registries.</div>
+          <div class="bento-desc">Billions of verification checks fail daily because registries are fragmented and
+            impossible to verify programmatically.</div>
+        </div>
+        <div class="bento-grid reveal-stagger">
+          <div class="bento-cell reveal">
+            <div class="bento-cell-label badge-finance">Financial Services</div>
+            <h4>Bank registers, verified in milliseconds</h4>
+            <p>Verify counterparty authorisation, license status, and regulatory standing in a single API call. No more polling PDFs from foreign regulators.</p>
+          </div>
+          <div class="bento-cell reveal">
+            <div class="bento-cell-label badge-commerce">Commerce</div>
+            <h4>Merchant keys, authenticated in real time</h4>
+            <p>Authenticate payment endpoints and merchant credentials without bilateral key exchange. Works across borders and payment rails.</p>
+          </div>
+          <div class="bento-cell reveal">
+            <div class="bento-cell-label badge-cred">Credentials</div>
+            <h4>Issuer discovery, no intermediaries</h4>
+            <p>Discover and verify credential issuers directly. Universities, professional bodies, and certification authorities — all resolvable from one endpoint.</p>
+          </div>
+          <div class="bento-cell reveal">
+            <div class="bento-cell-label badge-trade">Trade</div>
+            <h4>Regulatory compliance, across borders</h4>
+            <p>Cross-reference sanctions lists, export controls, and compliance registers from multiple jurisdictions. One query, real-time results.</p>
+          </div>
+          <div class="bento-cell reveal">
+            <div class="bento-cell-label badge-health">Health</div>
+            <h4>Practitioner registers, no gatekeepers</h4>
+            <p>Verify medical licenses, pharmacy registrations, and healthcare credentials without proprietary intermediaries or manual checks.</p>
+          </div>
+          <div class="bento-cell reveal">
+            <div class="bento-cell-label badge-identity">Identity</div>
+            <h4>Trust anchors, resolved cryptographically</h4>
+            <p>Resolve decentralized identifiers and trust anchors without centralised registries. Machine-readable verification for any DID method.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE / AFTER COMPARISON -->
+    <section class="compare-section">
+      <div class="compare-inner">
+        <div class="compare-header reveal">
+          <div class="compare-title">Cross-border trust today<br>is broken.</div>
+          <div class="compare-subtitle">Two parties need to transact. What does it actually take to verify each other?</div>
+        </div>
+        <div class="compare-grid reveal">
+          <div class="compare-card before">
+            <div class="compare-card-label">Before</div>
+            <h4>Fragmented Trust</h4>
+            <div class="compare-step"><strong>1. Is counterparty authorised?</strong></div>
+            <div class="compare-tags">
+              <span class="compare-tag">Regulator register — proprietary API</span>
+              <span class="compare-tag">Prudential authority — CSV updated monthly</span>
+              <span class="compare-tag">Foreign regulator — PDF on website</span>
             </div>
+            <div class="compare-step"><strong>2. Sanctions screening</strong></div>
+            <div class="compare-tags">
+              <span class="compare-tag">Domestic list — XML feed</span>
+              <span class="compare-tag">International list — CSV download</span>
+              <span class="compare-tag">UN sanctions — PDF document</span>
+            </div>
+            <div class="compare-step"><strong>3. Verify legal entity</strong></div>
+            <div class="compare-tags">
+              <span class="compare-tag">LEI registry — separate API</span>
+              <span class="compare-tag">Cross-reference with bank ID</span>
+            </div>
+            <div class="compare-step"><strong>4. Get counterparty public key</strong></div>
+            <div class="compare-tags">
+              <span class="compare-tag">Bilateral key exchange</span>
+              <span class="compare-tag">Manual onboarding per partner</span>
+            </div>
+            <div class="compare-step"><strong>5. Monitor for revocations</strong></div>
+            <div class="compare-tags">
+              <span class="compare-tag">Poll each source separately, on different schedules</span>
+            </div>
+            <div class="compare-step"><strong>6. Repeat for EVERY new counterparty</strong></div>
+            <div class="compare-summary">10+ APIs or PDFs &nbsp;|&nbsp; 5+ formats &nbsp;|&nbsp; 4+ auth methods<br>Days to weeks &nbsp;|&nbsp; No crypto proof &nbsp;|&nbsp; No push alerts</div>
+          </div>
+          <div class="compare-card after">
+            <div class="compare-card-label">After</div>
+            <h4>One DeDi Endpoint</h4>
+            <div class="compare-step">Same endpoint. Every query:</div>
+            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/regulator.example/authorised_firms</div>
+            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/central-bank.example/firm_register</div>
+            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/gov.example/sanctions_list</div>
+            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/counterparty.example/public_key</div>
+            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/lei-registry.example/entity</div>
+            <div class="compare-step"><strong>+ Subscribe once for real-time alerts:</strong></div>
+            <div class="compare-endpoint">/watch → push on any revocation or update</div>
+            <div class="compare-step"><strong>Works for EVERY counterparty, globally.</strong></div>
+            <div class="compare-summary">1 endpoint &nbsp;|&nbsp; 1 format (JSON) &nbsp;|&nbsp; 1 auth method<br>Milliseconds &nbsp;|&nbsp; Crypto-signed &nbsp;|&nbsp; Real-time push</div>
+          </div>
+        </div>
+        <p class="compare-tagline"><strong>DeDi = DNS for Trust.</strong> One lookup to verify anyone, anywhere, instantly.</p>
+      </div>
+    </section>
 
-            <!-- Animated Flow Diagram -->
-            <div class="relative max-w-6xl mx-auto mb-4">
-                <svg viewBox="0 0 1200 460" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <!-- Definitions -->
-                    <defs>
-                        <linearGradient id="dediGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#4B9FDB;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#34a853;stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.1"/>
-                        </filter>
-                        <marker id="blueArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#4B9FDB" />
-                        </marker>
-                        <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#34a853" />
-                        </marker>
-                        <style>
-                            .icon-group {
-                                opacity: 0;
-                                animation: fadeIn 0.5s ease-out forwards;
-                                transition: transform 0.25s ease-in-out;
-                            }
-                            .icon-group:hover {
-                                transform: scale(1.15);
-                            }
-                            @keyframes fadeIn {
-                                to { opacity: 1; }
-                            }
-                            .network-nodes {
-                                animation: networkPulse 4s ease-in-out infinite;
-                            }
-                            @keyframes networkPulse {
-                                0%, 100% { opacity: 0.6; }
-                                50% { opacity: 1; }
-                            }
-                        </style>
-                    </defs>
-                    
-                    <!-- Publishers Circle -->
-                    <g transform="translate(220, 230)">
-                        <circle cx="0" cy="0" r="130" fill="#E8F3FC" stroke="#BCCDE0" stroke-width="1" filter="url(#softShadow)"/>
-                        <g>
-                            <g transform="translate(0, -80)" class="icon-group" style="animation-delay: 0.1s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#4B9FDB"></text></g>
-                            <g transform="translate(70, -40)" class="icon-group" style="animation-delay: 0.2s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#4B9FDB"></text></g>
-                            <g transform="translate(70, 40)" class="icon-group" style="animation-delay: 0.3s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#4B9FDB"></text></g>
-                            <g transform="translate(0, 80)" class="icon-group" style="animation-delay: 0.4s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#4B9FDB"></text></g>
-                            <g transform="translate(-70, 40)" class="icon-group" style="animation-delay: 0.5s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#4B9FDB"></text></g>
-                            <g transform="translate(-70, -40)" class="icon-group" style="animation-delay: 0.6s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#4B9FDB"></text></g>
-                        </g>
-                        <text x="0" y="10" text-anchor="middle" font-size="20" font-weight="600" fill="#4B9FDB">Registrars</text>
-                    </g>
-                    
-                    <!-- DeDi Network Circle -->
-                    <g transform="translate(600, 230)">
-                        <circle cx="0" cy="0" r="100" fill="url(#dediGradient)" filter="url(#softShadow)"/>
-                        <g class="network-nodes" opacity="0.6">
-                            <circle cx="0" cy="-50" r="6" fill="white"/><circle cx="43" cy="-25" r="6" fill="white"/><circle cx="43" cy="25" r="6" fill="white"/><circle cx="0" cy="50" r="6" fill="white"/><circle cx="-43" cy="25" r="6" fill="white"/><circle cx="-43" cy="-25" r="6" fill="white"/>
-                            <line x1="0" y1="-50" x2="43" y2="-25" stroke="white" stroke-width="1.5"/><line x1="43" y1="-25" x2="43" y2="25" stroke="white" stroke-width="1.5"/><line x1="43" y1="25" x2="0" y2="50" stroke="white" stroke-width="1.5"/><line x1="0" y1="50" x2="-43" y2="25" stroke="white" stroke-width="1.5"/><line x1="-43" y1="25" x2="-43" y2="-25" stroke="white" stroke-width="1.5"/><line x1="-43" y1="-25" x2="0" y2="-50" stroke="white" stroke-width="1.5"/>
-                        </g>
-                        <text x="0" y="-5" text-anchor="middle" font-size="26" font-weight="bold" fill="white">DeDi</text>
-                        <text x="0" y="22" text-anchor="middle" font-size="16" fill="white">Network</text>
-                    </g>
-                    
-                    <!-- Verifiers Circle -->
-                    <g transform="translate(980, 230)">
-                        <circle cx="0" cy="0" r="130" fill="#E8F8EC" stroke="#C0DCC8" stroke-width="1" filter="url(#softShadow)"/>
-                        <g>
-                            <g transform="translate(0, -80)" class="icon-group" style="animation-delay: 0.7s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#34a853"></text></g>
-                            <g transform="translate(70, -40)" class="icon-group" style="animation-delay: 0.8s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#34a853"></text></g>
-                            <g transform="translate(70, 40)" class="icon-group" style="animation-delay: 0.9s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#34a853"></text></g>
-                            <g transform="translate(0, 80)" class="icon-group" style="animation-delay: 1.0s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#34a853"></text></g>
-                            <g transform="translate(-70, 40)" class="icon-group" style="animation-delay: 1.1s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#34a853"></text></g>
-                            <g transform="translate(-70, -40)" class="icon-group" style="animation-delay: 1.2s;"><circle cx="0" cy="0" r="22" fill="white"/><text x="0" y="6" text-anchor="middle" class="fas" font-size="20" fill="#34a853"></text></g>
-                        </g>
-                        <text x="0" y="10" text-anchor="middle" font-size="20" font-weight="600" fill="#34a853">Verifiers</text>
-                    </g>
+    <!-- ARCHITECTURE -->
+    <section class="arch-section" id="architecture">
+      <div class="arch-inner">
+        <div class="arch-header reveal">
+          <div class="arch-header-title">How DeDi<br>works.</div>
+          <div class="arch-header-desc">Transform traditional directories into a unified trust network that works across
+            platforms and jurisdictions.</div>
+        </div>
+        <div class="arch-pipeline reveal">
+          <div class="arch-flow">
 
-                    <!-- Arrows & Data Packets -->
-                    <g>
-                        <path id="path1" d="M 360 250 C 450 180, 500 180, 490 250" stroke="transparent" fill="none"/>
-                        <path d="M 360 250 C 450 180, 500 180, 490 250" stroke="#4B9FDB" stroke-width="3" fill="none" marker-end="url(#blueArrow)" opacity="0.6"/>
-                        <circle r="5" fill="#4B9FDB"><animateMotion dur="3s" repeatCount="indefinite" begin="0s"><mpath xlink:href="#path1"/></animateMotion></circle>
-                        <circle r="5" fill="#4B9FDB"><animateMotion dur="3s" repeatCount="indefinite" begin="1s"><mpath xlink:href="#path1"/></animateMotion></circle>
-                        <circle r="5" fill="#4B9FDB"><animateMotion dur="3s" repeatCount="indefinite" begin="2s"><mpath xlink:href="#path1"/></animateMotion></circle>
-
-                        <path id="path2" d="M 710 250 C 800 320, 850 320, 840 250" stroke="transparent" fill="none"/>
-                        <path d="M 710 250 C 800 320, 850 320, 840 250" stroke="#34a853" stroke-width="3" fill="none" marker-end="url(#greenArrow)" opacity="0.6"/>
-                        <circle r="5" fill="#34a853"><animateMotion dur="3s" repeatCount="indefinite" begin="0.5s"><mpath xlink:href="#path2"/></animateMotion></circle>
-                        <circle r="5" fill="#34a853"><animateMotion dur="3s" repeatCount="indefinite" begin="1.5s"><mpath xlink:href="#path2"/></animateMotion></circle>
-                        <circle r="5" fill="#34a853"><animateMotion dur="3s" repeatCount="indefinite" begin="2.5s"><mpath xlink:href="#path2"/></animateMotion></circle>
-                    </g>
-                    
-                    <!-- Labels -->
-                
-                    <text x="425" y="160" text-anchor="middle" font-size="16" fill="#4B9FDB" font-weight="500">Upload via DeDi APIs</text>
-                    <text x="775" y="330" text-anchor="middle" font-size="16" fill="#34a853" font-weight="500">Query via DeDi APIs</text>
+            <div class="arch-step">
+              <div class="arch-step-num">01 &mdash; Publish</div>
+              <div class="arch-step-card">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="7" y="4" width="18" height="24" rx="2"/>
+                  <path d="M16 20v-8m0 0l-3 3m3-3l3 3"/>
+                  <line x1="12" y1="24" x2="20" y2="24"/>
                 </svg>
+                <span class="arch-step-card-label">Authority</span>
+              </div>
+              <div class="arch-step-sub">Creates &amp; signs registry</div>
+              <div class="arch-step-tags">
+                <span class="arch-tag">Any format</span>
+                <span class="arch-tag">Bulk or API</span>
+              </div>
             </div>
 
-            <!-- Key Pillars - Text descriptions -->
-            <div class="mt-2">
-                <div class="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-gray-700">
-                    <span class="chip chip-blue">
-                        <i class="fas fa-upload text-blue-600 mr-2"></i>
-                        <span class="label font-medium">Publish once using a simple interface</span>
-                    </span>
-                    <span class="text-gray-300 mx-1 md:mx-2">•</span>
-                    <span class="chip chip-green">
-                        <i class="fas fa-shield-alt text-green-600 mr-2"></i>
-                        <span class="label font-medium">Trust ensured with cryptographic proofs</span>
-                    </span>
-                    <span class="text-gray-300 mx-1 md:mx-2">•</span>
-                    <span class="chip chip-purple">
-                        <i class="fas fa-globe text-purple-600 mr-2"></i>
-                        <span class="label font-medium">Verifiable by anyone universally</span>
-                    </span>
-                </div>
+            <div class="arch-connector">
+              <div class="arch-connector-line"></div>
+              <span class="arch-connector-badge">signed</span>
             </div>
+
+            <div class="arch-step">
+              <div class="arch-step-num">02 &mdash; Anchor</div>
+              <div class="arch-step-card">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13.5 19.5l-2.5 2.5a3.5 3.5 0 005 5l2.5-2.5"/>
+                  <path d="M18.5 12.5l2.5-2.5a3.5 3.5 0 00-5-5l-2.5 2.5"/>
+                  <line x1="13" y1="19" x2="19" y2="13"/>
+                </svg>
+                <span class="arch-step-card-label">On-chain</span>
+              </div>
+              <div class="arch-step-sub">Immutable proof</div>
+              <div class="arch-step-tags">
+                <span class="arch-tag">Tamper-proof</span>
+                <span class="arch-tag">Auditable</span>
+              </div>
+            </div>
+
+            <div class="arch-connector">
+              <div class="arch-connector-line"></div>
+              <span class="arch-connector-badge">replicated</span>
+            </div>
+
+            <div class="arch-step">
+              <div class="arch-step-num">03 &mdash; Discover</div>
+              <div class="arch-step-card">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="14" cy="14" r="8"/>
+                  <line x1="20" y1="20" x2="27" y2="27"/>
+                </svg>
+                <span class="arch-step-card-label">Resolve</span>
+              </div>
+              <div class="arch-step-sub">Instant lookup</div>
+              <div class="arch-step-tags">
+                <span class="arch-tag">Global CDN</span>
+                <span class="arch-tag">&lt;200ms</span>
+              </div>
+            </div>
+
+            <div class="arch-connector">
+              <div class="arch-connector-line"></div>
+              <span class="arch-connector-badge">proof</span>
+            </div>
+
+            <div class="arch-step">
+              <div class="arch-step-num">04 &mdash; Verify</div>
+              <div class="arch-step-card">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 3l10 4v8c0 6-4 10-10 13-6-3-10-7-10-13V7l10-4z"/>
+                  <path d="M11.5 16l3 3 6-6"/>
+                </svg>
+                <span class="arch-step-card-label">Verified</span>
+              </div>
+              <div class="arch-step-sub">Machine-readable</div>
+              <div class="arch-step-tags">
+                <span class="arch-tag">Crypto proof</span>
+                <span class="arch-tag">API-first</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="arch-categories">
+            <div class="arch-cat">
+              <div class="arch-cat-title">Any Publisher</div>
+              <p>Governments<br>Regulators<br>Central Banks<br>Trade Bodies</p>
+            </div>
+            <div class="arch-cat">
+              <div class="arch-cat-title">Any Registry</div>
+              <p>Public keys<br>Memberships<br>Licenses<br>Revocations</p>
+            </div>
+            <div class="arch-cat">
+              <div class="arch-cat-title">Any Verifier</div>
+              <p>Applications<br>AI Agents<br>Other registries<br>Humans</p>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Implementation with DeDi.global -->
-    <section id="implementation" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold gradient-text mb-4">
-                    Get Started with DeDi.global
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Go live in just 10 minutes. No setup fees, no monthly costs for publishing.
-                </p>
-            </div>
+        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="arch-doc-link">Read the documentation →</a>
 
-            <div class="max-w-5xl mx-auto">
-                <!-- Simple Steps -->
-                <div class="mb-16">
-                    <h3 class="text-2xl font-bold text-center mb-12">Start in 3 simple steps</h3>
-                    <div class="relative max-w-4xl mx-auto px-4">
-                        <!-- Horizontal Connecting Line for Desktop -->
-                        <div class="hidden md:block absolute top-10 left-0 w-full h-0.5 bg-gray-300"></div>
-                        
-                        <div class="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-8">
-                            <!-- Step 1 -->
-                            <div class="flex items-start md:flex-col md:items-center text-left md:text-center w-full">
-                                <div class="relative z-10 bg-white p-2 rounded-full">
-                                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl shadow-md">
-                                        <i class="fas fa-id-card"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-6 md:ml-0 md:mt-6 flex-1">
-                                    <p class="text-gray-500 font-semibold">STEP 1</p>
-                                    <h4 class="text-xl font-semibold my-1">Claim your namespace</h4>
-                                    <p class="text-gray-600 text-sm">Register your org on DeDi.global</p>
-                                </div>
-                            </div>
-
-                            <!-- Step 2 -->
-                            <div class="flex items-start md:flex-col md:items-center text-left md:text-center w-full">
-                                <div class="relative z-10 bg-white p-2 rounded-full">
-                                    <div class="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl shadow-md">
-                                        <i class="fas fa-upload"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-6 md:ml-0 md:mt-6 flex-1">
-                                    <p class="text-gray-500 font-semibold">STEP 2</p>
-                                    <h4 class="text-xl font-semibold my-1">Publish a directory</h4>
-                                    <p class="text-gray-600 text-sm">Use our UI or APIs to publish your first directory</p>
-                                </div>
-                            </div>
-
-                            <!-- Step 3 -->
-                            <div class="flex items-start md:flex-col md:items-center text-left md:text-center w-full">
-                                <div class="relative z-10 bg-white p-2 rounded-full">
-                                    <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center text-white text-3xl shadow-md">
-                                        <i class="fas fa-cogs"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-6 md:ml-0 md:mt-6 flex-1">
-                                    <p class="text-gray-500 font-semibold">STEP 3</p>
-                                    <h4 class="text-xl font-semibold my-1">Connect agents & apps</h4>
-                                    <p class="text-gray-600 text-sm">Let wallets, agents, and businesses verify instantly</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Key Benefits -->
-                <div class="max-w-4xl mx-auto">
-                    <div class="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-10 shadow-lg">
-                        <h3 class="text-3xl font-bold mb-8 text-center gradient-text">Why DeDi.global?</h3>
-                        <div class="grid md:grid-cols-2 gap-x-12 gap-y-6 max-w-3xl mx-auto">
-                            <div class="space-y-5">
-                                <div class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-3 text-lg"></i>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Enterprise-grade infrastructure</h4>
-                                        <p class="text-gray-600 text-sm mt-1">99.99% uptime with global CDN</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-3 text-lg"></i>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">No vendor lock-in</h4>
-                                        <p class="text-gray-600 text-sm mt-1">Export your data anytime</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-3 text-lg"></i>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Advanced analytics</h4>
-                                        <p class="text-gray-600 text-sm mt-1">Track usage and access patterns</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space-y-5">
-                                <div class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-3 text-lg"></i>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">On-chain anchoring</h4>
-                                        <p class="text-gray-600 text-sm mt-1">Cryptographic proof of authenticity</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-3 text-lg"></i>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Real-time updates</h4>
-                                        <p class="text-gray-600 text-sm mt-1">Changes propagate instantly</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-3 text-lg"></i>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">API-first design</h4>
-                                        <p class="text-gray-600 text-sm mt-1">Agent-ready from day one</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center mt-10">
-                            <a href="https://publish.dedi.global/" target="_blank" class="inline-block bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-bold">
-                                Get Started →
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold gradient-text mb-4">
-                    Free & Open Access
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Build trust with cryptographically verified directories.
-                </p>
-            </div>
-
-            <!-- Foundation Context -->
-            <div class="max-w-4xl mx-auto mb-8 bg-blue-50 border-l-4 border-blue-600 rounded-lg p-6 md:p-8">
-                <p class="text-gray-700 leading-relaxed mb-4">
-                    <span class="font-semibold text-gray-900">DeDi.global is a universal digital infrastructure</span> operated by the <a href="https://networksforhumanity.org/" target="_blank" class="text-blue-600 hover:text-blue-700 underline font-semibold">Networks for Humanity (NFH) Foundation</a>. Everything is free as we build this infrastructure for public benefit.
-                </p>
-                <p class="text-gray-700 leading-relaxed">
-                    <span class="font-semibold text-gray-900">Community-Driven Governance:</span> Future pricing will be developed with community input through a governance committee comprised of DeDi users, ensuring that any pricing remains aligned with universal DPI principles and serves the public interest.
-                </p>
-            </div>
-
-            <!-- New Clean Pricing Cards -->
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-4 sm:p-8">
-                <div class="space-y-6">
-
-                    <!-- Item 1: Registry Publishing -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center p-4 rounded-lg hover:bg-gray-50 transition">
-                        <div class="md:col-span-2">
-                            <div class="flex items-center">
-                                <div class="bg-blue-100 rounded-full p-2 mr-4 flex-shrink-0">
-                                    <i class="fas fa-upload text-xl text-blue-600 w-6 text-center"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-lg text-gray-900">Registry Publishing</h3>
-                                    <p class="text-gray-600">Create & manage unlimited registries on publish.dedi.global.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-left md:text-right">
-                            <div class="text-xl font-bold gradient-text">Free</div>
-                            <p class="text-sm text-gray-500 mt-1">forever</p>
-                        </div>
-                    </div>
-
-                    <!-- Divider -->
-                    <hr>
-
-                    <!-- Item 2: API Access -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center p-4 rounded-lg hover:bg-gray-50 transition">
-                        <div class="md:col-span-2">
-                            <div class="flex items-center">
-                                <div class="bg-green-100 rounded-full p-2 mr-4 flex-shrink-0">
-                                    <i class="fas fa-code text-xl text-green-600 w-6 text-center"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-lg text-gray-900">API Access</h3>
-                                    <p class="text-gray-600">Publish, lookup, query, search, and watch.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-left md:text-right">
-                            <div class="text-xl font-bold gradient-text">Free</div>
-                        </div>
-                    </div>
-
-                    <!-- Divider -->
-                    <hr>
-                    
-                    <!-- Item 3: Support -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center p-4 rounded-lg hover:bg-gray-50 transition">
-                        <div class="md:col-span-2">
-                            <div class="flex items-center">
-                                <div class="bg-purple-100 rounded-full p-2 mr-4 flex-shrink-0">
-                                    <i class="fas fa-headset text-xl text-purple-600 w-6 text-center"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-lg text-gray-900">Base Support</h3>
-                                    <p class="text-gray-600">Standard response times and private support.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-left md:text-right">
-                            <span class="text-xl font-bold gradient-text">Included</span>
-                            <p class="text-sm text-gray-500 mt-1">with every account</p>
-                        </div>
-                    </div>
-
-                    <!-- Divider -->
-                    <hr>
-
-                    <!-- Item 4: Advanced Support -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center p-4 rounded-lg hover:bg-gray-50 transition">
-                        <div class="md:col-span-2">
-                            <div class="flex items-center">
-                                <div class="bg-indigo-100 rounded-full p-2 mr-4 flex-shrink-0">
-                                    <i class="fas fa-graduation-cap text-xl text-indigo-600 w-6 text-center"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold text-lg text-gray-900">Advanced Support & Training</h3>
-                                    <p class="text-gray-600">Custom SLAs, integration help, and workshops.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-left md:text-right">
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695" target="_blank" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition text-sm">
-                                Contact Us
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- CTA -->
-            <div class="text-center mt-12">
-                 <p class="text-center text-gray-600 mb-8 text-lg">
-                    No surprises, no lock-in, no complexity.
-                </p>
-                <a href="https://publish.dedi.global/" target="_blank" class="inline-block bg-gradient-to-r from-blue-600 to-green-600 text-white px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 font-semibold text-lg">
-                    Start Using DeDi.global →
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-3 gap-8 lg:gap-16 items-start">
-                <!-- Left side - Title -->
-                <div class="lg:col-span-1 lg:sticky lg:top-24">
-                    <h2 class="text-4xl lg:text-5xl font-bold mb-4">
-                        <span class="gradient-text">Frequently Asked</span><br>
-                        <span class="text-gray-900">Questions</span>
-                    </h2>
-                    <p class="text-gray-600 mb-6">
-                        Everything you need to know about DeDi.global. Can't find what you're looking for? 
-                        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" target="_blank" class="text-blue-600 hover:text-blue-700 underline">Contact our team</a>.
-                    </p>
-                    <div class="hidden lg:block">
-                        <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-green-600 rounded"></div>
-                    </div>
-                </div>
-
-                <!-- Right side - Questions -->
-                <div class="lg:col-span-2">
-                    <div class="space-y-0">
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">What exactly is DeDi.global?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    DeDi.global (Decentralized Directory) is an infrastructure that transforms traditional public registries 
-                                    into cryptographically secure, instantly verifiable directories. Think of it as a universal 
-                                    trust layer for any public information your organization needs to share.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">How is this different from a regular database?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    Unlike traditional databases, DeDi.global provides cryptographic proof of authenticity, 
-                                    decentralized availability (no single point of failure), unified discoverability and automatic trust propagation 
-                                    between recognized organizations. 
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">Do I need blockchain knowledge to use DeDi?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    No! While DeDi.global uses advanced cryptographic techniques, we've abstracted all the complexity. 
-                                    DeDi.global requires zero technical knowledge - if you can upload a file, you can use this.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">What types of registries work best with DeDi?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    Any public information that needs to be verified: member lists, license registries, 
-                                    public keys, certificates, approved vendor lists, accreditation records, and more. 
-                                    If it's public and needs trust, DeDi can help.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">How much does DeDi.global cost?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    <strong>Everything is completely free!</strong> Publishing registries, API access, and all features are free with no setup fees, no monthly costs, and no hidden charges.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">What about data privacy and compliance?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    DeDi is designed for PUBLIC registries only. All data shared through DeDi should already 
-                                    be public information. We provide audit trails, access logs, and comply with major 
-                                    data protection regulations for the infrastructure itself.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">Can I integrate with my existing systems?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    Yes! We support bulk imports from CSV, JSON, XML, and direct API connections. 
-                                    DeDi is designed to work alongside your existing infrastructure, adding a 
-                                    cryptographic verification layer without disrupting current workflows.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">How will future pricing decisions be made?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    We are cognizant of the sustainability of the infrastructure. Any future pricing decisions will be co-created with the community through a governance committee comprised of DeDi users, ensuring alignment with universal DPI principles. <strong>We are not a commercial product seeking profit.</strong> Any pricing would be designed to cover engineering, platform maintenance, and operational support, with all revenue transparently reinvested into improving the platform.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="group border-b border-gray-200 hover:border-blue-200 transition-colors">
-                            <button class="faq-toggle w-full py-6 text-left flex items-center justify-between hover:bg-gradient-to-r hover:from-transparent hover:to-blue-50/30 focus:outline-none transition-all rounded-lg px-2">
-                                <h3 class="font-medium text-gray-900 pr-8 group-hover:text-blue-700 transition-colors">What is Networks for Humanity (NFH) and how does it govern DeDi?</h3>
-                                <div class="bg-gradient-to-br from-blue-500 to-green-500 text-white w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-plus faq-icon text-xs transition-transform duration-200"></i>
-                                </div>
-                            </button>
-                            <div class="faq-content hidden pb-6 px-2">
-                                <p class="text-gray-600 leading-relaxed">
-                                    <a href="https://networksforhumanity.org/" target="_blank" class="text-blue-600 hover:text-blue-700 underline">Networks for Humanity (NFH)</a> is a global non-profit foundation dedicated to building open, interoperable digital infrastructure for public benefit. DeDi.global is operated by NFH with transparent, multi-stakeholder governance. This foundation structure ensures DeDi remains vendor-neutral and serves the public interest. NFH's mission aligns with creating universal digital infrastructure—much like DNS or HTTP—that enables broader participation in the digital economy without vendor lock-in.
-                                </p>
-                            </div>
-                        </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-12 bg-gradient-to-r from-blue-600 to-green-600 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                Ready to Build Trust at Scale?
-            </h2>
-            <p class="text-xl mb-8 opacity-90">
-                Join organizations worldwide transforming public information sharing.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://publish.dedi.global/" target="_blank" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:shadow-lg transition">
-                    Start Using →
-                </a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695" target="_blank" class="inline-block bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
-                    Contact Sales
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Partners Carousel Banner -->
-    <section class="py-4 bg-gray-50 border-t border-gray-200 overflow-hidden">
-        <style>
-            @keyframes scroll {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(calc(-100% / 2)); }
-            }
-            .carousel-wrapper {
-                overflow: hidden;
-                position: relative;
-            }
-            .carousel-track {
-                display: flex;
-                animation: scroll 25s linear infinite;
-                width: fit-content;
-            }
-            .carousel-track:hover {
-                animation-play-state: paused;
-            }
-            .partner-logo {
-                flex-shrink: 0;
-                padding: 0 3rem;
-            }
-            /* Mobile optimizations to prevent flickering */
-            @media (max-width: 768px) {
-                .carousel-track {
-                    animation-duration: 35s; /* Slower animation on mobile */
-                }
-                .partner-logo {
-                    padding: 0 1.5rem; /* Less padding on mobile */
-                }
-                .carousel-wrapper {
-                    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-                    transform: translateZ(0); /* Force hardware acceleration */
-                    -webkit-transform: translateZ(0);
-                    backface-visibility: hidden;
-                    -webkit-backface-visibility: hidden;
-                }
-            }
-            /* Reduced motion preference */
-            @media (prefers-reduced-motion: reduce) {
-                .carousel-track {
-                    animation: none;
-                }
-            }
-        </style>
-        <div class="relative">
-            <div class="carousel-wrapper">
-                    <div class="carousel-track">
-                        <!-- First set of logos -->
-                        <a href="https://finternetlab.io/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="finternet_logo.png" alt="Finternet Labs" class="h-8 md:h-10 object-contain">
-                        </a>
-                        <a href="https://www.lfdecentralizedtrust.org/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="lfdt-horizontal-color.png" alt="LF Decentralized Trust" class="h-6 md:h-8 object-contain">
-                        </a>
-                        <a href="https://dhiway.com/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="dhiway.png" alt="Dhiway" class="h-8 md:h-10 object-contain w-auto max-w-[120px]" loading="lazy">
-                        </a>
-                        <!-- Duplicate set for seamless loop -->
-                        <a href="https://finternetlab.io/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="finternet_logo.png" alt="Finternet Labs" class="h-8 md:h-10 object-contain">
-                        </a>
-                        <a href="https://www.lfdecentralizedtrust.org/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="lfdt-horizontal-color.png" alt="LF Decentralized Trust" class="h-6 md:h-8 object-contain">
-                        </a>
-                        <a href="https://dhiway.com/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="dhiway.png" alt="Dhiway" class="h-8 md:h-10 object-contain w-auto max-w-[120px]" loading="lazy">
-                        </a>
-                        <!-- Extra set to ensure no gaps -->
-                        <a href="https://finternetlab.io/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="finternet_logo.png" alt="Finternet Labs" class="h-8 md:h-10 object-contain">
-                        </a>
-                        <a href="https://www.lfdecentralizedtrust.org/" target="_blank" class="partner-logo inline-flex items-center hover:opacity-80 transition-opacity">
-                            <img src="lfdt-horizontal-color.png" alt="LF Decentralized Trust" class="h-6 md:h-8 object-contain">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
+        <!-- How It Works Steps + Terminal -->
+        <div class="how-section">
+          <h3 class="how-section-title reveal">Get started in minutes</h3>
+          <div class="how-grid reveal">
+            <div class="how-steps">
+              <div class="how-step">
+                <div class="how-step-num">01</div>
                 <div>
-                    <div class="flex items-center mb-4">
-                        <h3 class="text-white font-bold text-xl">DeDi</h3>
-                    </div>
-                    <p class="text-sm">
-                        Building the trust infrastructure for the decentralized future.
-                    </p>
+                  <h4>Register</h4>
+                  <p>Create a namespace for your organization. Takes under a minute.</p>
                 </div>
+              </div>
+              <div class="how-step">
+                <div class="how-step-num">02</div>
                 <div>
-                    <h4 class="text-white font-semibold mb-4">Product</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#use-cases" class="hover:text-white transition">Features</a></li>
-
-                        <li><a href="https://publish.dedi.global/" target="_blank" class="hover:text-white transition">Get Started</a></li>
-                    </ul>
+                  <h4>Publish</h4>
+                  <p>Push your registry data — public keys, membership lists, or revocation records.</p>
                 </div>
+              </div>
+              <div class="how-step">
+                <div class="how-step-num">03</div>
                 <div>
-                    <h4 class="text-white font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition">About</a></li>
-                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
-                    </ul>
+                  <h4>Verify</h4>
+                  <p>Anyone can verify your records instantly via API. No manual checks needed.</p>
                 </div>
-                <div>
-                    <h4 class="text-white font-semibold mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
-                        <a href="#" class="hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
-                        <a href="#" class="hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
-                    </div>
-                </div>
+              </div>
             </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm">
-                <p>&copy; 2024 DeDi. All rights reserved.</p>
+            <div class="terminal-wrap">
+              <div class="terminal">
+                <div class="terminal-bar">
+                  <div class="terminal-dots"><span></span><span></span><span></span></div>
+                  terminal
+                </div>
+                <div class="terminal-body">
+                  <span class="t-dim"># Register your org</span><br>
+                  <span class="t-amber">$</span> <span class="t-text">dedi register --namespace your-org</span><br><br>
+                  <span class="t-dim"># Publish a registry</span><br>
+                  <span class="t-amber">$</span> <span class="t-text">dedi publish --type membership \<br>&nbsp;&nbsp;--file registry.json</span><br><br>
+                  <span class="t-dim"># Verify a record</span><br>
+                  <span class="t-amber">$</span> <span class="t-text">dedi verify --namespace your-org \<br>&nbsp;&nbsp;--record &lt;id&gt;</span>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </footer>
 
+      </div>
+    </section>
 
+    <!-- PRICING -->
+    <section class="pricing-section" id="pricing">
+      <div class="pricing-inner">
+        <div class="pricing-header reveal">
+          <div class="pricing-title">Free &amp; open<br>access.</div>
+          <div class="pricing-desc">No licensing fees, no usage caps. Everything is free as we build this for public benefit.</div>
+        </div>
+        <div class="pricing-grid reveal">
+          <div class="pricing-info">
+            <p>Operated by <strong><a href="https://networksforhumanity.org/" target="_blank" rel="noopener">Networks for
+                  Humanity (NFH)</a></strong> — a non-profit foundation dedicated to open, interoperable digital
+              infrastructure.</p>
+            <p><strong>Community-Driven Governance:</strong> Future pricing will be developed with community input
+              through a governance committee.</p>
+            <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary"
+              style="margin-top:0.5rem;">Start Using DeDi →</a>
+          </div>
+          <div class="pricing-table-wrap">
+            <div class="pricing-row">
+              <div>
+                <h4>Registry Publishing</h4>
+                <div class="desc">Create &amp; manage unlimited registries</div>
+              </div>
+              <div class="pricing-val">Free <small>forever</small></div>
+            </div>
+            <div class="pricing-row">
+              <div>
+                <h4>API Access</h4>
+                <div class="desc">Publish, lookup, query, search, and watch</div>
+              </div>
+              <div class="pricing-val">Free</div>
+            </div>
+            <div class="pricing-row">
+              <div>
+                <h4>Base Support</h4>
+                <div class="desc">Standard response times</div>
+              </div>
+              <div class="pricing-val">Included</div>
+            </div>
+            <div class="pricing-row">
+              <div>
+                <h4>Advanced Support</h4>
+                <div class="desc">Custom SLAs, integration help</div>
+              </div>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695"
+                target="_blank" rel="noopener" class="btn btn-secondary"
+                style="padding:8px 16px;font-size:0.82rem;">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Smooth Scroll and FAQ Toggle Script -->
-    <script>
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="faq-inner">
+        <div class="faq-header reveal">
+          <div class="faq-title">Common<br>questions.</div>
+          <div class="faq-header-desc">Can't find what you need? <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8"
+              target="_blank" rel="noopener">Contact our team</a>.</div>
+        </div>
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>What exactly is DeDi.global?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>DeDi.global (Decentralized Directory) is infrastructure that transforms traditional public registries
+                  into cryptographically secure, instantly verifiable directories. Think of it as a universal trust layer
+                  for any public information your organization needs to share.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>How is this different from a regular database?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>Unlike traditional databases, DeDi provides cryptographic proof of authenticity, decentralized
+                  availability (no single point of failure), unified discoverability and automatic trust propagation
+                  between recognized organizations.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>Do I need blockchain knowledge?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>No. While DeDi uses advanced cryptographic techniques, we've abstracted all the complexity. If you
+                  can upload a file, you can use DeDi.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>What types of registries work best?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>Any public information that needs verification: member lists, license registries, public keys,
+                  certificates, approved vendor lists, accreditation records, and more.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>How much does it cost?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p><strong>Everything is completely free.</strong> Publishing registries, API access, and all features —
+                  no setup fees, no monthly costs, no hidden charges.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>What about data privacy?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>DeDi is designed for PUBLIC registries only. All data shared through DeDi should already be public
+                  information. We provide audit trails and access logs for the infrastructure itself.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>Can I integrate with existing systems?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>Yes. We support bulk imports from CSV, JSON, XML, and direct API connections. DeDi works alongside
+                  your existing infrastructure, adding a cryptographic verification layer.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>How will future pricing decisions be made?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p>Any future pricing will be co-created with the community through a governance committee of DeDi
+                  users. <strong>We are not a commercial product.</strong> Any pricing would only cover engineering and
+                  operational costs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              <h3>What is Networks for Humanity (NFH)?</h3><span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-a">
+              <div class="faq-a-inner">
+                <p><a href="https://networksforhumanity.org/" target="_blank" rel="noopener">Networks for Humanity
+                    (NFH)</a> is a global non-profit foundation dedicated to building open, interoperable digital
+                  infrastructure for public benefit. DeDi is operated by NFH with transparent, multi-stakeholder
+                  governance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // FAQ Toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const faqToggles = document.querySelectorAll('.faq-toggle');
-            
-            faqToggles.forEach(toggle => {
-                toggle.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    const icon = this.querySelector('.faq-icon');
-                    
-                    if (content.classList.contains('hidden')) {
-                        // Show content
-                        content.classList.remove('hidden');
-                        icon.classList.remove('fa-plus');
-                        icon.classList.add('fa-minus');
-                    } else {
-                        // Hide content
-                        content.classList.add('hidden');
-                        icon.classList.remove('fa-minus');
-                        icon.classList.add('fa-plus');
-                    }
-                });
-            });
+    <!-- CTA -->
+    <section class="bottom-cta">
+      <h2 class="reveal">Ready to publish<br>your registry?</h2>
+      <p>Join organizations worldwide building verifiable trust infrastructure.</p>
+      <div class="bottom-cta-actions">
+        <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary">Start Publishing
+          →</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695"
+          target="_blank" rel="noopener" class="btn btn-secondary">Contact Sales</a>
+      </div>
+    </section>
 
-            // Rotating text animation
-            const rotatingText = document.getElementById('rotating-text');
-            const phrases = [
-                'No more manual verification.',
-                'No more trust gaps.',
-                'Just seamless, decentralized truth.'
-            ];
-            
-            let currentIndex = 0;
-            
-            function typeWriter(text, element, callback) {
-                let i = 0;
-                element.textContent = '';
-                
-                function type() {
-                    if (i < text.length) {
-                        element.textContent += text.charAt(i);
-                        i++;
-                        setTimeout(type, 50);
-                    } else if (callback) {
-                        setTimeout(callback, 2000); // Wait 2 seconds before next phrase
-                    }
-                }
-                type();
-            }
-            
-            function eraseText(element, callback) {
-                // Instantly clear the text instead of character by character
-                element.textContent = '';
-                if (callback) {
-                    setTimeout(callback, 300); // Short pause before next phrase
-                }
-            }
-            
-            function rotateText() {
-                typeWriter(phrases[currentIndex], rotatingText, function() {
-                    eraseText(rotatingText, function() {
-                        currentIndex = (currentIndex + 1) % phrases.length;
-                        rotateText();
-                    });
-                });
-            }
-            
-            // Start the animation
-            rotateText();
-        });
-    </script>
+  </main>
+
+  <!-- PARTNERS -->
+  <div class="partners-bar">
+    <div class="partners-inner">
+      <a href="https://finternetlab.io/" target="_blank" rel="noopener"><img src="finternet_logo.png"
+          alt="Finternet Labs"></a>
+      <a href="https://www.lfdecentralizedtrust.org/" target="_blank" rel="noopener"><img
+          src="lfdt-horizontal-color.png" alt="LF Decentralized Trust"></a>
+      <a href="https://dhiway.com/" target="_blank" rel="noopener"><img src="dhiway.png" alt="Dhiway"
+          style="max-width:100px;"></a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">DeDi <span class="footer-brand-sub">.global</span></div>
+        <p class="footer-desc">The trust infrastructure for the decentralized future. Universal, open, and free.</p>
+        <p class="footer-nfh">Powered by <a href="https://networksforhumanity.org/" target="_blank"
+            rel="noopener">Networks for Humanity</a></p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#use-cases">Use Cases</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://publish.dedi.global/" target="_blank" rel="noopener">Get Started</a>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Documentation</a>
+        <a href="https://github.com/LF-Decentralized-Trust-labs/DeDi" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://forms.gle/KcBNDhaCdUZ6kYa2A" target="_blank" rel="noopener">Support</a>
+      </div>
+      <div class="footer-col">
+        <h5>Organization</h5>
+        <a href="https://networksforhumanity.org/" target="_blank" rel="noopener">About NFH</a>
+        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" target="_blank" rel="noopener">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 DeDi. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Service</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const a = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-toggle');
+      const isOpen = a.classList.contains('open');
+      document.querySelectorAll('.faq-a').forEach(el => el.classList.remove('open'));
+      document.querySelectorAll('.faq-toggle').forEach(el => { el.classList.remove('open'); el.textContent = '+'; });
+      if (!isOpen) { a.classList.add('open'); icon.classList.add('open'); icon.textContent = '+'; }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function (e) {
+        const h = this.getAttribute('href');
+        if (h === '#') return;
+        e.preventDefault();
+        const t = document.querySelector(h);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const nav = document.getElementById('nav-links');
+        nav.classList.remove('open');
+        document.querySelector('.nav-toggle').setAttribute('aria-expanded', 'false');
+        document.querySelector('.nav-toggle').textContent = '☰';
+      });
+    });
+    // Dynamic footer year
+    document.querySelector('.footer-bottom span').textContent = '\u00A9 ' + new Date().getFullYear() + ' DeDi. All rights reserved.';
+
+    // Scroll-triggered reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
 </body>
+
 </html>
