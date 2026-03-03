@@ -50,9 +50,12 @@
       --text-muted: #6b6b6b;
       --amber: #D97706;
       --amber-light: #FEF3C7;
+      --teal: #0d6e5e;
+      --teal-light: #e6f5f2;
       --font-display: 'Instrument Serif', Georgia, serif;
       --font-body: 'Geist', -apple-system, sans-serif;
       --mono: 'IBM Plex Mono', 'SF Mono', monospace;
+      --radius: 2px;
     }
 
     html {
@@ -138,7 +141,7 @@
       background: var(--text);
       text-decoration: none;
       padding: 8px 20px;
-      border-radius: 2px;
+      border-radius: var(--radius);
       transition: background 0.2s;
     }
 
@@ -175,6 +178,29 @@
     .hero-content {
       max-width: 700px;
     }
+
+    /* Hero entrance orchestration */
+    @keyframes hero-enter {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content > * {
+      opacity: 0;
+      animation: hero-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
 
     .hero-eyebrow {
       font-family: var(--mono);
@@ -229,7 +255,7 @@
       align-items: center;
       gap: 8px;
       padding: 14px 32px;
-      border-radius: 2px;
+      border-radius: var(--radius);
       font-size: 0.88rem;
       font-weight: 600;
       text-decoration: none;
@@ -321,19 +347,50 @@
     .features {
       padding: 100px 2rem;
       background: var(--surface);
+      position: relative;
+    }
+
+    .features::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 59px,
+          rgba(0,0,0,0.02) 59px,
+          rgba(0,0,0,0.02) 60px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 59px,
+          rgba(0,0,0,0.02) 59px,
+          rgba(0,0,0,0.02) 60px
+        );
+      pointer-events: none;
     }
 
     .features-inner {
       max-width: 1100px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
+    /* Centered header with oversized number */
     .features-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      text-align: center;
       margin-bottom: 4rem;
-      gap: 2rem;
+    }
+
+    .features-header-num {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      line-height: 1;
+      color: rgba(0,0,0,0.04);
+      margin-bottom: -1.5rem;
     }
 
     .features-title {
@@ -345,8 +402,8 @@
     .features-subtitle {
       font-size: 0.88rem;
       color: var(--text-secondary);
-      max-width: 320px;
-      text-align: right;
+      max-width: 440px;
+      margin: 1rem auto 0;
       line-height: 1.65;
     }
 
@@ -372,7 +429,7 @@
       font-family: var(--mono);
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--amber);
+      color: var(--teal);
       letter-spacing: 0.04em;
       margin-bottom: 1.2rem;
     }
@@ -391,89 +448,219 @@
       line-height: 1.7;
     }
 
-    /* ── USE CASES ── */
-    .bento {
+    /* ── USE CASES (vouch-style) ── */
+    .use-cases {
       padding: 100px 2rem;
       background: var(--bg-warm);
     }
 
-    .bento-inner {
+    .use-cases-inner {
       max-width: 1100px;
       margin: 0 auto;
     }
 
-    .bento-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+    .use-cases-header {
+      text-align: center;
       margin-bottom: 4rem;
-      gap: 2rem;
     }
 
-    .bento-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.1;
-    }
-
-    .bento-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      max-width: 320px;
-      text-align: right;
-      line-height: 1.65;
-    }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .bento-cell {
-      background: var(--surface);
-      padding: 2.4rem 2.2rem;
-      transition: background 0.3s ease;
-    }
-
-    .bento-cell:hover {
-      background: var(--bg);
-    }
-
-    .bento-cell-label {
+    .use-cases-eyebrow {
       font-family: var(--mono);
-      font-size: 0.58rem;
+      font-size: 0.68rem;
       font-weight: 500;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 0.2rem 0.65rem;
-      border-radius: 3px;
-      display: inline-block;
+      color: var(--teal);
       margin-bottom: 1rem;
     }
 
-    .bento-cell-label.badge-finance { color: #1a5276; background: rgba(26, 82, 118, 0.08); }
-    .bento-cell-label.badge-commerce { color: #8b5e0a; background: rgba(139, 94, 10, 0.08); }
-    .bento-cell-label.badge-cred { color: #0d6e5e; background: rgba(13, 110, 94, 0.08); }
-    .bento-cell-label.badge-trade { color: #5b2d8e; background: rgba(91, 45, 142, 0.08); }
-    .bento-cell-label.badge-health { color: #b5393a; background: rgba(181, 57, 58, 0.08); }
-    .bento-cell-label.badge-identity { color: #37474f; background: rgba(55, 71, 79, 0.08); }
-
-    .bento-cell h4 {
+    .use-cases-title {
       font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 400;
-      margin-bottom: 0.65rem;
-      line-height: 1.25;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
     }
 
-    .bento-cell p {
-      font-size: 0.84rem;
+    .use-cases-container {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    /* Left nav tabs */
+    .uc-nav {
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .uc-nav-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 1.4rem 1.2rem;
+      border: none;
+      border-bottom: 1px solid var(--border-light);
+      border-left: 3px solid transparent;
+      background: none;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .uc-nav-item:last-child {
+      border-bottom: none;
+    }
+
+    .uc-nav-item:hover {
+      background: var(--bg);
+    }
+
+    .uc-nav-item.active {
+      border-left-color: var(--teal);
+      background: var(--bg);
+    }
+
+    .uc-nav-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .uc-nav-item.active .uc-nav-num {
+      color: var(--teal);
+    }
+
+    .uc-nav-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    /* Center content panels */
+    .uc-content {
+      border-right: 1px solid var(--border);
+      position: relative;
+      padding: 2.5rem;
+    }
+
+    .uc-panel {
+      display: none;
+    }
+
+    .uc-panel.active {
+      display: block;
+    }
+
+    .uc-tags {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+    }
+
+    .uc-headline {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .uc-problem,
+    .uc-solution {
+      margin-bottom: 1.5rem;
+    }
+
+    .uc-problem-label,
+    .uc-solution-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .uc-problem-label {
+      color: #b5393a;
+    }
+
+    .uc-solution-label {
+      color: var(--teal);
+    }
+
+    .uc-problem p,
+    .uc-solution p {
+      font-size: 0.88rem;
       color: var(--text-secondary);
       line-height: 1.7;
+    }
+
+    /* Right spec card */
+    .uc-spec {
+      position: relative;
+      background: var(--bg);
+    }
+
+    .uc-spec-panel {
+      display: none;
+    }
+
+    .uc-spec-panel.active {
+      display: block;
+    }
+
+    .uc-spec-row {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .uc-spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .uc-spec-key {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .uc-spec-val {
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .uc-spec-cta {
+      padding: 1.1rem 1.5rem;
+    }
+
+    .uc-spec-cta a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .uc-spec-cta a:hover {
+      color: var(--amber);
     }
 
     /* ── BEFORE / AFTER ── */
@@ -511,6 +698,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
+      align-items: stretch;
     }
 
     @media (max-width: 768px) {
@@ -519,12 +707,8 @@
       }
     }
 
-    .compare-grid {
-      align-items: stretch;
-    }
-
     .compare-card {
-      border-radius: 12px;
+      border-radius: var(--radius);
       padding: 2rem;
       border: 1px solid var(--border-light);
       display: flex;
@@ -593,7 +777,7 @@
       font-family: var(--mono);
       font-size: 0.72rem;
       padding: 3px 8px;
-      border-radius: 4px;
+      border-radius: var(--radius);
       background: rgba(0, 0, 0, 0.04);
       border: 1px solid rgba(0, 0, 0, 0.08);
       color: var(--text-secondary);
@@ -604,7 +788,7 @@
       font-size: 0.78rem;
       background: rgba(0, 0, 0, 0.04);
       border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 6px;
+      border-radius: var(--radius);
       padding: 8px 12px;
       margin: 6px 0;
       color: var(--text-secondary);
@@ -613,7 +797,7 @@
     .compare-summary {
       margin-top: auto;
       padding: 1rem;
-      border-radius: 8px;
+      border-radius: var(--radius);
       font-size: 0.8rem;
       line-height: 1.6;
     }
@@ -655,25 +839,41 @@
       margin: 0 auto;
     }
 
+    /* Full-width left-aligned header with large eyebrow */
     .arch-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
       margin-bottom: 4rem;
-      gap: 2rem;
+    }
+
+    .arch-header-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .arch-header-eyebrow-line {
+      width: 28px;
+      height: 1.5px;
+      background: var(--amber);
     }
 
     .arch-header-title {
       font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.1;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
     }
 
     .arch-header-desc {
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       color: var(--text-secondary);
-      max-width: 320px;
-      text-align: right;
+      max-width: 520px;
       line-height: 1.65;
     }
 
@@ -690,7 +890,15 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 79px,
+          rgba(0,0,0,0.015) 79px,
+          rgba(0,0,0,0.015) 80px
+        ),
+        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -711,7 +919,7 @@
     }
 
     .arch-step-num {
-      font-family: var(--font-mono);
+      font-family: var(--mono);
       font-size: 0.65rem;
       letter-spacing: 0.08em;
       color: var(--text-muted);
@@ -723,7 +931,7 @@
       width: 136px;
       height: 112px;
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: var(--radius);
       background: #fff;
       display: flex;
       flex-direction: column;
@@ -760,11 +968,11 @@
     }
 
     .arch-tag {
-      font-family: var(--font-mono);
+      font-family: var(--mono);
       font-size: 0.6rem;
       padding: 3px 8px;
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: var(--radius);
       color: var(--text-secondary);
       white-space: nowrap;
       background: #fff;
@@ -797,7 +1005,7 @@
     }
 
     .arch-connector-badge {
-      font-family: var(--font-mono);
+      font-family: var(--mono);
       font-size: 0.56rem;
       letter-spacing: 0.02em;
       color: var(--amber);
@@ -828,7 +1036,7 @@
     }
 
     .arch-cat-title {
-      font-family: var(--font-mono);
+      font-family: var(--mono);
       font-size: 0.62rem;
       letter-spacing: 0.1em;
       color: var(--text-muted);
@@ -1119,32 +1327,40 @@
     .faq-section {
       padding: 100px 2rem;
       background: var(--bg-warm);
+      position: relative;
+    }
+
+    .faq-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 40% 40% at 80% 20%, rgba(13, 110, 94, 0.03) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .faq-inner {
       max-width: 1100px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
+    /* Centered FAQ header */
     .faq-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      text-align: center;
       margin-bottom: 4rem;
-      gap: 2rem;
     }
 
     .faq-title {
       font-family: var(--font-display);
       font-size: clamp(2rem, 3.5vw, 3rem);
       line-height: 1.1;
+      margin-bottom: 0.75rem;
     }
 
     .faq-header-desc {
       font-size: 0.88rem;
       color: var(--text-secondary);
-      max-width: 320px;
-      text-align: right;
       line-height: 1.65;
     }
 
@@ -1254,7 +1470,11 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 70%);
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(13, 110, 94, 0.06) 0%, transparent 70%),
+        radial-gradient(circle 1px at center, rgba(255,255,255,0.03) 0.5px, transparent 0.5px);
+      background-size: 100% 100%, 100% 100%, 32px 32px;
       pointer-events: none;
     }
 
@@ -1439,34 +1659,29 @@
     }
 
     /* Stagger children in grids */
-    .reveal-stagger > .visible:nth-child(1) { animation-delay: 0ms; }
-    .reveal-stagger > .visible:nth-child(2) { animation-delay: 80ms; }
-    .reveal-stagger > .visible:nth-child(3) { animation-delay: 160ms; }
-    .reveal-stagger > .visible:nth-child(4) { animation-delay: 240ms; }
-    .reveal-stagger > .visible:nth-child(5) { animation-delay: 300ms; }
-    .reveal-stagger > .visible:nth-child(6) { animation-delay: 360ms; }
-    .reveal-stagger > .visible:nth-child(7) { animation-delay: 420ms; }
-    .reveal-stagger > .visible:nth-child(8) { animation-delay: 480ms; }
+    .reveal-stagger > .reveal.visible:nth-child(1) { animation-delay: 0ms; }
+    .reveal-stagger > .reveal.visible:nth-child(2) { animation-delay: 80ms; }
+    .reveal-stagger > .reveal.visible:nth-child(3) { animation-delay: 160ms; }
+    .reveal-stagger > .reveal.visible:nth-child(4) { animation-delay: 240ms; }
+    .reveal-stagger > .reveal.visible:nth-child(5) { animation-delay: 300ms; }
+    .reveal-stagger > .reveal.visible:nth-child(6) { animation-delay: 360ms; }
+    .reveal-stagger > .reveal.visible:nth-child(7) { animation-delay: 420ms; }
+    .reveal-stagger > .reveal.visible:nth-child(8) { animation-delay: 480ms; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
 
-      .features-header,
-      .bento-header,
-      .arch-header,
-      .pricing-header,
-      .faq-header {
-        flex-direction: column;
-        align-items: flex-start;
+      .features-header {
+        text-align: left;
       }
 
-      .features-subtitle,
-      .bento-desc,
-      .arch-header-desc,
-      .pricing-desc,
-      .faq-header-desc {
+      .features-subtitle {
+        margin: 1rem 0 0;
+      }
+
+      .pricing-header,
+      .faq-header {
         text-align: left;
-        max-width: none;
       }
 
       .features-row {
@@ -1480,6 +1695,38 @@
 
       .feat:last-child {
         border-bottom: none;
+      }
+
+      .use-cases-container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .uc-nav {
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        overflow-x: auto;
+      }
+
+      .uc-nav-item {
+        border-bottom: none;
+        border-right: 1px solid var(--border-light);
+        border-left: none;
+        border-top: 3px solid transparent;
+        min-width: 120px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .uc-nav-item.active {
+        border-left-color: transparent;
+        border-top-color: var(--teal);
+      }
+
+      .uc-content {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
       }
 
       .arch-flow {
@@ -1515,8 +1762,14 @@
         border-bottom: 1px solid var(--border);
       }
 
-      .bento-grid {
-        grid-template-columns: 1fr 1fr;
+      .pricing-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .pricing-desc {
+        text-align: left;
+        max-width: none;
       }
 
       .pricing-grid {
@@ -1572,10 +1825,6 @@
 
     @media (max-width: 600px) {
 
-      .bento-grid {
-        grid-template-columns: 1fr;
-      }
-
       .proof-inner {
         grid-template-columns: 1fr;
       }
@@ -1602,6 +1851,10 @@
         opacity: 1;
         transform: none;
       }
+      .hero-content > * {
+        opacity: 1;
+        animation: none;
+      }
     }
   </style>
 </head>
@@ -1622,7 +1875,7 @@
         <span class="nav-brand-sub">.global</span>
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links"
-        onclick="const n=document.getElementById('nav-links');const open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);this.textContent=open?'✕':'☰'">☰</button>
+        onclick="const n=document.getElementById('nav-links');const open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);this.textContent=open?'&#x2715;':'&#x2630;'">&#x2630;</button>
       <div class="nav-links" id="nav-links" role="navigation">
         <a href="#use-cases" class="nav-link">Use Cases</a>
         <a href="#architecture" class="nav-link">Architecture</a>
@@ -1645,7 +1898,7 @@
           cryptographic guarantees. Universal infrastructure, open to everyone.</p>
         <div class="hero-actions">
           <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary">Start Publishing
-            →</a>
+            &#x2192;</a>
           <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener"
             class="btn btn-secondary">Documentation</a>
         </div>
@@ -1681,26 +1934,27 @@
     <section class="features" id="principles">
       <div class="features-inner">
         <div class="features-header reveal">
-          <div class="features-title">Built on three<br>foundations.</div>
-          <div class="features-subtitle">DeDi is digital public infrastructure — not a commercial product.</div>
+          <div class="features-header-num">03</div>
+          <div class="features-title">Built on three foundations.</div>
+          <div class="features-subtitle">DeDi is digital public infrastructure - not a commercial product.</div>
         </div>
-        <div class="features-row reveal">
-          <div class="feat">
+        <div class="features-row reveal-stagger">
+          <div class="feat reveal">
             <div class="feat-num">01</div>
             <h3>Decentralized</h3>
             <p>No single point of failure. Registries are cryptographically anchored and replicated across the network.
               No vendor lock-in, ever.</p>
           </div>
-          <div class="feat">
+          <div class="feat reveal">
             <div class="feat-num">02</div>
             <h3>Verifiable</h3>
             <p>Every record carries cryptographic proof of authenticity. Verification is instant, machine-readable, and
               works without contacting the original source.</p>
           </div>
-          <div class="feat">
+          <div class="feat reveal">
             <div class="feat-num">03</div>
             <h3>Universal</h3>
-            <p>Works across use cases, sectors, and geographies. From governments to startups — one protocol for all
+            <p>Works across use cases, sectors, and geographies. From governments to startups - one protocol for all
               public registries.</p>
           </div>
         </div>
@@ -1708,43 +1962,203 @@
     </section>
 
     <!-- USE CASES -->
-    <section class="bento" id="use-cases">
-      <div class="bento-inner">
-        <div class="bento-header reveal">
-          <div class="bento-title">Solving the trust gaps<br>in public registries.</div>
-          <div class="bento-desc">Billions of verification checks fail daily because registries are fragmented and
-            impossible to verify programmatically.</div>
+    <section class="use-cases" id="use-cases">
+      <div class="use-cases-inner">
+        <div class="use-cases-header reveal">
+          <div class="use-cases-eyebrow">What DeDi publishes</div>
+          <h2 class="use-cases-title">Four categories of<br>verifiable registries.</h2>
         </div>
-        <div class="bento-grid reveal-stagger">
-          <div class="bento-cell reveal">
-            <div class="bento-cell-label badge-finance">Financial Services</div>
-            <h4>Bank registers, verified in milliseconds</h4>
-            <p>Verify counterparty authorisation, license status, and regulatory standing in a single API call. No more polling PDFs from foreign regulators.</p>
+        <div class="use-cases-container reveal">
+          <!-- Left nav -->
+          <div class="uc-nav">
+            <button class="uc-nav-item active" data-uc="0">
+              <span class="uc-nav-num">01</span>
+              <span class="uc-nav-label">Membership<br>Lists</span>
+            </button>
+            <button class="uc-nav-item" data-uc="1">
+              <span class="uc-nav-num">02</span>
+              <span class="uc-nav-label">Public Key<br>Registries</span>
+            </button>
+            <button class="uc-nav-item" data-uc="2">
+              <span class="uc-nav-num">03</span>
+              <span class="uc-nav-label">Machine-Readable<br>Policies</span>
+            </button>
+            <button class="uc-nav-item" data-uc="3">
+              <span class="uc-nav-num">04</span>
+              <span class="uc-nav-label">Revocation<br>Lists</span>
+            </button>
           </div>
-          <div class="bento-cell reveal">
-            <div class="bento-cell-label badge-commerce">Commerce</div>
-            <h4>Merchant keys, authenticated in real time</h4>
-            <p>Authenticate payment endpoints and merchant credentials without bilateral key exchange. Works across borders and payment rails.</p>
+
+          <!-- Center content -->
+          <div class="uc-content">
+            <div class="uc-panel active" data-uc-panel="0">
+              <div class="uc-tags">Governance &middot; Organizations</div>
+              <h3 class="uc-headline">Every member, verified on-chain.</h3>
+              <div class="uc-problem">
+                <div class="uc-problem-label">The Problem</div>
+                <p>Organizations maintain member lists in spreadsheets, PDFs, or proprietary databases. Verifying membership requires manual checks, phone calls, or accessing siloed systems that may be outdated.</p>
+              </div>
+              <div class="uc-solution">
+                <div class="uc-solution-label">With DeDi</div>
+                <p>Members are published to a cryptographically signed registry. Any party can verify membership in milliseconds via a single API call. Updates propagate in real-time.</p>
+              </div>
+            </div>
+            <div class="uc-panel" data-uc-panel="1">
+              <div class="uc-tags">Cryptography &middot; Identity</div>
+              <h3 class="uc-headline">Trust anchors, globally discoverable.</h3>
+              <div class="uc-problem">
+                <div class="uc-problem-label">The Problem</div>
+                <p>Public keys are exchanged bilaterally, stored in incompatible formats, and impossible to revoke reliably. There is no universal directory to discover an organization's current public key.</p>
+              </div>
+              <div class="uc-solution">
+                <div class="uc-solution-label">With DeDi</div>
+                <p>Organizations publish their public keys to a decentralized directory. Any party can discover and verify keys without bilateral exchange. Rotations and revocations are instant.</p>
+              </div>
+            </div>
+            <div class="uc-panel" data-uc-panel="2">
+              <div class="uc-tags">Compliance &middot; Regulation</div>
+              <h3 class="uc-headline">Regulations your systems can read.</h3>
+              <div class="uc-problem">
+                <div class="uc-problem-label">The Problem</div>
+                <p>Regulatory policies exist as PDF documents, legal text, and website pages. Compliance teams manually interpret rules and translate them into system configurations. Updates lag by weeks or months.</p>
+              </div>
+              <div class="uc-solution">
+                <div class="uc-solution-label">With DeDi</div>
+                <p>Policies are published in machine-readable formats with cryptographic signatures. Systems can automatically discover, parse, and apply regulatory requirements. Changes propagate instantly.</p>
+              </div>
+            </div>
+            <div class="uc-panel" data-uc-panel="3">
+              <div class="uc-tags">Security &middot; Trust</div>
+              <h3 class="uc-headline">Revocations that arrive in real-time.</h3>
+              <div class="uc-problem">
+                <div class="uc-problem-label">The Problem</div>
+                <p>Credential revocations are published on CRL endpoints, proprietary APIs, or not at all. Relying parties poll multiple sources on different schedules. Stale data creates security gaps.</p>
+              </div>
+              <div class="uc-solution">
+                <div class="uc-solution-label">With DeDi</div>
+                <p>Revocations are published to a unified registry with real-time push notifications. Subscribe once, get instant alerts across all issuers. No more polling, no more gaps.</p>
+              </div>
+            </div>
           </div>
-          <div class="bento-cell reveal">
-            <div class="bento-cell-label badge-cred">Credentials</div>
-            <h4>Issuer discovery, no intermediaries</h4>
-            <p>Discover and verify credential issuers directly. Universities, professional bodies, and certification authorities — all resolvable from one endpoint.</p>
-          </div>
-          <div class="bento-cell reveal">
-            <div class="bento-cell-label badge-trade">Trade</div>
-            <h4>Regulatory compliance, across borders</h4>
-            <p>Cross-reference sanctions lists, export controls, and compliance registers from multiple jurisdictions. One query, real-time results.</p>
-          </div>
-          <div class="bento-cell reveal">
-            <div class="bento-cell-label badge-health">Health</div>
-            <h4>Practitioner registers, no gatekeepers</h4>
-            <p>Verify medical licenses, pharmacy registrations, and healthcare credentials without proprietary intermediaries or manual checks.</p>
-          </div>
-          <div class="bento-cell reveal">
-            <div class="bento-cell-label badge-identity">Identity</div>
-            <h4>Trust anchors, resolved cryptographically</h4>
-            <p>Resolve decentralized identifiers and trust anchors without centralised registries. Machine-readable verification for any DID method.</p>
+
+          <!-- Right spec card -->
+          <div class="uc-spec">
+            <div class="uc-spec-panel active" data-uc-spec="0">
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Publisher</div>
+                <div class="uc-spec-val">Trade bodies &middot; Professional orgs</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Members</div>
+                <div class="uc-spec-val">Licensed practitioners &middot; Certified firms</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Format</div>
+                <div class="uc-spec-val">JSON with cryptographic signatures</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Verification</div>
+                <div class="uc-spec-val">Instant API lookup</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Updates</div>
+                <div class="uc-spec-val">Real-time push notifications</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Audit</div>
+                <div class="uc-spec-val">Full history &middot; Tamper-proof</div>
+              </div>
+              <div class="uc-spec-cta">
+                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              </div>
+            </div>
+            <div class="uc-spec-panel" data-uc-spec="1">
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Publisher</div>
+                <div class="uc-spec-val">Any organization or authority</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Key Types</div>
+                <div class="uc-spec-val">X.509 &middot; JWK &middot; DID keys</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Discovery</div>
+                <div class="uc-spec-val">Universal namespace resolution</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Rotation</div>
+                <div class="uc-spec-val">Instant, with cryptographic proof</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Revocation</div>
+                <div class="uc-spec-val">Real-time &middot; Push-based alerts</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Interop</div>
+                <div class="uc-spec-val">Works with existing PKI</div>
+              </div>
+              <div class="uc-spec-cta">
+                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              </div>
+            </div>
+            <div class="uc-spec-panel" data-uc-spec="2">
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Publisher</div>
+                <div class="uc-spec-val">Regulators &middot; Standards bodies</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Format</div>
+                <div class="uc-spec-val">Structured JSON / YAML</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Discovery</div>
+                <div class="uc-spec-val">Namespace-based resolution</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Versioning</div>
+                <div class="uc-spec-val">Immutable audit trail</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Automation</div>
+                <div class="uc-spec-val">API-first &middot; Machine-parseable</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Compliance</div>
+                <div class="uc-spec-val">Cryptographic proof of source</div>
+              </div>
+              <div class="uc-spec-cta">
+                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              </div>
+            </div>
+            <div class="uc-spec-panel" data-uc-spec="3">
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Publisher</div>
+                <div class="uc-spec-val">Certificate authorities &middot; Issuers</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Scope</div>
+                <div class="uc-spec-val">Licenses &middot; Certificates &middot; Credentials</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Delivery</div>
+                <div class="uc-spec-val">Real-time push via /watch</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Latency</div>
+                <div class="uc-spec-val">Sub-second propagation</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Format</div>
+                <div class="uc-spec-val">Standardized &middot; Machine-readable</div>
+              </div>
+              <div class="uc-spec-row">
+                <div class="uc-spec-key">Coverage</div>
+                <div class="uc-spec-val">Cross-jurisdiction &middot; Global</div>
+              </div>
+              <div class="uc-spec-cta">
+                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1763,19 +2177,19 @@
             <h4>Fragmented Trust</h4>
             <div class="compare-step"><strong>1. Is counterparty authorised?</strong></div>
             <div class="compare-tags">
-              <span class="compare-tag">Regulator register — proprietary API</span>
-              <span class="compare-tag">Prudential authority — CSV updated monthly</span>
-              <span class="compare-tag">Foreign regulator — PDF on website</span>
+              <span class="compare-tag">Regulator register - proprietary API</span>
+              <span class="compare-tag">Prudential authority - CSV updated monthly</span>
+              <span class="compare-tag">Foreign regulator - PDF on website</span>
             </div>
             <div class="compare-step"><strong>2. Sanctions screening</strong></div>
             <div class="compare-tags">
-              <span class="compare-tag">Domestic list — XML feed</span>
-              <span class="compare-tag">International list — CSV download</span>
-              <span class="compare-tag">UN sanctions — PDF document</span>
+              <span class="compare-tag">Domestic list - XML feed</span>
+              <span class="compare-tag">International list - CSV download</span>
+              <span class="compare-tag">UN sanctions - PDF document</span>
             </div>
             <div class="compare-step"><strong>3. Verify legal entity</strong></div>
             <div class="compare-tags">
-              <span class="compare-tag">LEI registry — separate API</span>
+              <span class="compare-tag">LEI registry - separate API</span>
               <span class="compare-tag">Cross-reference with bank ID</span>
             </div>
             <div class="compare-step"><strong>4. Get counterparty public key</strong></div>
@@ -1800,7 +2214,7 @@
             <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/counterparty.example/public_key</div>
             <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/lei-registry.example/entity</div>
             <div class="compare-step"><strong>+ Subscribe once for real-time alerts:</strong></div>
-            <div class="compare-endpoint">/watch → push on any revocation or update</div>
+            <div class="compare-endpoint">/watch &#x2192; push on any revocation or update</div>
             <div class="compare-step"><strong>Works for EVERY counterparty, globally.</strong></div>
             <div class="compare-summary">1 endpoint &nbsp;|&nbsp; 1 format (JSON) &nbsp;|&nbsp; 1 auth method<br>Milliseconds &nbsp;|&nbsp; Crypto-signed &nbsp;|&nbsp; Real-time push</div>
           </div>
@@ -1813,7 +2227,8 @@
     <section class="arch-section" id="architecture">
       <div class="arch-inner">
         <div class="arch-header reveal">
-          <div class="arch-header-title">How DeDi<br>works.</div>
+          <div class="arch-header-eyebrow"><span class="arch-header-eyebrow-line"></span> Protocol Architecture</div>
+          <div class="arch-header-title">How DeDi works.</div>
           <div class="arch-header-desc">Transform traditional directories into a unified trust network that works across
             platforms and jurisdictions.</div>
         </div>
@@ -1821,7 +2236,7 @@
           <div class="arch-flow">
 
             <div class="arch-step">
-              <div class="arch-step-num">01 &mdash; Publish</div>
+              <div class="arch-step-num">01 - Publish</div>
               <div class="arch-step-card">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="7" y="4" width="18" height="24" rx="2"/>
@@ -1843,7 +2258,7 @@
             </div>
 
             <div class="arch-step">
-              <div class="arch-step-num">02 &mdash; Anchor</div>
+              <div class="arch-step-num">02 - Anchor</div>
               <div class="arch-step-card">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M13.5 19.5l-2.5 2.5a3.5 3.5 0 005 5l2.5-2.5"/>
@@ -1865,7 +2280,7 @@
             </div>
 
             <div class="arch-step">
-              <div class="arch-step-num">03 &mdash; Discover</div>
+              <div class="arch-step-num">03 - Discover</div>
               <div class="arch-step-card">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="14" cy="14" r="8"/>
@@ -1886,7 +2301,7 @@
             </div>
 
             <div class="arch-step">
-              <div class="arch-step-num">04 &mdash; Verify</div>
+              <div class="arch-step-num">04 - Verify</div>
               <div class="arch-step-card">
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M16 3l10 4v8c0 6-4 10-10 13-6-3-10-7-10-13V7l10-4z"/>
@@ -1919,7 +2334,7 @@
           </div>
         </div>
 
-        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="arch-doc-link">Read the documentation →</a>
+        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="arch-doc-link">Read the documentation &#x2192;</a>
 
         <!-- How It Works Steps + Terminal -->
         <div class="how-section">
@@ -1937,7 +2352,7 @@
                 <div class="how-step-num">02</div>
                 <div>
                   <h4>Publish</h4>
-                  <p>Push your registry data — public keys, membership lists, or revocation records.</p>
+                  <p>Push your registry data - public keys, membership lists, or revocation records.</p>
                 </div>
               </div>
               <div class="how-step">
@@ -1980,12 +2395,12 @@
         <div class="pricing-grid reveal">
           <div class="pricing-info">
             <p>Operated by <strong><a href="https://networksforhumanity.org/" target="_blank" rel="noopener">Networks for
-                  Humanity (NFH)</a></strong> — a non-profit foundation dedicated to open, interoperable digital
+                  Humanity (NFH)</a></strong> - a non-profit foundation dedicated to open, interoperable digital
               infrastructure.</p>
             <p><strong>Community-Driven Governance:</strong> Future pricing will be developed with community input
               through a governance committee.</p>
             <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary"
-              style="margin-top:0.5rem;">Start Using DeDi →</a>
+              style="margin-top:0.5rem;">Start Using DeDi &#x2192;</a>
           </div>
           <div class="pricing-table-wrap">
             <div class="pricing-row">
@@ -2027,7 +2442,7 @@
     <section class="faq-section" id="faq">
       <div class="faq-inner">
         <div class="faq-header reveal">
-          <div class="faq-title">Common<br>questions.</div>
+          <div class="faq-title">Common questions.</div>
           <div class="faq-header-desc">Can't find what you need? <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8"
               target="_blank" rel="noopener">Contact our team</a>.</div>
         </div>
@@ -2084,7 +2499,7 @@
             </button>
             <div class="faq-a">
               <div class="faq-a-inner">
-                <p><strong>Everything is completely free.</strong> Publishing registries, API access, and all features —
+                <p><strong>Everything is completely free.</strong> Publishing registries, API access, and all features -
                   no setup fees, no monthly costs, no hidden charges.</p>
               </div>
             </div>
@@ -2146,7 +2561,7 @@
       <p>Join organizations worldwide building verifiable trust infrastructure.</p>
       <div class="bottom-cta-actions">
         <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary">Start Publishing
-          →</a>
+          &#x2192;</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695"
           target="_blank" rel="noopener" class="btn btn-secondary">Contact Sales</a>
       </div>
@@ -2195,7 +2610,7 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2025 DeDi. All rights reserved.</span>
-      <span>Privacy Policy · Terms of Service</span>
+      <span>Privacy Policy &middot; Terms of Service</span>
     </div>
   </footer>
 
@@ -2218,7 +2633,7 @@
         const nav = document.getElementById('nav-links');
         nav.classList.remove('open');
         document.querySelector('.nav-toggle').setAttribute('aria-expanded', 'false');
-        document.querySelector('.nav-toggle').textContent = '☰';
+        document.querySelector('.nav-toggle').textContent = '\u2630';
       });
     });
     // Dynamic footer year
@@ -2235,6 +2650,19 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Use cases tab switching
+    document.querySelectorAll('.uc-nav-item').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const idx = this.getAttribute('data-uc');
+        document.querySelectorAll('.uc-nav-item').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.uc-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.uc-spec-panel').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelector('[data-uc-panel="' + idx + '"]').classList.add('active');
+        document.querySelector('[data-uc-spec="' + idx + '"]').classList.add('active');
+      });
+    });
   </script>
 </body>
 
