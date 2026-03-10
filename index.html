@@ -31,13 +31,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg: #fafaf9;
@@ -48,24 +42,20 @@
       --text: #1a1a1a;
       --text-secondary: #555;
       --text-muted: #6b6b6b;
-      --amber: #D97706;
-      --amber-light: #FEF3C7;
-      --teal: #0d6e5e;
-      --teal-light: #e6f5f2;
+      --amber: #7B2D3B;
+      --amber-light: #f5e8eb;
+      --teal: #536878;
+      --teal-light: #eaecef;
+      --red: #dc2626;
+      --green: #16a34a;
       --font-display: 'Instrument Serif', Georgia, serif;
       --font-body: 'Geist', -apple-system, sans-serif;
       --mono: 'IBM Plex Mono', 'SF Mono', monospace;
       --radius: 2px;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    [id] {
-      scroll-margin-top: 70px;
-    }
-
+    html { scroll-behavior: smooth; }
+    [id] { scroll-margin-top: 70px; }
     body {
       font-family: var(--font-body);
       background: var(--bg);
@@ -76,1894 +66,413 @@
 
     /* ── NAV ── */
     nav {
-      position: sticky;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(250, 250, 249, 0.92);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,250,249,0.92);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-
     .nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between; height: 60px;
     }
+    .nav-brand { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
+    .nav-brand-name { font-family: var(--font-display); font-size: 1.85rem; color: var(--text); }
+    .nav-brand-sub { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-link { font-size: 0.82rem; color: var(--text-secondary); text-decoration: none; font-weight: 450; transition: color 0.2s; }
+    .nav-link:hover { color: var(--text); }
+    .nav-cta { font-size: 0.82rem; font-weight: 600; color: var(--surface); background: var(--text); text-decoration: none; padding: 8px 20px; border-radius: var(--radius); }
+    .nav-cta:hover { background: #333; }
 
-    .nav-brand {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      text-decoration: none;
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+      border-radius: var(--radius); font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; font-family: var(--font-body); border: none; cursor: pointer; transition: all 0.2s;
     }
+    .btn-primary { background: var(--amber); color: #fff; }
+    .btn-primary:hover { background: #b45309; }
+    .btn-secondary { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); padding: 13px 28px; }
+    .btn-secondary:hover { border-color: var(--text); color: var(--text); }
 
-    .nav-brand-name {
-      font-family: var(--font-display);
-      font-size: 1.85rem;
-      color: var(--text);
-    }
+    /* ── SECTION UTILITIES ── */
+    .section { padding: 100px 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .eyebrow { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; margin-bottom: 1rem; }
+    .section-subtitle { font-size: 0.95rem; color: var(--text-secondary); max-width: 520px; line-height: 1.65; }
 
-    .nav-brand-sub {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .nav-link {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-      font-weight: 450;
-    }
-
-    .nav-link:hover {
-      color: var(--text);
-    }
-
-    .nav-cta {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--surface);
-      background: var(--text);
-      text-decoration: none;
-      padding: 8px 20px;
-      border-radius: var(--radius);
-      transition: background 0.2s;
-    }
-
-    .nav-cta:hover {
-      background: #333;
-    }
-
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.25rem;
-      color: var(--text);
-      padding: 4px;
-      line-height: 1;
-    }
-
-    /* ── HERO ── */
+    /* ══════════════════════════════════════════════
+       1. HERO — Problem-first, outcome-oriented
+    ══════════════════════════════════════════════ */
     .hero {
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 100px 2rem 80px;
-      position: relative;
+      min-height: 80vh; display: flex; align-items: center; padding: 80px 2rem;
       background:
         radial-gradient(circle 1px at center, var(--border) 0.5px, transparent 0.5px),
-        radial-gradient(ellipse 50% 60% at 30% 20%, rgba(217, 119, 6, 0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 30% 20%, rgba(217,119,6,0.04) 0%, transparent 70%),
         var(--bg);
       background-size: 24px 24px, 100% 100%, 100% 100%;
     }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+    .eyebrow-line { width: 28px; height: 1.5px; background: var(--amber); }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; line-height: 1.08; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: italic; }
+    .hero-subtitle { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; max-width: 460px; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 2rem; }
+    .hero-meta { font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; }
+    .hero-meta a { color: var(--text-secondary); text-decoration: none; font-weight: 500; }
+
+    /* Hero visual — conceptual diagram */
+    .hero-visual {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2.5rem; position: relative;
+    }
+    .hero-visual-label {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 1.5rem;
+    }
+    .hero-lookup {
+      font-family: var(--mono); font-size: 0.88rem; background: var(--bg); border: 1px solid var(--border);
+      padding: 12px 16px; border-radius: var(--radius); margin-bottom: 1.5rem; color: var(--text-secondary);
+    }
+    .hero-lookup .hl { color: var(--teal); font-weight: 500; }
+    .hero-result {
+      background: var(--bg); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 16px;
+    }
+    .hero-result-row {
+      display: flex; justify-content: space-between; align-items: center; padding: 6px 0;
+      border-bottom: 1px solid var(--border-light); font-size: 0.82rem;
+    }
+    .hero-result-row:last-child { border-bottom: none; }
+    .hero-result-key { font-family: var(--mono); font-size: 0.72rem; color: var(--text-muted); }
+    .hero-result-val { color: var(--text); font-weight: 500; }
+    .hero-result-badge {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em;
+      padding: 3px 8px; border-radius: var(--radius); font-weight: 500;
+    }
+    .badge-verified { background: #dcfce7; color: #166534; }
+    .badge-active { background: var(--teal-light); color: var(--teal); }
 
-    .hero-content {
-      max-width: 700px;
-    }
-
-    /* Hero entrance orchestration */
-    @keyframes hero-enter {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero-content > * {
-      opacity: 0;
-      animation: hero-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-    .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
-    .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
-    .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
-    .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
-
-    .hero-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .eyebrow-line {
-      width: 28px;
-      height: 1.5px;
-      background: var(--amber);
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 6vw, 5rem);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-      margin-bottom: 2rem;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-    }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 480px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 32px;
-      border-radius: var(--radius);
-      font-size: 0.88rem;
-      font-weight: 600;
-      text-decoration: none;
-      font-family: var(--font-body);
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-primary {
-      background: var(--amber);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: #b45309;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-      padding: 13px 28px;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--text);
-      color: var(--text);
-    }
-
-    .hero-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .hero-meta a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .hero-meta a:hover {
-      color: var(--text);
-      text-decoration: underline;
-    }
-
-    /* ── STATS STRIP ── */
-    .proof-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-    }
-
-    .proof-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .proof-stat {
-      padding: 2rem 1.5rem;
-      border-right: 1px solid var(--border);
-    }
-
-    .proof-stat:last-child {
-      border-right: none;
-    }
-
-    .proof-stat-value {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .proof-stat-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      letter-spacing: 0.02em;
-      line-height: 1.4;
-    }
-
-    /* ── FEATURES / PRINCIPLES ── */
-    .features {
-      padding: 100px 2rem;
-      background: var(--surface);
-      position: relative;
-    }
-
-    .features::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 59px,
-          rgba(0,0,0,0.02) 59px,
-          rgba(0,0,0,0.02) 60px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 59px,
-          rgba(0,0,0,0.02) 59px,
-          rgba(0,0,0,0.02) 60px
-        );
-      pointer-events: none;
-    }
-
-    .features-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Centered header with oversized number */
-    .features-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .features-header-num {
-      font-family: var(--font-display);
-      font-size: 6rem;
-      line-height: 1;
-      color: rgba(0,0,0,0.04);
-      margin-bottom: -1.5rem;
-    }
-
-    .features-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.1;
-    }
-
-    .features-subtitle {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      max-width: 440px;
-      margin: 1rem auto 0;
-      line-height: 1.65;
-    }
-
-    .features-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .feat {
-      padding: 2.5rem;
-      border-right: 1px solid var(--border);
-      background: var(--surface);
-    }
-
-    .feat:last-child {
-      border-right: none;
-    }
-
-    .feat-num {
-      font-family: var(--mono);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--teal);
-      letter-spacing: 0.04em;
-      margin-bottom: 1.2rem;
-    }
-
-    .feat h3 {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      margin-bottom: 0.7rem;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-    }
-
-    .feat p {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    /* ── USE CASES (vouch-style) ── */
-    .use-cases {
-      padding: 100px 2rem;
-      background: var(--bg-warm);
-    }
-
-    .use-cases-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .use-cases-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .use-cases-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 1rem;
-    }
-
-    .use-cases-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.1;
-    }
-
-    .use-cases-container {
-      display: grid;
-      grid-template-columns: 180px 1fr 1fr;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      overflow: hidden;
-      min-height: 520px;
-    }
-
-    /* Left nav tabs */
-    .uc-nav {
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .uc-nav-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 1.4rem 1.2rem;
-      border: none;
-      border-bottom: 1px solid var(--border-light);
-      border-left: 3px solid transparent;
-      background: none;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s;
-      font-family: var(--font-body);
-    }
-
-    .uc-nav-item:last-child {
-      border-bottom: none;
-    }
-
-    .uc-nav-item:hover {
-      background: var(--bg);
-    }
-
-    .uc-nav-item.active {
-      border-left-color: var(--teal);
-      background: var(--bg);
-    }
-
-    .uc-nav-num {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-    }
-
-    .uc-nav-item.active .uc-nav-num {
-      color: var(--teal);
-    }
-
-    .uc-nav-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.3;
-    }
-
-    /* Center content panels */
-    .uc-content {
-      border-right: 1px solid var(--border);
-      position: relative;
-      padding: 2.5rem;
-    }
-
-    .uc-panel {
-      display: none;
-    }
-
-    .uc-panel.active {
-      display: block;
-    }
-
-    .uc-tags {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 0.75rem;
-    }
-
-    .uc-headline {
-      font-family: var(--font-display);
-      font-size: 1.65rem;
-      font-weight: 400;
-      line-height: 1.15;
-      margin-bottom: 2rem;
-      letter-spacing: -0.01em;
-    }
-
-    .uc-problem,
-    .uc-solution {
-      margin-bottom: 1.5rem;
-    }
-
-    .uc-problem-label,
-    .uc-solution-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    .uc-problem-label {
-      color: #b5393a;
-    }
-
-    .uc-solution-label {
-      color: var(--teal);
-    }
-
-    .uc-problem p,
-    .uc-solution p {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    /* Right spec card */
-    .uc-spec {
-      position: relative;
-      background: var(--bg);
-    }
-
-    .uc-spec-panel {
-      display: none;
-    }
-
-    .uc-spec-panel.active {
-      display: block;
-    }
-
-    .uc-spec-block {
-      padding: 1.4rem 1.5rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .uc-spec-block:last-child {
-      border-bottom: none;
-    }
-
-    .uc-spec-label {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 8px;
-    }
-
-    .uc-spec-value {
-      font-size: 0.88rem;
-      color: var(--text);
-      line-height: 1.55;
-    }
-
-    .uc-spec-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 2px;
-    }
-
-    .uc-spec-tag {
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      letter-spacing: 0.04em;
-      padding: 4px 10px;
-      background: var(--surface);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      color: var(--text-secondary);
-    }
-
-    .uc-spec-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .uc-spec-list li {
-      font-size: 0.84rem;
-      color: var(--text);
-      line-height: 1.5;
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .uc-spec-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--teal);
-      font-size: 0.78rem;
-    }
-
-    /* ── PLATFORM FEATURES ── */
-    .platform-features {
-      padding: 100px 2rem;
-      background: var(--bg);
-      position: relative;
-    }
-
-    .platform-features::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(13, 110, 94, 0.04) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .platform-features-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .platform-features-header {
-      margin-bottom: 4rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: end;
-    }
-
-    .platform-features-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 1rem;
-    }
-
-    .platform-features-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      line-height: 1.1;
-    }
-
-    .platform-features-subtitle {
-      font-size: 0.92rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 400px;
-      justify-self: end;
-      text-align: right;
-    }
-
-    .pf-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-light);
-      border: 1px solid var(--border-light);
-    }
-
-    .pf-card {
-      background: var(--surface);
-      padding: 2rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: background 0.2s;
-    }
-
-    .pf-card:hover {
-      background: var(--bg-warm);
-    }
-
-    .pf-card-num {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-    }
-
-    .pf-card-title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      line-height: 1.2;
-    }
-
-    .pf-card-desc {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    .pf-card-endpoint {
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      color: var(--teal);
-      letter-spacing: 0.02em;
-      margin-top: auto;
-      padding-top: 8px;
-    }
-
-    @media (max-width: 768px) {
-      .platform-features-header {
-        grid-template-columns: 1fr;
-      }
-      .platform-features-subtitle {
-        justify-self: start;
-        text-align: left;
-      }
-      .pf-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ── BEFORE / AFTER ── */
-    .compare-section {
-      padding: 5rem 2rem;
-      background: var(--bg);
-    }
-
-    .compare-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .compare-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .compare-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-    }
-
-    .compare-subtitle {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: stretch;
-    }
-
-    @media (max-width: 768px) {
-      .compare-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .compare-card {
-      border-radius: var(--radius);
-      padding: 2rem;
-      border: 1px solid var(--border-light);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .compare-card.before {
-      background: #fef2f2;
-      border-color: #fecaca;
-    }
-
-    .compare-card.after {
-      background: #f0fdf4;
-      border-color: #bbf7d0;
-    }
-
-    .compare-card-label {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
-    }
-
-    .compare-card.before .compare-card-label {
-      color: #dc2626;
-    }
-
-    .compare-card.after .compare-card-label {
-      color: #16a34a;
-    }
-
-    .compare-card h4 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-    }
-
-    .compare-step {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-
-    .compare-step:first-of-type {
-      margin-top: 0;
-    }
-
-    .compare-step strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .compare-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 0.25rem;
-    }
-
-    .compare-tag {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: var(--radius);
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      color: var(--text-secondary);
-    }
-
-    .compare-endpoint {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: var(--radius);
-      padding: 8px 12px;
-      margin: 6px 0;
-      color: var(--text-secondary);
-    }
-
-    .compare-summary {
-      margin-top: auto;
-      padding: 1rem;
-      border-radius: var(--radius);
-      font-size: 0.8rem;
-      line-height: 1.6;
-    }
-
-    .compare-card.before .compare-summary {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .compare-card.after .compare-summary {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .compare-tagline {
-      text-align: center;
-      margin-top: 2.5rem;
-      font-size: 1.1rem;
-      color: var(--text);
-    }
-
-    .compare-tagline strong {
-      color: var(--amber);
-    }
-
-    .lookup-hl {
-      color: #2563eb;
-      font-weight: 600;
-    }
-
-    /* ── ARCHITECTURE ── */
-    .arch-section {
-      padding: 100px 2rem;
-      background: var(--bg);
-    }
-
-    .arch-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* Full-width left-aligned header with large eyebrow */
-    .arch-header {
-      margin-bottom: 4rem;
-    }
-
-    .arch-header-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .arch-header-eyebrow-line {
-      width: 28px;
-      height: 1.5px;
-      background: var(--amber);
-    }
-
-    .arch-header-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-      line-height: 1.05;
-      margin-bottom: 1rem;
-    }
-
-    .arch-header-desc {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      max-width: 520px;
-      line-height: 1.65;
-    }
-
-    /* Architecture Pipeline — Oversized Color Cards */
-    .arch-pipeline {
-      margin-top: 2.5rem;
-    }
-
-    .arch-flow {
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      gap: 0;
-    }
-
-    .arch-card {
-      flex: 1;
-      max-width: 280px;
-      padding: 2rem 1.75rem;
-      border: 2px solid var(--border);
-      border-radius: 4px;
-      position: relative;
-      background: var(--surface);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .arch-card[data-step="publish"] {
-      border-color: var(--teal);
-      background: rgba(13, 110, 94, 0.03);
-    }
-    .arch-card[data-step="discover"] {
-      border-color: var(--amber);
-      background: rgba(217, 119, 6, 0.03);
-    }
-    .arch-card[data-step="verify"] {
-      border-color: #16a34a;
-      background: rgba(22, 163, 74, 0.03);
-    }
-
-    .arch-card-num {
-      font-family: var(--mono);
-      font-size: 3.5rem;
-      font-weight: 700;
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-    .arch-card[data-step="publish"] .arch-card-num { color: rgba(13, 110, 94, 0.1); }
-    .arch-card[data-step="discover"] .arch-card-num { color: rgba(217, 119, 6, 0.1); }
-    .arch-card[data-step="verify"] .arch-card-num { color: rgba(22, 163, 74, 0.1); }
-
-    .arch-card-icon {
-      width: 36px;
-      height: 36px;
-      margin-bottom: 0.75rem;
-      color: var(--text);
-    }
-
-    .arch-card-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-
-    .arch-card-sub {
-      font-size: 0.8rem;
-      color: var(--amber);
-      margin-bottom: 0.75rem;
-    }
-
-    .arch-card-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 1.25rem;
-    }
-
-    .arch-tag {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      padding: 3px 8px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text-secondary);
-      white-space: nowrap;
-      background: var(--surface);
-    }
-
-    .arch-card-cat {
-      margin-top: auto;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .arch-card-cat p {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-top: 0.4rem;
-      letter-spacing: 0;
-      text-transform: none;
-      font-family: var(--sans);
-    }
-
-    .arch-connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      flex-shrink: 0;
-    }
-
-    .arch-connector svg {
-      width: 32px;
-      height: 32px;
-      color: var(--amber);
-    }
-
-    .arch-doc-link {
-      display: block;
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--amber);
-      text-decoration: none;
-      position: relative;
-      z-index: 1;
-    }
-
-    .arch-doc-link:hover {
-      text-decoration: underline;
-    }
-
-    .flow-line {
-      stroke-dasharray: 6 10;
-      stroke-dashoffset: 0;
-      animation: dash-flow 1.5s linear infinite;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .flow-line {
-        animation: none;
-      }
-    }
-
-    .flow-node {
-      transition: filter 0.2s;
-    }
-
-    .flow-node:hover {
-      filter: drop-shadow(0 0 6px rgba(217, 119, 6, 0.3));
-    }
-
-    /* ── HOW IT WORKS ── */
-    .how-section {
-      margin-top: 4rem;
-    }
-
-    .how-section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 2rem;
-    }
-
-    .how-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .how-steps {
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 0;
-    }
-
-    .how-step {
-      padding: 2rem 2.5rem;
-      border-bottom: 1px solid var(--border-light);
-      display: flex;
-      gap: 1.2rem;
-      align-items: flex-start;
-    }
-
-    .how-step:last-child {
-      border-bottom: none;
-    }
-
-    .how-step-num {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      color: var(--amber);
-      flex-shrink: 0;
-      padding-top: 2px;
-    }
-
-    .how-step h4 {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .how-step p {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* Terminal card */
-    .terminal-wrap {
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem;
-    }
-
-    .terminal {
-      width: 100%;
-      max-width: 380px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .terminal-bar {
-      padding: 10px 16px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .terminal-dots {
-      display: flex;
-      gap: 5px;
-    }
-
-    .terminal-dots span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--border);
-    }
-
-    .terminal-body {
-      padding: 20px;
-      background: var(--surface);
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      line-height: 2;
-      color: var(--text-muted);
-    }
-
-    .t-amber {
-      color: var(--amber);
-    }
-
-    .t-text {
-      color: var(--text);
-    }
-
-    .t-dim {
-      color: var(--border);
-    }
-
-
-    /* ── PRICING ── */
-    .pricing-section {
-      padding: 100px 2rem;
-      background: var(--surface);
-    }
-
-    .pricing-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .pricing-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 4rem;
-      gap: 2rem;
-    }
-
-    .pricing-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.1;
-    }
-
-    .pricing-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      max-width: 320px;
-      text-align: right;
-      line-height: 1.65;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      gap: 0;
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .pricing-info {
-      padding: 3rem;
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-    }
-
-    .pricing-info p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .pricing-info p strong {
-      color: var(--text);
-    }
-
-    .pricing-info p a {
-      color: var(--amber);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .pricing-info p a:hover {
-      text-decoration: underline;
-    }
-
-    .pricing-table-wrap {
-      padding: 0;
-      background: var(--surface);
-    }
-
-    .pricing-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 2.5rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .pricing-row:last-child {
-      border-bottom: none;
-    }
-
-    .pricing-row h4 {
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
-
-    .pricing-row .desc {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .pricing-val {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--amber);
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .pricing-val small {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      display: block;
-      font-family: var(--font-body);
-      font-weight: 400;
-    }
-
-    /* ── FAQ ── */
-    .faq-section {
-      padding: 100px 2rem;
-      background: var(--bg-warm);
-      position: relative;
-    }
-
-    .faq-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 40% 40% at 80% 20%, rgba(13, 110, 94, 0.03) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .faq-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Centered FAQ header */
-    .faq-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .faq-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      line-height: 1.1;
-      margin-bottom: 0.75rem;
-    }
-
-    .faq-header-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    .faq-header-desc a {
-      color: var(--amber);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .faq-header-desc a:hover {
-      text-decoration: underline;
-    }
-
-    .faq-list {
-      border: 1px solid var(--border);
-      overflow: hidden;
-      background: var(--surface);
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .faq-item:last-child {
-      border-bottom: none;
-    }
-
-    .faq-q {
-      width: 100%;
-      padding: 1.5rem 2rem;
-      text-align: left;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font-body);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .faq-q h3 {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .faq-q:hover h3 {
-      color: var(--amber);
-    }
-
-    .faq-toggle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      flex-shrink: 0;
-      transition: transform 0.2s;
-      width: 20px;
-      text-align: center;
-    }
-
-    .faq-toggle.open {
-      transform: rotate(45deg);
-    }
-
-    .faq-a {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.3s ease;
-    }
-
-    .faq-a.open {
-      max-height: 400px;
-    }
-
-    .faq-a-inner {
-      padding: 0 2rem 1.5rem;
-    }
-
-    .faq-a p {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 560px;
-    }
-
-    .faq-a a {
-      color: var(--amber);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .faq-a a:hover {
-      text-decoration: underline;
-    }
-
-    /* ── CTA ── */
-    .bottom-cta {
-      padding: 120px 2rem;
-      text-align: center;
-      background: #1a1a1a;
-      border-top: none;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bottom-cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(13, 110, 94, 0.06) 0%, transparent 70%),
-        radial-gradient(circle 1px at center, rgba(255,255,255,0.03) 0.5px, transparent 0.5px);
-      background-size: 100% 100%, 100% 100%, 32px 32px;
-      pointer-events: none;
-    }
-
-    .bottom-cta h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
-      line-height: 1.08;
-      margin-bottom: 1rem;
-      color: #fafaf9;
-      position: relative;
-    }
-
-    .bottom-cta p {
-      font-size: 0.95rem;
-      color: #999;
-      margin-bottom: 2.5rem;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-    }
-
-    .bottom-cta-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    .bottom-cta .btn-secondary {
-      border-color: #444;
-      color: #ccc;
-    }
-
-    .bottom-cta .btn-secondary:hover {
-      border-color: #888;
-      color: #fff;
-    }
-
-    /* ── PARTNERS ── */
-    .partners-bar {
-      padding: 2rem 2rem;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg);
-    }
-
-    .partners-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-    }
-
-    .partners-inner a {
-      display: flex;
-      align-items: center;
-    }
-
-    .partners-inner img {
-      height: 24px;
-      object-fit: contain;
-      opacity: 0.4;
-      filter: grayscale(100%);
-      transition: opacity 0.2s;
-    }
-
-    .partners-inner a:hover img {
-      opacity: 0.8;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem 2rem;
-      background: var(--bg);
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .footer-brand-sub {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      margin-left: 6px;
-    }
-
-    .footer-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 8px;
-      max-width: 260px;
-    }
-
-    .footer-nfh {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .footer-nfh a {
-      color: var(--amber);
-      text-decoration: none;
-    }
-
-    .footer-nfh a:hover {
-      text-decoration: underline;
-    }
-
-    .footer-col h5 {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .footer-col a {
-      display: block;
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      margin-bottom: 8px;
-      transition: color 0.2s;
-    }
-
-    .footer-col a:hover {
-      color: var(--text);
-    }
-
-    .footer-bottom {
-      max-width: 1100px;
-      margin: 2rem auto 0;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    /* ── SCROLL ANIMATIONS ── */
-    @keyframes fade-up {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-
-    .reveal.visible {
-      animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    /* Stagger children in grids */
-    .reveal-stagger > .reveal.visible:nth-child(1) { animation-delay: 0ms; }
-    .reveal-stagger > .reveal.visible:nth-child(2) { animation-delay: 80ms; }
-    .reveal-stagger > .reveal.visible:nth-child(3) { animation-delay: 160ms; }
-    .reveal-stagger > .reveal.visible:nth-child(4) { animation-delay: 240ms; }
-    .reveal-stagger > .reveal.visible:nth-child(5) { animation-delay: 300ms; }
-    .reveal-stagger > .reveal.visible:nth-child(6) { animation-delay: 360ms; }
-    .reveal-stagger > .reveal.visible:nth-child(7) { animation-delay: 420ms; }
-    .reveal-stagger > .reveal.visible:nth-child(8) { animation-delay: 480ms; }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-
-      .features-header {
-        text-align: left;
-      }
-
-      .features-subtitle {
-        margin: 1rem 0 0;
-      }
-
-      .pricing-header,
-      .faq-header {
-        text-align: left;
-      }
-
-      .features-row {
-        grid-template-columns: 1fr;
-      }
-
-      .feat {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .feat:last-child {
-        border-bottom: none;
-      }
-
-      .use-cases-container {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .uc-nav {
-        flex-direction: row;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        overflow-x: auto;
-      }
-
-      .uc-nav-item {
-        border-bottom: none;
-        border-right: 1px solid var(--border-light);
-        border-left: none;
-        border-top: 3px solid transparent;
-        min-width: 120px;
-        text-align: center;
-        align-items: center;
-      }
-
-      .uc-nav-item.active {
-        border-left-color: transparent;
-        border-top-color: var(--teal);
-      }
-
-      .uc-content {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .arch-flow {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-      }
-
-      .arch-card {
-        max-width: 100%;
-        width: 100%;
-      }
-
-      .arch-connector {
-        width: 48px;
-        height: 48px;
-        transform: rotate(90deg);
-      }
-
-      .how-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .how-steps {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .pricing-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .pricing-desc {
-        text-align: left;
-        max-width: none;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pricing-info {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .proof-inner {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .proof-stat:nth-child(2) {
-        border-right: none;
-      }
-
-      .proof-stat:nth-child(1),
-      .proof-stat:nth-child(2) {
-        border-bottom: 1px solid var(--border);
-      }
-
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--bg);
-        padding: 1.5rem 2rem;
-        gap: 1rem;
-        z-index: 99;
-        border-top: 1px solid var(--border);
-      }
-
-      .nav-toggle {
-        display: block;
-      }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
     }
 
-    @media (max-width: 600px) {
-
-      .proof-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .proof-stat {
-        border-right: none !important;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .proof-stat:last-child {
-        border-bottom: none;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
+    /* ══════════════════════════════════════════════
+       2. AUDIENCE STRIP — Who this is for
+    ══════════════════════════════════════════════ */
+    .audience-strip {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface); padding: 0;
+    }
+    .audience-inner {
+      max-width: 1100px; margin: 0 auto; padding: 2rem;
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .audience-label {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--teal); white-space: nowrap;
+    }
+    .audience-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+    .audience-tag {
+      font-size: 0.82rem; color: var(--text-secondary); padding: 8px 16px;
+      border: 1px solid var(--border-light); border-radius: var(--radius); background: var(--bg);
+      font-weight: 450;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        transition-duration: 0s !important;
-      }
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-      .hero-content > * {
-        opacity: 1;
-        animation: none;
-      }
+    /* ══════════════════════════════════════════════
+       3. THE PROBLEM — Simplified comparison
+    ══════════════════════════════════════════════ */
+    .problem-section { padding: 100px 2rem; background: var(--bg-warm); }
+    .problem-inner { max-width: 1100px; margin: 0 auto; }
+    .problem-header { text-align: center; margin-bottom: 4rem; }
+    .problem-grid { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; align-items: stretch; }
+    .problem-card {
+      border-radius: var(--radius); padding: 2.5rem; display: flex; flex-direction: column;
     }
+    .problem-card.before { background: #fef2f2; border: 1px solid #fecaca; }
+    .problem-card.after { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .problem-card-label {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 0.75rem;
+    }
+    .problem-card.before .problem-card-label { color: var(--red); }
+    .problem-card.after .problem-card-label { color: var(--green); }
+    .problem-card h4 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 1.5rem; font-weight: 400; }
+    .problem-step { margin-bottom: 1.25rem; }
+    .problem-step-label { font-size: 0.78rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .problem-step-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+    .problem-stat {
+      margin-top: auto; padding: 1rem; border-radius: var(--radius);
+      font-family: var(--mono); font-size: 0.78rem; line-height: 1.8;
+    }
+    .problem-card.before .problem-stat { background: #fee2e2; color: #991b1b; }
+    .problem-card.after .problem-stat { background: #dcfce7; color: #166534; }
+    .problem-arrow {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .problem-arrow svg { width: 32px; height: 32px; color: var(--amber); }
+    .problem-tagline { text-align: center; margin-top: 2.5rem; font-size: 1.1rem; }
+    .problem-tagline strong { color: var(--amber); }
+
+    @media (max-width: 768px) {
+      .problem-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .problem-arrow { transform: rotate(90deg); padding: 0.5rem 0; }
+    }
+
+    /* ══════════════════════════════════════════════
+       4. HOW IT WORKS — Architecture pipeline
+    ══════════════════════════════════════════════ */
+    .how-section { padding: 100px 2rem; background: var(--bg); }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-header { margin-bottom: 4rem; }
+
+    .how-flow { display: flex; align-items: stretch; justify-content: center; gap: 0; }
+    .how-card {
+      flex: 1; max-width: 300px; padding: 2rem 1.75rem;
+      border: 2px solid var(--border); border-radius: 4px;
+      background: var(--surface); display: flex; flex-direction: column;
+    }
+    .how-card[data-step="publish"] { border-color: var(--teal); background: rgba(13,110,94,0.03); }
+    .how-card[data-step="discover"] { border-color: var(--amber); background: rgba(217,119,6,0.03); }
+    .how-card[data-step="verify"] { border-color: #16a34a; background: rgba(22,163,74,0.03); }
+
+    .how-card-num { font-family: var(--mono); font-size: 3.5rem; font-weight: 700; line-height: 1; margin-bottom: 1rem; }
+    .how-card[data-step="publish"] .how-card-num { color: rgba(13,110,94,0.1); }
+    .how-card[data-step="discover"] .how-card-num { color: rgba(217,119,6,0.1); }
+    .how-card[data-step="verify"] .how-card-num { color: rgba(22,163,74,0.1); }
+
+    .how-card-icon { width: 36px; height: 36px; margin-bottom: 0.75rem; color: var(--text); }
+    .how-card-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .how-card-desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1rem; }
+    .how-card-who {
+      margin-top: auto; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); padding-top: 1rem; border-top: 1px solid var(--border);
+    }
+    .how-card-who p { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.8; margin-top: 0.4rem; letter-spacing: 0; text-transform: none; font-family: var(--font-body); }
+
+    .how-connector { display: flex; align-items: center; justify-content: center; width: 48px; flex-shrink: 0; }
+    .how-connector svg { width: 32px; height: 32px; color: var(--amber); }
+
+    @media (max-width: 900px) {
+      .how-flow { flex-direction: column; align-items: center; }
+      .how-card { max-width: 100%; width: 100%; }
+      .how-connector { width: 48px; height: 48px; transform: rotate(90deg); }
+    }
+
+    /* ══════════════════════════════════════════════
+       5. USE CASES — Simplified card layout (no tabs)
+    ══════════════════════════════════════════════ */
+    .usecases-section { padding: 100px 2rem; background: var(--surface); position: relative; }
+    .usecases-section::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,0,0,0.02) 59px, rgba(0,0,0,0.02) 60px),
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0,0,0,0.02) 59px, rgba(0,0,0,0.02) 60px);
+    }
+    .usecases-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .usecases-header { text-align: center; margin-bottom: 4rem; }
+    .usecases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .usecase-card {
+      background: var(--surface); padding: 2.5rem; display: flex; flex-direction: column;
+    }
+    .usecase-card-num { font-family: var(--mono); font-size: 0.65rem; color: var(--teal); letter-spacing: 0.04em; margin-bottom: 0.75rem; }
+    .usecase-card h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.75rem; }
+    .usecase-card-desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
+    .usecase-card-example {
+      margin-top: auto; font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;
+      padding-top: 1rem; border-top: 1px solid var(--border-light);
+    }
+    .usecase-card-example strong { color: var(--text-secondary); font-weight: 600; }
+
+    @media (max-width: 768px) { .usecases-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════════
+       6. SOCIAL PROOF
+    ══════════════════════════════════════════════ */
+    .proof-section { padding: 80px 2rem; background: var(--bg-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .proof-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .proof-headline { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 2.5rem; }
+    .proof-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 3rem; }
+    .proof-stat-value { font-family: var(--font-display); font-size: 2.2rem; color: var(--text); line-height: 1; margin-bottom: 6px; }
+    .proof-stat-label { font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.02em; }
+
+    @media (max-width: 768px) { .proof-stats { grid-template-columns: 1fr 1fr; } }
+
+    /* ══════════════════════════════════════════════
+       7. GET STARTED — Dual track
+    ══════════════════════════════════════════════ */
+    .getstarted-section { padding: 100px 2rem; background: var(--bg); }
+    .getstarted-inner { max-width: 1100px; margin: 0 auto; }
+    .getstarted-header { margin-bottom: 4rem; }
+    .getstarted-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .getstarted-track {
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface);
+    }
+    .track-header {
+      padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .track-icon { width: 28px; height: 28px; color: var(--teal); }
+    .track-title { font-size: 1rem; font-weight: 700; }
+    .track-subtitle { font-size: 0.78rem; color: var(--text-muted); margin-left: auto; font-family: var(--mono); }
+    .track-steps { padding: 0; }
+    .track-step {
+      padding: 1.25rem 2rem; border-bottom: 1px solid var(--border-light);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .track-step:last-child { border-bottom: none; }
+    .track-step-num {
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--teal);
+      min-width: 24px; padding-top: 2px;
+    }
+    .track-step h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .track-step p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+    .track-step a { color: var(--amber); font-weight: 500; text-decoration: none; }
+    .track-step a:hover { text-decoration: underline; }
+    .track-cta { padding: 1.25rem 2rem; background: var(--bg); }
+
+    @media (max-width: 768px) { .getstarted-tracks { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════════
+       8. PRINCIPLES — Evidence, not abstract claims
+    ══════════════════════════════════════════════ */
+    .principles-section { padding: 100px 2rem; background: var(--surface); }
+    .principles-inner { max-width: 1100px; margin: 0 auto; }
+    .principles-header { text-align: center; margin-bottom: 4rem; }
+    .principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); }
+    .principle {
+      padding: 2.5rem; border-right: 1px solid var(--border); background: var(--surface);
+    }
+    .principle:last-child { border-right: none; }
+    .principle-num { font-family: var(--mono); font-size: 0.85rem; font-weight: 600; color: var(--teal); margin-bottom: 1.2rem; }
+    .principle h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 0.7rem; }
+    .principle p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; }
+    .principle-proof {
+      margin-top: 1rem; font-family: var(--mono); font-size: 0.72rem; color: var(--amber); font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .principles-grid { grid-template-columns: 1fr; }
+      .principle { border-right: none; border-bottom: 1px solid var(--border); }
+      .principle:last-child { border-bottom: none; }
+    }
+
+    /* ══════════════════════════════════════════════
+       9. INLINE FAQ callouts
+    ══════════════════════════════════════════════ */
+    .inline-faq {
+      padding: 60px 2rem; background: var(--bg-warm);
+    }
+    .inline-faq-inner { max-width: 1100px; margin: 0 auto; }
+    .inline-faq-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .inline-faq-card { background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 1.5rem; }
+    .inline-faq-card h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .inline-faq-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65; }
+
+    @media (max-width: 768px) { .inline-faq-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════════
+       10. PRICING
+    ══════════════════════════════════════════════ */
+    .pricing-section { padding: 100px 2rem; background: var(--bg); }
+    .pricing-inner { max-width: 1100px; margin: 0 auto; }
+    .pricing-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 3rem; }
+    .pricing-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; }
+    .pricing-desc { font-size: 0.92rem; color: var(--text-secondary); max-width: 360px; text-align: right; line-height: 1.6; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); }
+    .pricing-info { padding: 2.5rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 1rem; }
+    .pricing-info p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+    .pricing-info a { color: var(--amber); font-weight: 600; text-decoration: none; }
+    .pricing-table { display: flex; flex-direction: column; }
+    .pricing-row { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .pricing-row:last-child { border-bottom: none; }
+    .pricing-row h4 { font-size: 0.9rem; font-weight: 600; }
+    .pricing-row .desc { font-size: 0.78rem; color: var(--text-muted); }
+    .pricing-val { font-family: var(--font-display); font-size: 1.1rem; color: var(--amber); text-align: right; }
+    .pricing-val small { display: block; font-family: var(--mono); font-size: 0.62rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) {
+      .pricing-header { flex-direction: column; align-items: flex-start; }
+      .pricing-desc { text-align: left; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-info { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* ══════════════════════════════════════════════
+       11. FAQ
+    ══════════════════════════════════════════════ */
+    .faq-section { padding: 100px 2rem; background: var(--bg-warm); }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-title { font-family: var(--font-display); font-size: clamp(2rem, 3vw, 2.5rem); margin-bottom: 0.5rem; }
+    .faq-header-desc { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 3rem; }
+    .faq-header-desc a { color: var(--amber); font-weight: 600; text-decoration: none; }
+    .faq-item { border: 1px solid var(--border-light); border-top: none; background: var(--surface); }
+    .faq-item:first-child { border-top: 1px solid var(--border-light); }
+    .faq-q {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 1.5rem; background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); text-align: left;
+    }
+    .faq-q h3 { font-size: 0.95rem; font-weight: 600; }
+    .faq-toggle { font-size: 1.2rem; color: var(--text-muted); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+    .faq-a.open { max-height: 200px; }
+    .faq-a-inner { padding: 0 1.5rem 1.25rem; }
+    .faq-a-inner p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ══════════════════════════════════════════════
+       12. DARK CTA
+    ══════════════════════════════════════════════ */
+    .bottom-cta {
+      background: var(--text); color: #fff; text-align: center; padding: 80px 2rem;
+    }
+    .bottom-cta h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 1rem; }
+    .bottom-cta p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; }
+    .bottom-cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    /* ══════════════════════════════════════════════
+       13. FOOTER
+    ══════════════════════════════════════════════ */
+    .partners-bar { padding: 3rem 2rem; text-align: center; border-bottom: 1px solid var(--border); }
+    .partners-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .partners-inner img { height: 36px; opacity: 0.4; filter: grayscale(1); transition: all 0.2s; }
+    .partners-inner img:hover { opacity: 0.8; filter: none; }
+
+    footer { padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2rem; }
+    .footer-brand { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .footer-brand-sub { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); }
+    .footer-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem; }
+    .footer-nfh { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-nfh a { color: var(--amber); text-decoration: none; }
+    .footer-col h5 { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem; }
+    .footer-col a { display: block; font-size: 0.84rem; color: var(--text-secondary); text-decoration: none; margin-bottom: 0.5rem; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; } }
+
   </style>
 </head>
 
 <body>
 
-  <!-- ADOPTION BANNER -->
-  <div style="background:var(--text);color:#fff;text-align:center;padding:0.65rem 2rem;">
-    <p style="font-size:0.78rem;font-weight:500;line-height:1.4;max-width:1100px;margin:0 auto;letter-spacing:0.01em;">
-      <strong>Trust infrastructure for the open internet.</strong> DeDi is a lab under LF Decentralized Trust.
-    </p>
-  </div>
-
+  <!-- NAV -->
   <nav>
     <div class="nav-inner">
       <a href="#" class="nav-brand">
         <span class="nav-brand-name">DeDi</span>
         <span class="nav-brand-sub">.global</span>
       </a>
-      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links"
-        onclick="const n=document.getElementById('nav-links');const open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);this.textContent=open?'&#x2715;':'&#x2630;'">&#x2630;</button>
-      <div class="nav-links" id="nav-links" role="navigation">
-        <a href="#use-cases" class="nav-link">Use Cases</a>
-        <a href="#architecture" class="nav-link">Architecture</a>
+      <div class="nav-links">
+        <a href="#problem" class="nav-link">The Problem</a>
+        <a href="#how" class="nav-link">How It Works</a>
+        <a href="#usecases" class="nav-link">Use Cases</a>
         <a href="#pricing" class="nav-link">Pricing</a>
-        <a href="#faq" class="nav-link">FAQ</a>
         <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="nav-link">Docs</a>
         <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="nav-cta">Start Publishing</a>
       </div>
@@ -1972,703 +481,476 @@
 
   <main>
 
-    <!-- HERO -->
+    <!-- ════════════════════════════════════════
+         1. HERO — Problem-first, with visual
+    ════════════════════════════════════════ -->
     <section class="hero">
-      <div class="hero-content">
-        <div class="hero-eyebrow"><span class="eyebrow-line"></span> Decentralized Directory Protocol</div>
-        <h1>The trust layer for<br>public <em>registries.</em></h1>
-        <p class="hero-subtitle">Publish and verify public keys, membership lists, and revocation records with
-          cryptographic guarantees. Universal infrastructure, open to everyone.</p>
-        <div class="hero-actions">
-          <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary">Start Publishing
-            &#x2192;</a>
-          <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener"
-            class="btn btn-secondary">Documentation</a>
+      <div class="hero-inner">
+        <div>
+          <div class="hero-eyebrow"><span class="eyebrow-line"></span> Trust Infrastructure</div>
+          <h1>One lookup to verify anyone, <em>anywhere.</em></h1>
+          <p class="hero-subtitle">DeDi makes public registries instantly verifiable. Publish membership lists, public keys, licenses, and revocations — and let anyone verify them in milliseconds.</p>
+          <div class="hero-actions">
+            <a href="https://publish.dedi.global/" class="btn btn-primary">Start Publishing &#x2192;</a>
+            <a href="#how" class="btn btn-secondary">See how it works</a>
+          </div>
+          <div class="hero-meta">A lab under <a href="https://www.lfdecentralizedtrust.org/">LF Decentralized Trust</a>. A <a href="https://networksforhumanity.org/">Networks for Humanity</a> initiative.</div>
         </div>
-        <div class="hero-meta">A lab under <a href="https://www.lfdecentralizedtrust.org/" target="_blank"
-            rel="noopener">LF Decentralized Trust</a>. A <a href="https://networksforhumanity.org/" target="_blank"
-            rel="noopener">Networks for Humanity</a> initiative.</div>
+        <div class="hero-visual">
+          <div class="hero-visual-label">Live lookup</div>
+          <div class="hero-lookup"><span class="hl">GET</span> /dedi/lookup/<span class="hl">fca.gov.uk</span>/authorised_firms/firm-42</div>
+          <div class="hero-result">
+            <div class="hero-result-row">
+              <span class="hero-result-key">namespace</span>
+              <span class="hero-result-val">fca.gov.uk</span>
+            </div>
+            <div class="hero-result-row">
+              <span class="hero-result-key">registry</span>
+              <span class="hero-result-val">authorised_firms</span>
+            </div>
+            <div class="hero-result-row">
+              <span class="hero-result-key">firm_name</span>
+              <span class="hero-result-val">Acme Financial Ltd</span>
+            </div>
+            <div class="hero-result-row">
+              <span class="hero-result-key">status</span>
+              <span class="hero-result-badge badge-active">ACTIVE</span>
+            </div>
+            <div class="hero-result-row">
+              <span class="hero-result-key">signature</span>
+              <span class="hero-result-badge badge-verified">&#x2713; Verified</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- STATS STRIP -->
-    <div class="proof-strip">
-      <div class="proof-inner">
-        <div class="proof-stat">
-          <div class="proof-stat-value">99.99%</div>
-          <div class="proof-stat-label">Uptime SLA</div>
-        </div>
-        <div class="proof-stat">
-          <div class="proof-stat-value">&lt;200ms</div>
-          <div class="proof-stat-label">Verification time</div>
-        </div>
-        <div class="proof-stat">
-          <div class="proof-stat-value">Free</div>
-          <div class="proof-stat-label">Forever</div>
-        </div>
-        <div class="proof-stat">
-          <div class="proof-stat-value">Open</div>
-          <div class="proof-stat-label">Standard &amp; protocol</div>
+    <!-- ════════════════════════════════════════
+         2. AUDIENCE STRIP — Who this is for
+    ════════════════════════════════════════ -->
+    <div class="audience-strip">
+      <div class="audience-inner">
+        <div class="audience-label">Built for</div>
+        <div class="audience-tags">
+          <span class="audience-tag">Regulators</span>
+          <span class="audience-tag">Trade associations</span>
+          <span class="audience-tag">Certificate authorities</span>
+          <span class="audience-tag">Central banks</span>
+          <span class="audience-tag">License boards</span>
+          <span class="audience-tag">Standards bodies</span>
         </div>
       </div>
     </div>
 
-    <!-- CORE PRINCIPLES -->
-    <section class="features" id="principles">
-      <div class="features-inner">
-        <div class="features-header reveal">
-          <div class="features-header-num">03</div>
-          <div class="features-title">Built on three foundations.</div>
-          <div class="features-subtitle">DeDi is digital public infrastructure - not a commercial product.</div>
+    <!-- ════════════════════════════════════════
+         3. THE PROBLEM — Moved up, simplified
+    ════════════════════════════════════════ -->
+    <section class="problem-section" id="problem">
+      <div class="problem-inner">
+        <div class="problem-header">
+          <div class="section-title">Verifying a counterparty today<br>takes days, not seconds.</div>
+          <p class="section-subtitle" style="margin: 1rem auto 0; text-align: center; max-width: 600px;">Two parties need to transact. Here's what it actually takes to check each other.</p>
         </div>
-        <div class="features-row reveal-stagger">
-          <div class="feat reveal">
-            <div class="feat-num">01</div>
-            <h3>Decentralized</h3>
-            <p>No single point of failure. Registries are cryptographically anchored and replicated across the network.
-              No vendor lock-in, ever.</p>
+        <div class="problem-grid">
+          <div class="problem-card before">
+            <div class="problem-card-label">Today</div>
+            <h4>Fragmented trust</h4>
+            <div class="problem-step">
+              <div class="problem-step-label">1. Check authorisation</div>
+              <div class="problem-step-desc">Different API per regulator. Some publish CSVs monthly. Others use PDF lists on websites.</div>
+            </div>
+            <div class="problem-step">
+              <div class="problem-step-label">2. Screen sanctions &amp; verify entity</div>
+              <div class="problem-step-desc">XML feeds, separate LEI lookups, cross-references with bank IDs. Every source has its own format and auth.</div>
+            </div>
+            <div class="problem-step">
+              <div class="problem-step-label">3. Exchange keys &amp; monitor</div>
+              <div class="problem-step-desc">Bilateral key exchange per partner. Poll each source on different schedules. No real-time alerts.</div>
+            </div>
+            <div class="problem-stat">10+ sources &nbsp;|&nbsp; 5+ formats &nbsp;|&nbsp; Days to weeks<br>No crypto proof &nbsp;|&nbsp; No push alerts</div>
           </div>
-          <div class="feat reveal">
-            <div class="feat-num">02</div>
-            <h3>Verifiable</h3>
-            <p>Every record carries cryptographic proof of authenticity. Verification is instant, machine-readable, and
-              works without contacting the original source.</p>
+          <div class="problem-arrow">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
+            </svg>
           </div>
-          <div class="feat reveal">
-            <div class="feat-num">03</div>
-            <h3>Universal</h3>
-            <p>Works across use cases, sectors, and geographies. From governments to startups - one protocol for all
-              public registries.</p>
+          <div class="problem-card after">
+            <div class="problem-card-label">With DeDi</div>
+            <h4>One endpoint</h4>
+            <div class="problem-step">
+              <div class="problem-step-label">1. Lookup anything</div>
+              <div class="problem-step-desc">Same API call for every registry, every jurisdiction. Authorised firms, sanctions, public keys — all one format.</div>
+            </div>
+            <div class="problem-step">
+              <div class="problem-step-label">2. Verify instantly</div>
+              <div class="problem-step-desc">Every response is cryptographically signed. Tamper-proof and machine-verifiable without contacting the source.</div>
+            </div>
+            <div class="problem-step">
+              <div class="problem-step-label">3. Subscribe once</div>
+              <div class="problem-step-desc">Get push notifications the moment anything is revoked or updated. Works for every counterparty, globally.</div>
+            </div>
+            <div class="problem-stat">1 endpoint &nbsp;|&nbsp; 1 format (JSON) &nbsp;|&nbsp; Milliseconds<br>Crypto-signed &nbsp;|&nbsp; Real-time push</div>
           </div>
         </div>
+        <p class="problem-tagline"><strong>DeDi = DNS for Trust.</strong> One lookup to verify anyone, anywhere, instantly.</p>
       </div>
     </section>
 
-    <!-- USE CASES -->
-    <section class="use-cases" id="use-cases">
-      <div class="use-cases-inner">
-        <div class="use-cases-header reveal">
-          <div class="use-cases-eyebrow">What DeDi publishes</div>
-          <h2 class="use-cases-title">Four categories of<br>verifiable registries.</h2>
+    <!-- ════════════════════════════════════════
+         4. HOW IT WORKS — Architecture pipeline
+    ════════════════════════════════════════ -->
+    <section class="how-section" id="how">
+      <div class="how-inner">
+        <div class="how-header">
+          <div class="eyebrow" style="color: var(--amber); display: flex; align-items: center; gap: 10px;"><span class="eyebrow-line"></span> How it works</div>
+          <div class="section-title">Three steps. Any registry.</div>
+          <div class="section-subtitle">From publishing to verification — no blockchain knowledge required.</div>
         </div>
-        <div class="use-cases-container reveal">
-          <!-- Left nav -->
-          <div class="uc-nav">
-            <button class="uc-nav-item active" data-uc="0">
-              <span class="uc-nav-num">01</span>
-              <span class="uc-nav-label">Membership<br>Lists</span>
-            </button>
-            <button class="uc-nav-item" data-uc="1">
-              <span class="uc-nav-num">02</span>
-              <span class="uc-nav-label">Public Key<br>Registries</span>
-            </button>
-            <button class="uc-nav-item" data-uc="2">
-              <span class="uc-nav-num">03</span>
-              <span class="uc-nav-label">Machine-Readable<br>Policies</span>
-            </button>
-            <button class="uc-nav-item" data-uc="3">
-              <span class="uc-nav-num">04</span>
-              <span class="uc-nav-label">Revocation<br>Lists</span>
-            </button>
-          </div>
-
-          <!-- Center content -->
-          <div class="uc-content">
-            <div class="uc-panel active" data-uc-panel="0">
-              <div class="uc-tags">Governance &middot; Organizations</div>
-              <h3 class="uc-headline">Every member, verified on-chain.</h3>
-              <div class="uc-problem">
-                <div class="uc-problem-label">The Problem</div>
-                <p>Organizations maintain member lists in spreadsheets, PDFs, or proprietary databases. Verifying membership requires manual checks, phone calls, or accessing siloed systems that may be outdated.</p>
-              </div>
-              <div class="uc-solution">
-                <div class="uc-solution-label">With DeDi</div>
-                <p>Members are published to a cryptographically signed registry. Any party can verify membership in milliseconds via a single API call. Updates propagate in real-time.</p>
-              </div>
-            </div>
-            <div class="uc-panel" data-uc-panel="1">
-              <div class="uc-tags">Cryptography &middot; Identity</div>
-              <h3 class="uc-headline">Trust anchors, globally discoverable.</h3>
-              <div class="uc-problem">
-                <div class="uc-problem-label">The Problem</div>
-                <p>Public keys are exchanged bilaterally, stored in incompatible formats, and impossible to revoke reliably. There is no universal directory to discover an organization's current public key.</p>
-              </div>
-              <div class="uc-solution">
-                <div class="uc-solution-label">With DeDi</div>
-                <p>Organizations publish their public keys to a decentralized directory. Any party can discover and verify keys without bilateral exchange. Rotations and revocations are instant.</p>
-              </div>
-            </div>
-            <div class="uc-panel" data-uc-panel="2">
-              <div class="uc-tags">Compliance &middot; Regulation</div>
-              <h3 class="uc-headline">Regulations your systems can read.</h3>
-              <div class="uc-problem">
-                <div class="uc-problem-label">The Problem</div>
-                <p>Regulatory policies exist as PDF documents, legal text, and website pages. Compliance teams manually interpret rules and translate them into system configurations. Updates lag by weeks or months.</p>
-              </div>
-              <div class="uc-solution">
-                <div class="uc-solution-label">With DeDi</div>
-                <p>Policies are published in machine-readable formats with cryptographic signatures. Systems can automatically discover, parse, and apply regulatory requirements. Changes propagate instantly.</p>
-              </div>
-            </div>
-            <div class="uc-panel" data-uc-panel="3">
-              <div class="uc-tags">Security &middot; Trust</div>
-              <h3 class="uc-headline">Revocations that arrive in real-time.</h3>
-              <div class="uc-problem">
-                <div class="uc-problem-label">The Problem</div>
-                <p>Credential revocations are published on CRL endpoints, proprietary APIs, or not at all. Relying parties poll multiple sources on different schedules. Stale data creates security gaps.</p>
-              </div>
-              <div class="uc-solution">
-                <div class="uc-solution-label">With DeDi</div>
-                <p>Revocations are published to a unified registry with real-time push notifications. Subscribe once, get instant alerts across all issuers. No more polling, no more gaps.</p>
-              </div>
+        <div class="how-flow">
+          <div class="how-card" data-step="publish">
+            <div class="how-card-num">01</div>
+            <svg class="how-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="7" y="4" width="18" height="24" rx="2"/>
+              <path d="M16 20v-8m0 0l-3 3m3-3l3 3"/>
+              <line x1="12" y1="24" x2="20" y2="24"/>
+            </svg>
+            <div class="how-card-name">Publish</div>
+            <div class="how-card-desc">Upload your registry via the dashboard or API. Records are cryptographically signed and anchored automatically.</div>
+            <div class="how-card-who">
+              Who publishes
+              <p>Governments, regulators, central banks, trade associations, certificate authorities</p>
             </div>
           </div>
 
-          <!-- Right spec card -->
-          <div class="uc-spec">
-            <div class="uc-spec-panel active" data-uc-spec="0">
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Publisher</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Trade associations</span>
-                  <span class="uc-spec-tag">Professional bodies</span>
-                  <span class="uc-spec-tag">Licensing authorities</span>
-                  <span class="uc-spec-tag">Industry consortia</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Users</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Consumers</span>
-                  <span class="uc-spec-tag">Regulators</span>
-                  <span class="uc-spec-tag">Partner organizations</span>
-                  <span class="uc-spec-tag">Compliance teams</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Use cases</div>
-                <ul class="uc-spec-list">
-                  <li>Verify licensed financial advisors</li>
-                  <li>Validate accredited healthcare providers</li>
-                  <li>Confirm certified supply chain partners</li>
-                  <li>Authenticate bar association members</li>
-                </ul>
-              </div>
+          <div class="how-connector">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
+            </svg>
+          </div>
+
+          <div class="how-card" data-step="discover">
+            <div class="how-card-num">02</div>
+            <svg class="how-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="14" cy="14" r="8"/>
+              <line x1="20" y1="20" x2="27" y2="27"/>
+            </svg>
+            <div class="how-card-name">Discover</div>
+            <div class="how-card-desc">Anyone can look up any record with a single API call. Results arrive in under 200ms from distributed infrastructure.</div>
+            <div class="how-card-who">
+              What's discoverable
+              <p>Public keys, membership lists, licenses, revocation records</p>
             </div>
-            <div class="uc-spec-panel" data-uc-spec="1">
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Publisher</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Certificate authorities</span>
-                  <span class="uc-spec-tag">Identity providers</span>
-                  <span class="uc-spec-tag">Organizations</span>
-                  <span class="uc-spec-tag">IoT manufacturers</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Users</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Developers</span>
-                  <span class="uc-spec-tag">Security teams</span>
-                  <span class="uc-spec-tag">Automated systems</span>
-                  <span class="uc-spec-tag">Relying parties</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Use cases</div>
-                <ul class="uc-spec-list">
-                  <li>Discover &amp; resolve signing keys for verification</li>
-                  <li>Establish encrypted communication channels</li>
-                  <li>Authenticate IoT device identities</li>
-                  <li>Enable cross-domain trust federation</li>
-                </ul>
-              </div>
-            </div>
-            <div class="uc-spec-panel" data-uc-spec="2">
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Publisher</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Regulators</span>
-                  <span class="uc-spec-tag">Standards bodies</span>
-                  <span class="uc-spec-tag">Compliance authorities</span>
-                  <span class="uc-spec-tag">Industry groups</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Users</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Compliance officers</span>
-                  <span class="uc-spec-tag">Automated agents</span>
-                  <span class="uc-spec-tag">Auditors</span>
-                  <span class="uc-spec-tag">Platform operators</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Use cases</div>
-                <ul class="uc-spec-list">
-                  <li>Auto-enforce data residency requirements</li>
-                  <li>Validate cross-border transaction eligibility</li>
-                  <li>Verify AI model governance constraints</li>
-                  <li>Check sanctions &amp; export control compliance</li>
-                </ul>
-              </div>
-            </div>
-            <div class="uc-spec-panel" data-uc-spec="3">
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Publisher</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Certificate authorities</span>
-                  <span class="uc-spec-tag">Credential issuers</span>
-                  <span class="uc-spec-tag">License boards</span>
-                  <span class="uc-spec-tag">Trust registries</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Users</div>
-                <div class="uc-spec-tags">
-                  <span class="uc-spec-tag">Relying parties</span>
-                  <span class="uc-spec-tag">Verification services</span>
-                  <span class="uc-spec-tag">Automated gatekeepers</span>
-                  <span class="uc-spec-tag">Risk platforms</span>
-                </div>
-              </div>
-              <div class="uc-spec-block">
-                <div class="uc-spec-label">Use cases</div>
-                <ul class="uc-spec-list">
-                  <li>Instantly check revoked TLS certificates</li>
-                  <li>Detect suspended professional licenses</li>
-                  <li>Block expired API credentials in real time</li>
-                  <li>Propagate credential recalls across ecosystems</li>
-                </ul>
-              </div>
+          </div>
+
+          <div class="how-connector">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
+            </svg>
+          </div>
+
+          <div class="how-card" data-step="verify">
+            <div class="how-card-num">03</div>
+            <svg class="how-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 3l10 4v8c0 6-4 10-10 13-6-3-10-7-10-13V7l10-4z"/>
+              <path d="M11.5 16l3 3 6-6"/>
+            </svg>
+            <div class="how-card-name">Verify</div>
+            <div class="how-card-desc">Every lookup result carries tamper-proof evidence. Systems can confirm authenticity automatically, without contacting the original source.</div>
+            <div class="how-card-who">
+              Who verifies
+              <p>Applications, compliance systems, AI agents, other registries, humans</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PLATFORM FEATURES -->
-    <section class="platform-features">
-      <div class="platform-features-inner">
-        <div class="platform-features-header reveal">
+    <!-- ════════════════════════════════════════
+         5. USE CASES — All visible, no tabs
+    ════════════════════════════════════════ -->
+    <section class="usecases-section" id="usecases">
+      <div class="usecases-inner">
+        <div class="usecases-header">
+          <div class="eyebrow" style="color: var(--teal);">What organisations publish</div>
+          <div class="section-title">Four types of verifiable registries.</div>
+        </div>
+        <div class="usecases-grid">
+          <div class="usecase-card">
+            <div class="usecase-card-num">01</div>
+            <h3>Membership lists</h3>
+            <div class="usecase-card-desc">Publish your member directory so anyone can verify membership in milliseconds. No more phone calls, spreadsheets, or outdated PDFs.</div>
+            <div class="usecase-card-example"><strong>Example:</strong> A trade association publishes its member firms. A bank verifies a counterparty's membership before settling a transaction.</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-num">02</div>
+            <h3>Public key registries</h3>
+            <div class="usecase-card-desc">Make your organisation's signing keys globally discoverable. No bilateral exchange, no incompatible formats. Key rotations propagate instantly.</div>
+            <div class="usecase-card-example"><strong>Example:</strong> A certificate authority publishes root keys. Any relying party discovers and verifies them without manual onboarding.</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-num">03</div>
+            <h3>Machine-readable policies</h3>
+            <div class="usecase-card-desc">Publish regulatory requirements in formats that systems can automatically parse and enforce. No more manual interpretation of PDF regulations.</div>
+            <div class="usecase-card-example"><strong>Example:</strong> A regulator publishes data residency rules. Platforms auto-enforce them without compliance teams manually updating configurations.</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-num">04</div>
+            <h3>Revocation lists</h3>
+            <div class="usecase-card-desc">Revoke credentials, suspend licenses, or recall certificates — and every relying party is notified in real-time. No more stale data.</div>
+            <div class="usecase-card-example"><strong>Example:</strong> A license board suspends a practitioner. Every platform checking that license is alerted instantly, not on the next monthly CSV refresh.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         6. SOCIAL PROOF
+    ════════════════════════════════════════ -->
+    <div class="proof-section">
+      <div class="proof-inner">
+        <div class="proof-headline">Built as public infrastructure. Free for everyone.</div>
+        <div class="proof-stats">
           <div>
-            <div class="platform-features-eyebrow">Platform capabilities</div>
-            <div class="platform-features-title">Everything you need to publish &amp; verify.</div>
+            <div class="proof-stat-value">99.99%</div>
+            <div class="proof-stat-label">Uptime SLA</div>
           </div>
-          <div class="platform-features-subtitle">A complete API for managing the full lifecycle of public registries — from creation to real-time monitoring.</div>
+          <div>
+            <div class="proof-stat-value">&lt;200ms</div>
+            <div class="proof-stat-label">Lookup time</div>
+          </div>
+          <div>
+            <div class="proof-stat-value">Free</div>
+            <div class="proof-stat-label">Forever</div>
+          </div>
+          <div>
+            <div class="proof-stat-value">Open</div>
+            <div class="proof-stat-label">Source &amp; protocol</div>
+          </div>
         </div>
-        <div class="pf-grid reveal reveal-stagger">
-          <div class="pf-card">
-            <div class="pf-card-num">01</div>
-            <div class="pf-card-title">Publish &amp; organize</div>
-            <div class="pf-card-desc">Create namespaces and registries, publish records individually or bulk-upload thousands via CSV. Draft, review, then go live.</div>
-            <div class="pf-card-endpoint">/create-namespace · /publish-records · /bulk-upload</div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         7. GET STARTED — Dual track
+    ════════════════════════════════════════ -->
+    <section class="getstarted-section" id="getstarted">
+      <div class="getstarted-inner">
+        <div class="getstarted-header">
+          <div class="section-title">Get started in minutes.</div>
+          <div class="section-subtitle">Whether you're publishing a registry or integrating with the API.</div>
+        </div>
+        <div class="getstarted-tracks">
+
+          <!-- Publisher track -->
+          <div class="getstarted-track">
+            <div class="track-header">
+              <svg class="track-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 15v-6m0 0l-2.5 2.5M12 9l2.5 2.5"/><line x1="9" y1="18" x2="15" y2="18"/>
+              </svg>
+              <span class="track-title">For publishers</span>
+              <span class="track-subtitle">No code required</span>
+            </div>
+            <div class="track-steps">
+              <div class="track-step">
+                <div class="track-step-num">01</div>
+                <div>
+                  <h4>Create your namespace</h4>
+                  <p>Register your organisation at <a href="https://publish.dedi.global">publish.dedi.global</a>. Takes under a minute.</p>
+                </div>
+              </div>
+              <div class="track-step">
+                <div class="track-step-num">02</div>
+                <div>
+                  <h4>Upload your registry</h4>
+                  <p>Add records via the dashboard — individually or bulk-upload via CSV. Draft, review, then go live.</p>
+                </div>
+              </div>
+              <div class="track-step">
+                <div class="track-step-num">03</div>
+                <div>
+                  <h4>Share your registry link</h4>
+                  <p>Every registry gets a permanent, verifiable URL that anyone can check.</p>
+                </div>
+              </div>
+            </div>
+            <div class="track-cta">
+              <a href="https://publish.dedi.global/" class="btn btn-primary" style="width: 100%; justify-content: center;">Start Publishing &#x2192;</a>
+            </div>
           </div>
-          <div class="pf-card">
-            <div class="pf-card-num">02</div>
-            <div class="pf-card-title">Instant lookup</div>
-            <div class="pf-card-desc">Resolve any namespace, registry, or record with a single API call. Advanced search across nested fields with filtering and pagination.</div>
-            <div class="pf-card-endpoint">/lookup · /query · /search</div>
+
+          <!-- Developer track -->
+          <div class="getstarted-track">
+            <div class="track-header">
+              <svg class="track-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <span class="track-title">For developers</span>
+              <span class="track-subtitle">REST API</span>
+            </div>
+            <div class="track-steps">
+              <div class="track-step">
+                <div class="track-step-num">01</div>
+                <div>
+                  <h4>Lookup any record</h4>
+                  <p style="font-family: var(--mono); font-size: 0.78rem; background: var(--bg); padding: 6px 10px; border-radius: 2px; margin-top: 4px;">GET /dedi/lookup/{namespace}/{registry}/{record}</p>
+                </div>
+              </div>
+              <div class="track-step">
+                <div class="track-step-num">02</div>
+                <div>
+                  <h4>Query registries</h4>
+                  <p style="font-family: var(--mono); font-size: 0.78rem; background: var(--bg); padding: 6px 10px; border-radius: 2px; margin-top: 4px;">GET /dedi/query/{namespace}/{registry}</p>
+                </div>
+              </div>
+              <div class="track-step">
+                <div class="track-step-num">03</div>
+                <div>
+                  <h4>Subscribe to changes</h4>
+                  <p>Get push notifications on any revocation or update. Real-time, across all registries.</p>
+                </div>
+              </div>
+            </div>
+            <div class="track-cta">
+              <a href="https://dedi-global.gitbook.io/docs" class="btn btn-secondary" style="width: 100%; justify-content: center;">Read API docs &#x2192;</a>
+            </div>
           </div>
-          <div class="pf-card">
-            <div class="pf-card-num">03</div>
-            <div class="pf-card-title">Cryptographic verification</div>
-            <div class="pf-card-desc">Verify the authenticity of any lookup result with cryptographic proof. Every verification is logged in a tamper-proof audit trail.</div>
-            <div class="pf-card-endpoint">/verify-record-lookup · /verification-logs</div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         8. PRINCIPLES — Moved down as evidence
+    ════════════════════════════════════════ -->
+    <section class="principles-section">
+      <div class="principles-inner">
+        <div class="principles-header">
+          <div class="eyebrow" style="color: var(--teal);">Why DeDi</div>
+          <div class="section-title">Universal digital infrastructure.</div>
+        </div>
+        <div class="principles-grid">
+          <div class="principle">
+            <div class="principle-num">01</div>
+            <h3>No single point of failure</h3>
+            <p>Registries are replicated across a distributed network. No vendor lock-in, no downtime dependency on any single organisation.</p>
+            <div class="principle-proof">99.99% uptime SLA</div>
           </div>
-          <div class="pf-card">
-            <div class="pf-card-num">04</div>
-            <div class="pf-card-title">Real-time watch</div>
-            <div class="pf-card-desc">Subscribe to changes on any resource — namespace, registry, or record. Get push notifications the moment anything is updated or revoked.</div>
-            <div class="pf-card-endpoint">/subscribe · /unsubscribe · /subscriptions</div>
+          <div class="principle">
+            <div class="principle-num">02</div>
+            <h3>Tamper-proof by design</h3>
+            <p>Every record carries a cryptographic signature from the publisher. Verification is instant and works without contacting the original source.</p>
+            <div class="principle-proof">&lt;200ms verification time</div>
           </div>
-          <div class="pf-card">
-            <div class="pf-card-num">05</div>
-            <div class="pf-card-title">Delegation &amp; access</div>
-            <div class="pf-card-desc">Add delegates at the namespace or registry level for collaborative management. Verify domain ownership via DNS TXT records.</div>
-            <div class="pf-card-endpoint">/add-delegate · /verify-domain</div>
-          </div>
-          <div class="pf-card">
-            <div class="pf-card-num">06</div>
-            <div class="pf-card-title">Lifecycle control</div>
-            <div class="pf-card-desc">Suspend, reinstate, or permanently revoke any registry or record. Full version history with immutable audit trails and CSV export.</div>
-            <div class="pf-card-endpoint">/suspend · /reinstate · /revoke · /versions</div>
+          <div class="principle">
+            <div class="principle-num">03</div>
+            <h3>Works everywhere</h3>
+            <p>One protocol for all public registries — across sectors, jurisdictions, and use cases. From governments to startups.</p>
+            <div class="principle-proof">Open standard &amp; protocol</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BEFORE / AFTER COMPARISON -->
-    <section class="compare-section">
-      <div class="compare-inner">
-        <div class="compare-header reveal">
-          <div class="compare-title">Cross-border trust today<br>is broken.</div>
-          <div class="compare-subtitle">Two parties need to transact. What does it actually take to verify each other?</div>
-        </div>
-        <div class="compare-grid reveal">
-          <div class="compare-card before">
-            <div class="compare-card-label">Before</div>
-            <h4>Fragmented Trust</h4>
-            <div class="compare-step"><strong>1. Is counterparty authorised?</strong></div>
-            <div class="compare-tags">
-              <span class="compare-tag">Regulator register - proprietary API</span>
-              <span class="compare-tag">Prudential authority - CSV updated monthly</span>
-              <span class="compare-tag">Foreign regulator - PDF on website</span>
-            </div>
-            <div class="compare-step"><strong>2. Sanctions screening</strong></div>
-            <div class="compare-tags">
-              <span class="compare-tag">Domestic list - XML feed</span>
-              <span class="compare-tag">International list - CSV download</span>
-              <span class="compare-tag">UN sanctions - PDF document</span>
-            </div>
-            <div class="compare-step"><strong>3. Verify legal entity</strong></div>
-            <div class="compare-tags">
-              <span class="compare-tag">LEI registry - separate API</span>
-              <span class="compare-tag">Cross-reference with bank ID</span>
-            </div>
-            <div class="compare-step"><strong>4. Get counterparty public key</strong></div>
-            <div class="compare-tags">
-              <span class="compare-tag">Bilateral key exchange</span>
-              <span class="compare-tag">Manual onboarding per partner</span>
-            </div>
-            <div class="compare-step"><strong>5. Monitor for revocations</strong></div>
-            <div class="compare-tags">
-              <span class="compare-tag">Poll each source separately, on different schedules</span>
-            </div>
-            <div class="compare-step"><strong>6. Repeat for EVERY new counterparty</strong></div>
-            <div class="compare-summary">10+ APIs or PDFs &nbsp;|&nbsp; 5+ formats &nbsp;|&nbsp; 4+ auth methods<br>Days to weeks &nbsp;|&nbsp; No crypto proof &nbsp;|&nbsp; No push alerts</div>
+    <!-- ════════════════════════════════════════
+         9. INLINE FAQ — Surfaced common questions
+    ════════════════════════════════════════ -->
+    <div class="inline-faq">
+      <div class="inline-faq-inner">
+        <div class="inline-faq-grid">
+          <div class="inline-faq-card">
+            <h4>Do I need blockchain knowledge?</h4>
+            <p>No. If you can upload a file, you can use DeDi. All cryptographic complexity is handled automatically.</p>
           </div>
-          <div class="compare-card after">
-            <div class="compare-card-label">After</div>
-            <h4>One DeDi Endpoint</h4>
-            <div class="compare-step">Same endpoint. Every query:</div>
-            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/regulator.example/authorised_firms</div>
-            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/central-bank.example/firm_register</div>
-            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/gov.example/sanctions_list</div>
-            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/counterparty.example/public_key</div>
-            <div class="compare-endpoint"><span class="lookup-hl">/lookup</span>/lei-registry.example/entity</div>
-            <div class="compare-step"><strong>+ Subscribe once for real-time alerts:</strong></div>
-            <div class="compare-endpoint">/watch &#x2192; push on any revocation or update</div>
-            <div class="compare-step"><strong>Works for EVERY counterparty, globally.</strong></div>
-            <div class="compare-summary">1 endpoint &nbsp;|&nbsp; 1 format (JSON) &nbsp;|&nbsp; 1 auth method<br>Milliseconds &nbsp;|&nbsp; Crypto-signed &nbsp;|&nbsp; Real-time push</div>
+          <div class="inline-faq-card">
+            <h4>Is this only for financial services?</h4>
+            <p>No. DeDi works for any public registry — healthcare, legal, supply chain, government, education, and more.</p>
+          </div>
+          <div class="inline-faq-card">
+            <h4>What about private data?</h4>
+            <p>DeDi is for public registries only. All data published should already be publicly available information.</p>
           </div>
         </div>
-        <p class="compare-tagline"><strong>DeDi = DNS for Trust.</strong> One lookup to verify anyone, anywhere, instantly.</p>
       </div>
-    </section>
+    </div>
 
-    <!-- ARCHITECTURE -->
-    <section class="arch-section" id="architecture">
-      <div class="arch-inner">
-        <div class="arch-header reveal">
-          <div class="arch-header-eyebrow"><span class="arch-header-eyebrow-line"></span> Protocol Architecture</div>
-          <div class="arch-header-title">How DeDi works.</div>
-          <div class="arch-header-desc">Transform traditional directories into a unified trust network that works across
-            platforms and jurisdictions.</div>
-        </div>
-        <div class="arch-pipeline reveal">
-          <div class="arch-flow">
-
-            <div class="arch-card" data-step="publish">
-              <div class="arch-card-num">01</div>
-              <svg class="arch-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="7" y="4" width="18" height="24" rx="2"/>
-                <path d="M16 20v-8m0 0l-3 3m3-3l3 3"/>
-                <line x1="12" y1="24" x2="20" y2="24"/>
-              </svg>
-              <div class="arch-card-name">Publish</div>
-              <div class="arch-card-sub">Creates, signs &amp; anchors</div>
-              <div class="arch-card-tags">
-                <span class="arch-tag">Any format</span>
-                <span class="arch-tag">Tamper-proof</span>
-              </div>
-              <div class="arch-card-cat">
-                Any Publisher
-                <p>Governments · Regulators<br>Central Banks · Trade Bodies</p>
-              </div>
-            </div>
-
-            <div class="arch-connector">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
-              </svg>
-            </div>
-
-            <div class="arch-card" data-step="discover">
-              <div class="arch-card-num">02</div>
-              <svg class="arch-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="14" cy="14" r="8"/>
-                <line x1="20" y1="20" x2="27" y2="27"/>
-              </svg>
-              <div class="arch-card-name">Discover</div>
-              <div class="arch-card-sub">Instant lookup</div>
-              <div class="arch-card-tags">
-                <span class="arch-tag">Distributed</span>
-                <span class="arch-tag">&lt;200ms</span>
-              </div>
-              <div class="arch-card-cat">
-                Any Public Registry
-                <p>Public keys · Memberships<br>Licenses · Revocations</p>
-              </div>
-            </div>
-
-            <div class="arch-connector">
-              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
-              </svg>
-            </div>
-
-            <div class="arch-card" data-step="verify">
-              <div class="arch-card-num">03</div>
-              <svg class="arch-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 3l10 4v8c0 6-4 10-10 13-6-3-10-7-10-13V7l10-4z"/>
-                <path d="M11.5 16l3 3 6-6"/>
-              </svg>
-              <div class="arch-card-name">Verify</div>
-              <div class="arch-card-sub">Cryptographic proof</div>
-              <div class="arch-card-tags">
-                <span class="arch-tag">Machine-readable</span>
-                <span class="arch-tag">API-first</span>
-              </div>
-              <div class="arch-card-cat">
-                Any Verifier
-                <p>Applications · AI Agents<br>Other registries · Humans</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="arch-doc-link">Read the documentation &#x2192;</a>
-
-        <!-- How It Works Steps + Terminal -->
-        <div class="how-section">
-          <h3 class="how-section-title reveal">Get started in minutes</h3>
-          <div class="how-grid reveal">
-            <div class="how-steps">
-              <div class="how-step">
-                <div class="how-step-num">01</div>
-                <div>
-                  <h4>Create a namespace</h4>
-                  <p>Register your organization at <a href="https://publish.dedi.global" target="_blank" rel="noopener">publish.dedi.global</a>. Takes under a minute.</p>
-                </div>
-              </div>
-              <div class="how-step">
-                <div class="how-step-num">02</div>
-                <div>
-                  <h4>Publish registries</h4>
-                  <p>Add records via the dashboard — public keys, memberships, licenses, or revocations.</p>
-                </div>
-              </div>
-              <div class="how-step">
-                <div class="how-step-num">03</div>
-                <div>
-                  <h4>Query via API</h4>
-                  <p>Lookup, query, and verify any record instantly at <code style="font-size:0.8em;background:rgba(0,0,0,0.04);padding:2px 5px;border-radius:2px;">api.dedi.global</code></p>
-                </div>
-              </div>
-            </div>
-            <div class="terminal-wrap">
-              <div class="terminal">
-                <div class="terminal-bar">
-                  <div class="terminal-dots"><span></span><span></span><span></span></div>
-                  terminal
-                </div>
-                <div class="terminal-body">
-                  <span class="t-dim"># Lookup a namespace</span><br>
-                  <span class="t-amber">$</span> <span class="t-text">curl https://api.dedi.global/dedi/lookup/your-org</span><br><br>
-                  <span class="t-dim"># Query a registry</span><br>
-                  <span class="t-amber">$</span> <span class="t-text">curl https://api.dedi.global/dedi/query \<br>&nbsp;&nbsp;/your-org/authorised_firms</span><br><br>
-                  <span class="t-dim"># Lookup a specific record</span><br>
-                  <span class="t-amber">$</span> <span class="t-text">curl https://api.dedi.global/dedi/lookup \<br>&nbsp;&nbsp;/your-org/public_keys/firm-123</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PRICING -->
+    <!-- ════════════════════════════════════════
+         10. PRICING
+    ════════════════════════════════════════ -->
     <section class="pricing-section" id="pricing">
       <div class="pricing-inner">
-        <div class="pricing-header reveal">
+        <div class="pricing-header">
           <div class="pricing-title">Free &amp; open<br>access.</div>
-          <div class="pricing-desc">No licensing fees, no usage caps. Everything is free as we build this for public benefit.</div>
+          <div class="pricing-desc">No licensing fees, no usage caps. Built for public benefit by <a href="https://networksforhumanity.org/">Networks for Humanity</a>.</div>
         </div>
-        <div class="pricing-grid reveal">
+        <div class="pricing-grid">
           <div class="pricing-info">
-            <p>Operated by <strong><a href="https://networksforhumanity.org/" target="_blank" rel="noopener">Networks for
-                  Humanity (NFH)</a></strong> - a non-profit foundation dedicated to open, interoperable digital
-              infrastructure.</p>
-            <p><strong>Community-Driven Governance:</strong> Future pricing will be developed with community input
-              through a governance committee.</p>
-            <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary"
-              style="margin-top:0.5rem;">Start Using DeDi &#x2192;</a>
+            <p>Everything is free — publishing, API access, and all platform features. No setup costs, no hidden charges.</p>
+            <p><strong>Community governance:</strong> Future pricing (if any) will be developed with community input through a governance committee.</p>
+            <a href="https://publish.dedi.global/" class="btn btn-primary" style="margin-top:0.5rem; align-self: flex-start;">Start Using DeDi &#x2192;</a>
           </div>
-          <div class="pricing-table-wrap">
+          <div class="pricing-table">
             <div class="pricing-row">
-              <div>
-                <h4>Registry Publishing</h4>
-                <div class="desc">Create &amp; manage unlimited registries</div>
-              </div>
+              <div><h4>Registry Publishing</h4><div class="desc">Create &amp; manage unlimited registries</div></div>
               <div class="pricing-val">Free <small>forever</small></div>
             </div>
             <div class="pricing-row">
-              <div>
-                <h4>API Access</h4>
-                <div class="desc">Publish, lookup, query, search, and watch</div>
-              </div>
+              <div><h4>API Access</h4><div class="desc">Lookup, query, search, and watch</div></div>
               <div class="pricing-val">Free</div>
             </div>
             <div class="pricing-row">
-              <div>
-                <h4>Base Support</h4>
-                <div class="desc">Standard response times</div>
-              </div>
+              <div><h4>Standard Support</h4><div class="desc">Documentation &amp; community</div></div>
               <div class="pricing-val">Included</div>
             </div>
             <div class="pricing-row">
-              <div>
-                <h4>Advanced Support</h4>
-                <div class="desc">Custom SLAs, integration help</div>
-              </div>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695"
-                target="_blank" rel="noopener" class="btn btn-secondary"
-                style="padding:8px 16px;font-size:0.82rem;">Contact Us</a>
+              <div><h4>Enterprise Support</h4><div class="desc">Custom SLAs, integration help</div></div>
+              <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" class="btn btn-secondary" style="padding:8px 16px;font-size:0.82rem;">Contact Us</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- ════════════════════════════════════════
+         11. FAQ
+    ════════════════════════════════════════ -->
     <section class="faq-section" id="faq">
       <div class="faq-inner">
-        <div class="faq-header reveal">
-          <div class="faq-title">Common questions.</div>
-          <div class="faq-header-desc">Can't find what you need? <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8"
-              target="_blank" rel="noopener">Contact our team</a>.</div>
-        </div>
-        <div class="faq-list reveal">
+        <div class="faq-title">More questions.</div>
+        <div class="faq-header-desc">Can't find what you need? <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8">Contact our team</a>.</div>
+        <div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>What exactly is DeDi.global?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>DeDi.global (Decentralized Directory) is infrastructure that transforms traditional public registries
-                  into cryptographically secure, instantly verifiable directories. Think of it as a universal trust layer
-                  for any public information your organization needs to share.</p>
-              </div>
-            </div>
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>What exactly is DeDi.global?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>DeDi (Decentralized Directory) is infrastructure that transforms traditional public registries into instantly verifiable directories. Think of it as DNS for trust — a universal lookup layer for any public information your organisation needs to share.</p></div></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>How is this different from a regular database?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>Unlike traditional databases, DeDi provides cryptographic proof of authenticity, decentralized
-                  availability (no single point of failure), unified discoverability and automatic trust propagation
-                  between recognized organizations.</p>
-              </div>
-            </div>
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>How is this different from a regular database?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Unlike traditional databases, DeDi provides cryptographic proof of authenticity, decentralized availability (no single point of failure), and unified discoverability. Anyone can verify any record without contacting the original source.</p></div></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>Do I need blockchain knowledge?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>No. While DeDi uses advanced cryptographic techniques, we've abstracted all the complexity. If you
-                  can upload a file, you can use DeDi.</p>
-              </div>
-            </div>
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>What types of registries work best?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Any public information that needs third-party verification: member lists, license registries, public keys, certificates, approved vendor lists, accreditation records, sanctions lists, and more.</p></div></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>What types of registries work best?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>Any public information that needs verification: member lists, license registries, public keys,
-                  certificates, approved vendor lists, accreditation records, and more.</p>
-              </div>
-            </div>
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>Can I integrate with existing systems?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Yes. DeDi supports bulk imports from CSV, JSON, and XML. The REST API works with any language or platform. DeDi adds a verification layer alongside your existing infrastructure.</p></div></div>
           </div>
           <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>How much does it cost?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p><strong>Everything is completely free.</strong> Publishing registries, API access, and all features -
-                  no setup fees, no monthly costs, no hidden charges.</p>
-              </div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>What about data privacy?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>DeDi is designed for PUBLIC registries only. All data shared through DeDi should already be public
-                  information. We provide audit trails and access logs for the infrastructure itself.</p>
-              </div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>Can I integrate with existing systems?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>Yes. We support bulk imports from CSV, JSON, XML, and direct API connections. DeDi works alongside
-                  your existing infrastructure, adding a cryptographic verification layer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>How will future pricing decisions be made?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p>Any future pricing will be co-created with the community through a governance committee of DeDi
-                  users. <strong>We are not a commercial product.</strong> Any pricing would only cover engineering and
-                  operational costs.</p>
-              </div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-q" onclick="toggleFaq(this)">
-              <h3>What is Networks for Humanity (NFH)?</h3><span class="faq-toggle">+</span>
-            </button>
-            <div class="faq-a">
-              <div class="faq-a-inner">
-                <p><a href="https://networksforhumanity.org/" target="_blank" rel="noopener">Networks for Humanity
-                    (NFH)</a> is a global non-profit foundation dedicated to building open, interoperable digital
-                  infrastructure for public benefit. DeDi is operated by NFH with transparent, multi-stakeholder
-                  governance.</p>
-              </div>
-            </div>
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>How will future pricing decisions be made?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Any future pricing will be co-created with the community through a governance committee. DeDi is not a commercial product — any costs would only cover engineering and operations.</p></div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- ════════════════════════════════════════
+         12. DARK CTA
+    ════════════════════════════════════════ -->
     <section class="bottom-cta">
-      <h2 class="reveal">Ready to publish<br>your registry?</h2>
-      <p>Join organizations worldwide building verifiable trust infrastructure.</p>
+      <h2>Ready to publish<br>your registry?</h2>
+      <p>Join organisations worldwide building verifiable trust infrastructure.</p>
       <div class="bottom-cta-actions">
-        <a href="https://publish.dedi.global/" target="_blank" rel="noopener" class="btn btn-primary">Start Publishing
-          &#x2192;</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdoMgtQm_3xfQs8VyNsgVa1AOWaB8sE8hJW67FMzKCYefuE2g/viewform?usp=sharing&ouid=114980870934811572695"
-          target="_blank" rel="noopener" class="btn btn-secondary">Contact Sales</a>
+        <a href="https://publish.dedi.global/" class="btn btn-primary">Start Publishing &#x2192;</a>
+        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">Contact Sales</a>
       </div>
     </section>
 
@@ -2677,12 +959,9 @@
   <!-- PARTNERS -->
   <div class="partners-bar">
     <div class="partners-inner">
-      <a href="https://finternetlab.io/" target="_blank" rel="noopener"><img src="finternet_logo.png"
-          alt="Finternet Labs"></a>
-      <a href="https://www.lfdecentralizedtrust.org/" target="_blank" rel="noopener"><img
-          src="lfdt-horizontal-color.png" alt="LF Decentralized Trust"></a>
-      <a href="https://dhiway.com/" target="_blank" rel="noopener"><img src="dhiway.png" alt="Dhiway"
-          style="max-width:100px;"></a>
+      <a href="https://finternetlab.io/"><img src="finternet_logo.png" alt="Finternet Labs"></a>
+      <a href="https://www.lfdecentralizedtrust.org/"><img src="lfdt-horizontal-color.png" alt="LF Decentralized Trust"></a>
+      <a href="https://dhiway.com/"><img src="dhiway.png" alt="Dhiway" style="max-width:100px;"></a>
     </div>
   </div>
 
@@ -2692,83 +971,51 @@
       <div>
         <div class="footer-brand">DeDi <span class="footer-brand-sub">.global</span></div>
         <p class="footer-desc">The trust infrastructure for the decentralized future. Universal, open, and free.</p>
-        <p class="footer-nfh">Powered by <a href="https://networksforhumanity.org/" target="_blank"
-            rel="noopener">Networks for Humanity</a></p>
+        <p class="footer-nfh">Powered by <a href="https://networksforhumanity.org/">Networks for Humanity</a></p>
       </div>
       <div class="footer-col">
         <h5>Product</h5>
-        <a href="#use-cases">Use Cases</a>
+        <a href="#usecases">Use Cases</a>
         <a href="#pricing">Pricing</a>
-        <a href="https://publish.dedi.global/" target="_blank" rel="noopener">Get Started</a>
+        <a href="https://publish.dedi.global/">Get Started</a>
       </div>
       <div class="footer-col">
         <h5>Resources</h5>
-        <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Documentation</a>
-        <a href="https://github.com/LF-Decentralized-Trust-labs/DeDi" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://forms.gle/KcBNDhaCdUZ6kYa2A" target="_blank" rel="noopener">Support</a>
+        <a href="https://dedi-global.gitbook.io/docs">Documentation</a>
+        <a href="https://github.com/LF-Decentralized-Trust-labs/DeDi">GitHub</a>
+        <a href="https://forms.gle/KcBNDhaCdUZ6kYa2A">Support</a>
       </div>
       <div class="footer-col">
-        <h5>Organization</h5>
-        <a href="https://networksforhumanity.org/" target="_blank" rel="noopener">About NFH</a>
-        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" target="_blank" rel="noopener">Contact</a>
+        <h5>Organisation</h5>
+        <a href="https://networksforhumanity.org/">About NFH</a>
+        <a href="https://www.lfdecentralizedtrust.org/">LF Decentralized Trust</a>
+        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8">Contact</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2025 DeDi. All rights reserved.</span>
+      <span></span>
       <span>Privacy Policy &middot; Terms of Service</span>
     </div>
   </footer>
 
   <script>
+    document.querySelector('.footer-bottom span').textContent = '\u00A9 ' + new Date().getFullYear() + ' DeDi. All rights reserved.';
     function toggleFaq(btn) {
       const a = btn.nextElementSibling;
       const icon = btn.querySelector('.faq-toggle');
       const isOpen = a.classList.contains('open');
       document.querySelectorAll('.faq-a').forEach(el => el.classList.remove('open'));
       document.querySelectorAll('.faq-toggle').forEach(el => { el.classList.remove('open'); el.textContent = '+'; });
-      if (!isOpen) { a.classList.add('open'); icon.classList.add('open'); icon.textContent = '+'; }
+      if (!isOpen) { a.classList.add('open'); icon.classList.add('open'); icon.textContent = '-'; }
     }
     document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function (e) {
+      a.addEventListener('click', function(e) {
         const h = this.getAttribute('href');
         if (h === '#') return;
         e.preventDefault();
-        const t = document.querySelector(h);
-        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        const nav = document.getElementById('nav-links');
-        nav.classList.remove('open');
-        document.querySelector('.nav-toggle').setAttribute('aria-expanded', 'false');
-        document.querySelector('.nav-toggle').textContent = '\u2630';
-      });
-    });
-    // Dynamic footer year
-    document.querySelector('.footer-bottom span').textContent = '\u00A9 ' + new Date().getFullYear() + ' DeDi. All rights reserved.';
-
-    // Scroll-triggered reveal animations
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // Use cases tab switching
-    document.querySelectorAll('.uc-nav-item').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const idx = this.getAttribute('data-uc');
-        document.querySelectorAll('.uc-nav-item').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.uc-panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.uc-spec-panel').forEach(p => p.classList.remove('active'));
-        this.classList.add('active');
-        document.querySelector('[data-uc-panel="' + idx + '"]').classList.add('active');
-        document.querySelector('[data-uc-spec="' + idx + '"]').classList.add('active');
+        document.querySelector(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   </script>
 </body>
-
 </html>
