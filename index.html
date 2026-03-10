@@ -288,6 +288,10 @@
     }
     .usecase-card-example strong { color: var(--text-secondary); font-weight: 600; }
 
+    .usecases-note {
+      text-align: center; font-size: 0.84rem; color: var(--text-muted); margin-top: 2.5rem;
+      font-style: italic; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6;
+    }
     @media (max-width: 768px) { .usecases-grid { grid-template-columns: 1fr; } }
 
     /* ══════════════════════════════════════════════
@@ -308,9 +312,10 @@
     .getstarted-section { padding: 100px 2rem; background: var(--bg); }
     .getstarted-inner { max-width: 1100px; margin: 0 auto; }
     .getstarted-header { margin-bottom: 4rem; }
-    .getstarted-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .getstarted-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
     .getstarted-track {
       border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface);
+      display: grid; grid-template-rows: subgrid; grid-row: span 5;
     }
     .track-header {
       padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
@@ -319,12 +324,10 @@
     .track-icon { width: 28px; height: 28px; color: var(--teal); }
     .track-title { font-size: 1rem; font-weight: 700; }
     .track-subtitle { font-size: 0.78rem; color: var(--text-muted); margin-left: auto; font-family: var(--mono); }
-    .track-steps { padding: 0; }
     .track-step {
       padding: 1.25rem 2rem; border-bottom: 1px solid var(--border-light);
       display: flex; gap: 1rem; align-items: flex-start;
     }
-    .track-step:last-child { border-bottom: none; }
     .track-step-num {
       font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--teal);
       min-width: 24px; padding-top: 2px;
@@ -499,19 +502,19 @@
         </div>
         <div class="hero-visual">
           <div class="hero-visual-label">Live lookup</div>
-          <div class="hero-lookup"><span class="hl">GET</span> /dedi/lookup/<span class="hl">fca.gov.uk</span>/authorised_firms/firm-42</div>
+          <div class="hero-lookup"><span class="hl">GET</span> /dedi/lookup/<span class="hl">central_bank</span>/licensed_banks/bank-7</div>
           <div class="hero-result">
             <div class="hero-result-row">
               <span class="hero-result-key">namespace</span>
-              <span class="hero-result-val">fca.gov.uk</span>
+              <span class="hero-result-val">central_bank</span>
             </div>
             <div class="hero-result-row">
               <span class="hero-result-key">registry</span>
-              <span class="hero-result-val">authorised_firms</span>
+              <span class="hero-result-val">licensed_banks</span>
             </div>
             <div class="hero-result-row">
-              <span class="hero-result-key">firm_name</span>
-              <span class="hero-result-val">Acme Financial Ltd</span>
+              <span class="hero-result-key">bank_name</span>
+              <span class="hero-result-val">Acme National Bank</span>
             </div>
             <div class="hero-result-row">
               <span class="hero-result-key">status</span>
@@ -701,6 +704,9 @@
             <div class="usecase-card-example"><strong>Example:</strong> A license board suspends a practitioner. Every platform checking that license is alerted instantly, not on the next monthly CSV refresh.</div>
           </div>
         </div>
+        <div class="usecases-note">
+          Not limited to these four. DeDi supports any type of public registry — issuers define their own schema and publish whatever registry they need.
+        </div>
       </div>
     </section>
 
@@ -751,27 +757,25 @@
               <span class="track-title">For publishers</span>
               <span class="track-subtitle">No code required</span>
             </div>
-            <div class="track-steps">
-              <div class="track-step">
-                <div class="track-step-num">01</div>
-                <div>
-                  <h4>Create your namespace</h4>
-                  <p>Register your organisation at <a href="https://publish.dedi.global">publish.dedi.global</a>. Takes under a minute.</p>
-                </div>
+            <div class="track-step">
+              <div class="track-step-num">01</div>
+              <div>
+                <h4>Create your namespace</h4>
+                <p>Register at <a href="https://publish.dedi.global">publish.dedi.global</a>. Takes under a minute.</p>
               </div>
-              <div class="track-step">
-                <div class="track-step-num">02</div>
-                <div>
-                  <h4>Upload your registry</h4>
-                  <p>Add records via the dashboard — individually or bulk-upload via CSV. Draft, review, then go live.</p>
-                </div>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">02</div>
+              <div>
+                <h4>Upload your registry</h4>
+                <p>Upload individually or bulk-import via CSV.</p>
               </div>
-              <div class="track-step">
-                <div class="track-step-num">03</div>
-                <div>
-                  <h4>Share your registry link</h4>
-                  <p>Every registry gets a permanent, verifiable URL that anyone can check.</p>
-                </div>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">03</div>
+              <div>
+                <h4>Share your registry link</h4>
+                <p>Every registry gets a permanent, verifiable URL.</p>
               </div>
             </div>
             <div class="track-cta">
@@ -788,27 +792,25 @@
               <span class="track-title">For developers</span>
               <span class="track-subtitle">REST API</span>
             </div>
-            <div class="track-steps">
-              <div class="track-step">
-                <div class="track-step-num">01</div>
-                <div>
-                  <h4>Lookup any record</h4>
-                  <p style="font-family: var(--mono); font-size: 0.78rem; background: var(--bg); padding: 6px 10px; border-radius: 2px; margin-top: 4px;">GET /dedi/lookup/{namespace}/{registry}/{record}</p>
-                </div>
+            <div class="track-step">
+              <div class="track-step-num">01</div>
+              <div>
+                <h4>Lookup any record</h4>
+                <p style="font-family: var(--mono); font-size: 0.78rem; background: var(--bg); padding: 6px 10px; border-radius: 2px; margin-top: 4px;">GET /dedi/lookup/{namespace}/{registry}/{record}</p>
               </div>
-              <div class="track-step">
-                <div class="track-step-num">02</div>
-                <div>
-                  <h4>Query registries</h4>
-                  <p style="font-family: var(--mono); font-size: 0.78rem; background: var(--bg); padding: 6px 10px; border-radius: 2px; margin-top: 4px;">GET /dedi/query/{namespace}/{registry}</p>
-                </div>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">02</div>
+              <div>
+                <h4>Query registries</h4>
+                <p style="font-family: var(--mono); font-size: 0.78rem; background: var(--bg); padding: 6px 10px; border-radius: 2px; margin-top: 4px;">GET /dedi/query/{namespace}/{registry}</p>
               </div>
-              <div class="track-step">
-                <div class="track-step-num">03</div>
-                <div>
-                  <h4>Subscribe to changes</h4>
-                  <p>Get push notifications on any revocation or update. Real-time, across all registries.</p>
-                </div>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">03</div>
+              <div>
+                <h4>Subscribe to changes</h4>
+                <p>Real-time push notifications on any revocation or update.</p>
               </div>
             </div>
             <div class="track-cta">
@@ -951,7 +953,7 @@
       <p>Join organisations worldwide building verifiable trust infrastructure.</p>
       <div class="bottom-cta-actions">
         <a href="https://publish.dedi.global/" class="btn btn-primary">Start Publishing &#x2192;</a>
-        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">Contact Sales</a>
+        <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">Contact Team</a>
       </div>
     </section>
 
