@@ -619,48 +619,191 @@
       display: block;
     }
 
-    .uc-spec-row {
-      padding: 1.1rem 1.5rem;
+    .uc-spec-block {
+      padding: 1.4rem 1.5rem;
       border-bottom: 1px solid var(--border-light);
     }
 
-    .uc-spec-row:last-child {
+    .uc-spec-block:last-child {
       border-bottom: none;
     }
 
-    .uc-spec-key {
+    .uc-spec-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    .uc-spec-value {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .uc-spec-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .uc-spec-tag {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+    }
+
+    .uc-spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .uc-spec-list li {
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.5;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .uc-spec-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: 0.78rem;
+    }
+
+    /* ── PLATFORM FEATURES ── */
+    .platform-features {
+      padding: 100px 2rem;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .platform-features::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(13, 110, 94, 0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .platform-features-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .platform-features-header {
+      margin-bottom: 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .platform-features-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+
+    .platform-features-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.1;
+    }
+
+    .platform-features-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 400px;
+      justify-self: end;
+      text-align: right;
+    }
+
+    .pf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-light);
+      border: 1px solid var(--border-light);
+    }
+
+    .pf-card {
+      background: var(--surface);
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+
+    .pf-card:hover {
+      background: var(--bg-warm);
+    }
+
+    .pf-card-num {
       font-family: var(--mono);
       font-size: 0.6rem;
       font-weight: 500;
       letter-spacing: 0.1em;
-      text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 4px;
     }
 
-    .uc-spec-val {
+    .pf-card-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .pf-card-desc {
       font-size: 0.84rem;
-      color: var(--text);
-      line-height: 1.5;
+      color: var(--text-secondary);
+      line-height: 1.65;
     }
 
-    .uc-spec-cta {
-      padding: 1.1rem 1.5rem;
-    }
-
-    .uc-spec-cta a {
+    .pf-card-endpoint {
       font-family: var(--mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-size: 0.66rem;
       color: var(--teal);
-      text-decoration: none;
-      transition: color 0.2s;
+      letter-spacing: 0.02em;
+      margin-top: auto;
+      padding-top: 8px;
     }
 
-    .uc-spec-cta a:hover {
-      color: var(--amber);
+    @media (max-width: 768px) {
+      .platform-features-header {
+        grid-template-columns: 1fr;
+      }
+      .platform-features-subtitle {
+        justify-self: start;
+        text-align: left;
+      }
+      .pf-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ── BEFORE / AFTER ── */
@@ -877,94 +1020,78 @@
       line-height: 1.65;
     }
 
-    /* Architecture Pipeline */
+    /* Architecture Pipeline — Oversized Color Cards */
     .arch-pipeline {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      padding: 3rem 2rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .arch-pipeline::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 79px,
-          rgba(0,0,0,0.015) 79px,
-          rgba(0,0,0,0.015) 80px
-        ),
-        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(217, 119, 6, 0.03) 0%, transparent 70%);
-      pointer-events: none;
+      margin-top: 2.5rem;
     }
 
     .arch-flow {
       display: flex;
-      align-items: flex-start;
+      align-items: stretch;
       justify-content: center;
-      position: relative;
-      z-index: 1;
+      gap: 0;
     }
 
-    .arch-step {
+    .arch-card {
+      flex: 1;
+      max-width: 280px;
+      padding: 2rem 1.75rem;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      position: relative;
+      background: var(--surface);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      flex: 1;
-      max-width: 200px;
     }
 
-    .arch-step-num {
+    .arch-card[data-step="publish"] {
+      border-color: var(--teal);
+      background: rgba(13, 110, 94, 0.03);
+    }
+    .arch-card[data-step="discover"] {
+      border-color: var(--amber);
+      background: rgba(217, 119, 6, 0.03);
+    }
+    .arch-card[data-step="verify"] {
+      border-color: #16a34a;
+      background: rgba(22, 163, 74, 0.03);
+    }
+
+    .arch-card-num {
       font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      text-transform: uppercase;
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
       margin-bottom: 1rem;
     }
+    .arch-card[data-step="publish"] .arch-card-num { color: rgba(13, 110, 94, 0.1); }
+    .arch-card[data-step="discover"] .arch-card-num { color: rgba(217, 119, 6, 0.1); }
+    .arch-card[data-step="verify"] .arch-card-num { color: rgba(22, 163, 74, 0.1); }
 
-    .arch-step-card {
-      width: 136px;
-      height: 112px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-
-    .arch-step-card svg {
-      width: 30px;
-      height: 30px;
+    .arch-card-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 0.75rem;
       color: var(--text);
     }
 
-    .arch-step-card-label {
-      font-weight: 600;
-      font-size: 0.82rem;
-      color: var(--text);
+    .arch-card-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
     }
 
-    .arch-step-sub {
-      font-size: 0.7rem;
+    .arch-card-sub {
+      font-size: 0.8rem;
       color: var(--amber);
-      margin-top: 6px;
+      margin-bottom: 0.75rem;
     }
 
-    .arch-step-tags {
+    .arch-card-tags {
       display: flex;
       gap: 6px;
-      margin-top: 0.75rem;
       flex-wrap: wrap;
-      justify-content: center;
+      margin-bottom: 1.25rem;
     }
 
     .arch-tag {
@@ -975,79 +1102,42 @@
       border-radius: var(--radius);
       color: var(--text-secondary);
       white-space: nowrap;
-      background: #fff;
+      background: var(--surface);
+    }
+
+    .arch-card-cat {
+      margin-top: auto;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .arch-card-cat p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-top: 0.4rem;
+      letter-spacing: 0;
+      text-transform: none;
+      font-family: var(--sans);
     }
 
     .arch-connector {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      width: 64px;
+      justify-content: center;
+      width: 48px;
       flex-shrink: 0;
-      padding-top: calc(0.65rem * 1.2 + 1rem + 48px);
     }
 
-    .arch-connector-line {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      position: relative;
-    }
-
-    .arch-connector-line::after {
-      content: '';
-      position: absolute;
-      right: -1px;
-      top: -3.5px;
-      border-left: 6px solid var(--border);
-      border-top: 3.5px solid transparent;
-      border-bottom: 3.5px solid transparent;
-    }
-
-    .arch-connector-badge {
-      font-family: var(--mono);
-      font-size: 0.56rem;
-      letter-spacing: 0.02em;
+    .arch-connector svg {
+      width: 32px;
+      height: 32px;
       color: var(--amber);
-      background: var(--surface);
-      padding: 2px 7px;
-      border: 1px solid rgba(217, 119, 6, 0.2);
-      border-radius: 10px;
-      margin-top: 6px;
-      white-space: nowrap;
-    }
-
-    .arch-categories {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border-top: 1px solid var(--border);
-      margin-top: 2.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .arch-cat {
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .arch-cat:not(:last-child) {
-      border-right: 1px solid var(--border);
-    }
-
-    .arch-cat-title {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-    }
-
-    .arch-cat p {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.85;
     }
 
     .arch-doc-link {
@@ -1730,27 +1820,20 @@
       }
 
       .arch-flow {
-        flex-wrap: wrap;
-        gap: 1rem 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+
+      .arch-card {
+        max-width: 100%;
+        width: 100%;
       }
 
       .arch-connector {
-        width: 40px;
-        padding-top: calc(0.65rem * 1.2 + 1rem + 48px);
-      }
-
-      .arch-step-card {
-        width: 120px;
-        height: 100px;
-      }
-
-      .arch-categories {
-        grid-template-columns: 1fr;
-      }
-
-      .arch-cat:not(:last-child) {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
+        width: 48px;
+        height: 48px;
+        transform: rotate(90deg);
       }
 
       .how-grid {
@@ -1864,7 +1947,7 @@
   <!-- ADOPTION BANNER -->
   <div style="background:var(--text);color:#fff;text-align:center;padding:0.65rem 2rem;">
     <p style="font-size:0.78rem;font-weight:500;line-height:1.4;max-width:1100px;margin:0 auto;letter-spacing:0.01em;">
-      <strong>Trust infrastructure for the open internet.</strong> DeDi is an open standard under LF Decentralized Trust.
+      <strong>Trust infrastructure for the open internet.</strong> DeDi is a lab under LF Decentralized Trust.
     </p>
   </div>
 
@@ -1902,7 +1985,7 @@
           <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener"
             class="btn btn-secondary">Documentation</a>
         </div>
-        <div class="hero-meta">An open standard under <a href="https://www.lfdecentralizedtrust.org/" target="_blank"
+        <div class="hero-meta">A lab under <a href="https://www.lfdecentralizedtrust.org/" target="_blank"
             rel="noopener">LF Decentralized Trust</a>. A <a href="https://networksforhumanity.org/" target="_blank"
             rel="noopener">Networks for Humanity</a> initiative.</div>
       </div>
@@ -2044,121 +2127,172 @@
           <!-- Right spec card -->
           <div class="uc-spec">
             <div class="uc-spec-panel active" data-uc-spec="0">
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Publisher</div>
-                <div class="uc-spec-val">Trade bodies &middot; Professional orgs</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Publisher</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Trade associations</span>
+                  <span class="uc-spec-tag">Professional bodies</span>
+                  <span class="uc-spec-tag">Licensing authorities</span>
+                  <span class="uc-spec-tag">Industry consortia</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Members</div>
-                <div class="uc-spec-val">Licensed practitioners &middot; Certified firms</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Users</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Consumers</span>
+                  <span class="uc-spec-tag">Regulators</span>
+                  <span class="uc-spec-tag">Partner organizations</span>
+                  <span class="uc-spec-tag">Compliance teams</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Format</div>
-                <div class="uc-spec-val">JSON with cryptographic signatures</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Verification</div>
-                <div class="uc-spec-val">Instant API lookup</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Updates</div>
-                <div class="uc-spec-val">Real-time push notifications</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Audit</div>
-                <div class="uc-spec-val">Full history &middot; Tamper-proof</div>
-              </div>
-              <div class="uc-spec-cta">
-                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Use cases</div>
+                <ul class="uc-spec-list">
+                  <li>Verify licensed financial advisors</li>
+                  <li>Validate accredited healthcare providers</li>
+                  <li>Confirm certified supply chain partners</li>
+                  <li>Authenticate bar association members</li>
+                </ul>
               </div>
             </div>
             <div class="uc-spec-panel" data-uc-spec="1">
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Publisher</div>
-                <div class="uc-spec-val">Any organization or authority</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Publisher</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Certificate authorities</span>
+                  <span class="uc-spec-tag">Identity providers</span>
+                  <span class="uc-spec-tag">Organizations</span>
+                  <span class="uc-spec-tag">IoT manufacturers</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Key Types</div>
-                <div class="uc-spec-val">X.509 &middot; JWK &middot; DID keys</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Users</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Developers</span>
+                  <span class="uc-spec-tag">Security teams</span>
+                  <span class="uc-spec-tag">Automated systems</span>
+                  <span class="uc-spec-tag">Relying parties</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Discovery</div>
-                <div class="uc-spec-val">Universal namespace resolution</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Rotation</div>
-                <div class="uc-spec-val">Instant, with cryptographic proof</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Revocation</div>
-                <div class="uc-spec-val">Real-time &middot; Push-based alerts</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Interop</div>
-                <div class="uc-spec-val">Works with existing PKI</div>
-              </div>
-              <div class="uc-spec-cta">
-                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Use cases</div>
+                <ul class="uc-spec-list">
+                  <li>Discover &amp; resolve signing keys for verification</li>
+                  <li>Establish encrypted communication channels</li>
+                  <li>Authenticate IoT device identities</li>
+                  <li>Enable cross-domain trust federation</li>
+                </ul>
               </div>
             </div>
             <div class="uc-spec-panel" data-uc-spec="2">
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Publisher</div>
-                <div class="uc-spec-val">Regulators &middot; Standards bodies</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Publisher</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Regulators</span>
+                  <span class="uc-spec-tag">Standards bodies</span>
+                  <span class="uc-spec-tag">Compliance authorities</span>
+                  <span class="uc-spec-tag">Industry groups</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Format</div>
-                <div class="uc-spec-val">Structured JSON / YAML</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Users</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Compliance officers</span>
+                  <span class="uc-spec-tag">Automated agents</span>
+                  <span class="uc-spec-tag">Auditors</span>
+                  <span class="uc-spec-tag">Platform operators</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Discovery</div>
-                <div class="uc-spec-val">Namespace-based resolution</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Versioning</div>
-                <div class="uc-spec-val">Immutable audit trail</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Automation</div>
-                <div class="uc-spec-val">API-first &middot; Machine-parseable</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Compliance</div>
-                <div class="uc-spec-val">Cryptographic proof of source</div>
-              </div>
-              <div class="uc-spec-cta">
-                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Use cases</div>
+                <ul class="uc-spec-list">
+                  <li>Auto-enforce data residency requirements</li>
+                  <li>Validate cross-border transaction eligibility</li>
+                  <li>Verify AI model governance constraints</li>
+                  <li>Check sanctions &amp; export control compliance</li>
+                </ul>
               </div>
             </div>
             <div class="uc-spec-panel" data-uc-spec="3">
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Publisher</div>
-                <div class="uc-spec-val">Certificate authorities &middot; Issuers</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Publisher</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Certificate authorities</span>
+                  <span class="uc-spec-tag">Credential issuers</span>
+                  <span class="uc-spec-tag">License boards</span>
+                  <span class="uc-spec-tag">Trust registries</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Scope</div>
-                <div class="uc-spec-val">Licenses &middot; Certificates &middot; Credentials</div>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Users</div>
+                <div class="uc-spec-tags">
+                  <span class="uc-spec-tag">Relying parties</span>
+                  <span class="uc-spec-tag">Verification services</span>
+                  <span class="uc-spec-tag">Automated gatekeepers</span>
+                  <span class="uc-spec-tag">Risk platforms</span>
+                </div>
               </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Delivery</div>
-                <div class="uc-spec-val">Real-time push via /watch</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Latency</div>
-                <div class="uc-spec-val">Sub-second propagation</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Format</div>
-                <div class="uc-spec-val">Standardized &middot; Machine-readable</div>
-              </div>
-              <div class="uc-spec-row">
-                <div class="uc-spec-key">Coverage</div>
-                <div class="uc-spec-val">Cross-jurisdiction &middot; Global</div>
-              </div>
-              <div class="uc-spec-cta">
-                <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener">Explore the docs &#x2192;</a>
+              <div class="uc-spec-block">
+                <div class="uc-spec-label">Use cases</div>
+                <ul class="uc-spec-list">
+                  <li>Instantly check revoked TLS certificates</li>
+                  <li>Detect suspended professional licenses</li>
+                  <li>Block expired API credentials in real time</li>
+                  <li>Propagate credential recalls across ecosystems</li>
+                </ul>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLATFORM FEATURES -->
+    <section class="platform-features">
+      <div class="platform-features-inner">
+        <div class="platform-features-header reveal">
+          <div>
+            <div class="platform-features-eyebrow">Platform capabilities</div>
+            <div class="platform-features-title">Everything you need to publish &amp; verify.</div>
+          </div>
+          <div class="platform-features-subtitle">A complete API for managing the full lifecycle of public registries — from creation to real-time monitoring.</div>
+        </div>
+        <div class="pf-grid reveal reveal-stagger">
+          <div class="pf-card">
+            <div class="pf-card-num">01</div>
+            <div class="pf-card-title">Publish &amp; organize</div>
+            <div class="pf-card-desc">Create namespaces and registries, publish records individually or bulk-upload thousands via CSV. Draft, review, then go live.</div>
+            <div class="pf-card-endpoint">/create-namespace · /publish-records · /bulk-upload</div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-card-num">02</div>
+            <div class="pf-card-title">Instant lookup</div>
+            <div class="pf-card-desc">Resolve any namespace, registry, or record with a single API call. Advanced search across nested fields with filtering and pagination.</div>
+            <div class="pf-card-endpoint">/lookup · /query · /search</div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-card-num">03</div>
+            <div class="pf-card-title">Cryptographic verification</div>
+            <div class="pf-card-desc">Verify the authenticity of any lookup result with cryptographic proof. Every verification is logged in a tamper-proof audit trail.</div>
+            <div class="pf-card-endpoint">/verify-record-lookup · /verification-logs</div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-card-num">04</div>
+            <div class="pf-card-title">Real-time watch</div>
+            <div class="pf-card-desc">Subscribe to changes on any resource — namespace, registry, or record. Get push notifications the moment anything is updated or revoked.</div>
+            <div class="pf-card-endpoint">/subscribe · /unsubscribe · /subscriptions</div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-card-num">05</div>
+            <div class="pf-card-title">Delegation &amp; access</div>
+            <div class="pf-card-desc">Add delegates at the namespace or registry level for collaborative management. Verify domain ownership via DNS TXT records.</div>
+            <div class="pf-card-endpoint">/add-delegate · /verify-domain</div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-card-num">06</div>
+            <div class="pf-card-title">Lifecycle control</div>
+            <div class="pf-card-desc">Suspend, reinstate, or permanently revoke any registry or record. Full version history with immutable audit trails and CSV export.</div>
+            <div class="pf-card-endpoint">/suspend · /reinstate · /revoke · /versions</div>
           </div>
         </div>
       </div>
@@ -2235,102 +2369,73 @@
         <div class="arch-pipeline reveal">
           <div class="arch-flow">
 
-            <div class="arch-step">
-              <div class="arch-step-num">01 - Publish</div>
-              <div class="arch-step-card">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="7" y="4" width="18" height="24" rx="2"/>
-                  <path d="M16 20v-8m0 0l-3 3m3-3l3 3"/>
-                  <line x1="12" y1="24" x2="20" y2="24"/>
-                </svg>
-                <span class="arch-step-card-label">Authority</span>
-              </div>
-              <div class="arch-step-sub">Creates &amp; signs registry</div>
-              <div class="arch-step-tags">
+            <div class="arch-card" data-step="publish">
+              <div class="arch-card-num">01</div>
+              <svg class="arch-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="7" y="4" width="18" height="24" rx="2"/>
+                <path d="M16 20v-8m0 0l-3 3m3-3l3 3"/>
+                <line x1="12" y1="24" x2="20" y2="24"/>
+              </svg>
+              <div class="arch-card-name">Publish</div>
+              <div class="arch-card-sub">Creates, signs &amp; anchors</div>
+              <div class="arch-card-tags">
                 <span class="arch-tag">Any format</span>
-                <span class="arch-tag">Bulk or API</span>
-              </div>
-            </div>
-
-            <div class="arch-connector">
-              <div class="arch-connector-line"></div>
-              <span class="arch-connector-badge">signed</span>
-            </div>
-
-            <div class="arch-step">
-              <div class="arch-step-num">02 - Anchor</div>
-              <div class="arch-step-card">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M13.5 19.5l-2.5 2.5a3.5 3.5 0 005 5l2.5-2.5"/>
-                  <path d="M18.5 12.5l2.5-2.5a3.5 3.5 0 00-5-5l-2.5 2.5"/>
-                  <line x1="13" y1="19" x2="19" y2="13"/>
-                </svg>
-                <span class="arch-step-card-label">On-chain</span>
-              </div>
-              <div class="arch-step-sub">Immutable proof</div>
-              <div class="arch-step-tags">
                 <span class="arch-tag">Tamper-proof</span>
-                <span class="arch-tag">Auditable</span>
+              </div>
+              <div class="arch-card-cat">
+                Any Publisher
+                <p>Governments · Regulators<br>Central Banks · Trade Bodies</p>
               </div>
             </div>
 
             <div class="arch-connector">
-              <div class="arch-connector-line"></div>
-              <span class="arch-connector-badge">replicated</span>
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
+              </svg>
             </div>
 
-            <div class="arch-step">
-              <div class="arch-step-num">03 - Discover</div>
-              <div class="arch-step-card">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="14" cy="14" r="8"/>
-                  <line x1="20" y1="20" x2="27" y2="27"/>
-                </svg>
-                <span class="arch-step-card-label">Resolve</span>
-              </div>
-              <div class="arch-step-sub">Instant lookup</div>
-              <div class="arch-step-tags">
-                <span class="arch-tag">Global CDN</span>
+            <div class="arch-card" data-step="discover">
+              <div class="arch-card-num">02</div>
+              <svg class="arch-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="14" cy="14" r="8"/>
+                <line x1="20" y1="20" x2="27" y2="27"/>
+              </svg>
+              <div class="arch-card-name">Discover</div>
+              <div class="arch-card-sub">Instant lookup</div>
+              <div class="arch-card-tags">
+                <span class="arch-tag">Distributed</span>
                 <span class="arch-tag">&lt;200ms</span>
               </div>
+              <div class="arch-card-cat">
+                Any Public Registry
+                <p>Public keys · Memberships<br>Licenses · Revocations</p>
+              </div>
             </div>
 
             <div class="arch-connector">
-              <div class="arch-connector-line"></div>
-              <span class="arch-connector-badge">proof</span>
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 16h20m0 0l-6-6m6 6l-6 6"/>
+              </svg>
             </div>
 
-            <div class="arch-step">
-              <div class="arch-step-num">04 - Verify</div>
-              <div class="arch-step-card">
-                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 3l10 4v8c0 6-4 10-10 13-6-3-10-7-10-13V7l10-4z"/>
-                  <path d="M11.5 16l3 3 6-6"/>
-                </svg>
-                <span class="arch-step-card-label">Verified</span>
-              </div>
-              <div class="arch-step-sub">Machine-readable</div>
-              <div class="arch-step-tags">
-                <span class="arch-tag">Crypto proof</span>
+            <div class="arch-card" data-step="verify">
+              <div class="arch-card-num">03</div>
+              <svg class="arch-card-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 3l10 4v8c0 6-4 10-10 13-6-3-10-7-10-13V7l10-4z"/>
+                <path d="M11.5 16l3 3 6-6"/>
+              </svg>
+              <div class="arch-card-name">Verify</div>
+              <div class="arch-card-sub">Cryptographic proof</div>
+              <div class="arch-card-tags">
+                <span class="arch-tag">Machine-readable</span>
                 <span class="arch-tag">API-first</span>
               </div>
+              <div class="arch-card-cat">
+                Any Verifier
+                <p>Applications · AI Agents<br>Other registries · Humans</p>
+              </div>
             </div>
 
-          </div>
-
-          <div class="arch-categories">
-            <div class="arch-cat">
-              <div class="arch-cat-title">Any Publisher</div>
-              <p>Governments<br>Regulators<br>Central Banks<br>Trade Bodies</p>
-            </div>
-            <div class="arch-cat">
-              <div class="arch-cat-title">Any Registry</div>
-              <p>Public keys<br>Memberships<br>Licenses<br>Revocations</p>
-            </div>
-            <div class="arch-cat">
-              <div class="arch-cat-title">Any Verifier</div>
-              <p>Applications<br>AI Agents<br>Other registries<br>Humans</p>
-            </div>
           </div>
         </div>
 
@@ -2344,22 +2449,22 @@
               <div class="how-step">
                 <div class="how-step-num">01</div>
                 <div>
-                  <h4>Register</h4>
-                  <p>Create a namespace for your organization. Takes under a minute.</p>
+                  <h4>Create a namespace</h4>
+                  <p>Register your organization at <a href="https://publish.dedi.global" target="_blank" rel="noopener">publish.dedi.global</a>. Takes under a minute.</p>
                 </div>
               </div>
               <div class="how-step">
                 <div class="how-step-num">02</div>
                 <div>
-                  <h4>Publish</h4>
-                  <p>Push your registry data - public keys, membership lists, or revocation records.</p>
+                  <h4>Publish registries</h4>
+                  <p>Add records via the dashboard — public keys, memberships, licenses, or revocations.</p>
                 </div>
               </div>
               <div class="how-step">
                 <div class="how-step-num">03</div>
                 <div>
-                  <h4>Verify</h4>
-                  <p>Anyone can verify your records instantly via API. No manual checks needed.</p>
+                  <h4>Query via API</h4>
+                  <p>Lookup, query, and verify any record instantly at <code style="font-size:0.8em;background:rgba(0,0,0,0.04);padding:2px 5px;border-radius:2px;">api.dedi.global</code></p>
                 </div>
               </div>
             </div>
@@ -2370,12 +2475,12 @@
                   terminal
                 </div>
                 <div class="terminal-body">
-                  <span class="t-dim"># Register your org</span><br>
-                  <span class="t-amber">$</span> <span class="t-text">dedi register --namespace your-org</span><br><br>
-                  <span class="t-dim"># Publish a registry</span><br>
-                  <span class="t-amber">$</span> <span class="t-text">dedi publish --type membership \<br>&nbsp;&nbsp;--file registry.json</span><br><br>
-                  <span class="t-dim"># Verify a record</span><br>
-                  <span class="t-amber">$</span> <span class="t-text">dedi verify --namespace your-org \<br>&nbsp;&nbsp;--record &lt;id&gt;</span>
+                  <span class="t-dim"># Lookup a namespace</span><br>
+                  <span class="t-amber">$</span> <span class="t-text">curl https://api.dedi.global/dedi/lookup/your-org</span><br><br>
+                  <span class="t-dim"># Query a registry</span><br>
+                  <span class="t-amber">$</span> <span class="t-text">curl https://api.dedi.global/dedi/query \<br>&nbsp;&nbsp;/your-org/authorised_firms</span><br><br>
+                  <span class="t-dim"># Lookup a specific record</span><br>
+                  <span class="t-amber">$</span> <span class="t-text">curl https://api.dedi.global/dedi/lookup \<br>&nbsp;&nbsp;/your-org/public_keys/firm-123</span>
                 </div>
               </div>
             </div>
