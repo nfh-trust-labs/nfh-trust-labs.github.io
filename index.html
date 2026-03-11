@@ -275,15 +275,17 @@
     }
     .usecases-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
     .usecases-header { text-align: center; margin-bottom: 4rem; }
-    .usecases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .usecases-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
     .usecase-card {
-      background: var(--surface); padding: 2.5rem; display: flex; flex-direction: column;
+      background: var(--surface); padding: 2rem; display: flex; flex-direction: column;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      width: calc(33.333% - 0.75rem); min-width: 280px;
     }
     .usecase-card-num { font-family: var(--mono); font-size: 0.65rem; color: var(--teal); letter-spacing: 0.04em; margin-bottom: 0.75rem; }
-    .usecase-card h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.75rem; }
-    .usecase-card-desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
+    .usecase-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.75rem; }
+    .usecase-card-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; }
     .usecase-card-example {
-      margin-top: auto; font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;
+      margin-top: auto; font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;
       padding-top: 1rem; border-top: 1px solid var(--border-light);
     }
     .usecase-card-example strong { color: var(--text-secondary); font-weight: 600; }
@@ -292,7 +294,7 @@
       text-align: center; font-size: 0.84rem; color: var(--text-muted); margin-top: 2.5rem;
       font-style: italic; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6;
     }
-    @media (max-width: 768px) { .usecases-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .usecase-card { width: 100%; } }
 
     /* ══════════════════════════════════════════════
        6. SOCIAL PROOF
@@ -676,7 +678,7 @@
       <div class="usecases-inner">
         <div class="usecases-header">
           <div class="eyebrow" style="color: var(--teal);">What organisations publish</div>
-          <div class="section-title">Four types of verifiable registries.</div>
+          <div class="section-title">Five types of verifiable registries.</div>
         </div>
         <div class="usecases-grid">
           <div class="usecase-card">
@@ -693,7 +695,7 @@
           </div>
           <div class="usecase-card">
             <div class="usecase-card-num">03</div>
-            <h3>Machine-readable policies</h3>
+            <h3>Policy registries</h3>
             <div class="usecase-card-desc">Publish regulatory requirements in formats that systems can automatically parse and enforce. No more manual interpretation of PDF regulations.</div>
             <div class="usecase-card-example"><strong>Example:</strong> A regulator publishes data residency rules. Platforms auto-enforce them without compliance teams manually updating configurations.</div>
           </div>
@@ -703,9 +705,15 @@
             <div class="usecase-card-desc">Revoke credentials, suspend licenses, or recall certificates — and every relying party is notified in real-time. No more stale data.</div>
             <div class="usecase-card-example"><strong>Example:</strong> A license board suspends a practitioner. Every platform checking that license is alerted instantly, not on the next monthly CSV refresh.</div>
           </div>
+          <div class="usecase-card">
+            <div class="usecase-card-num">05</div>
+            <h3>AI agent registries</h3>
+            <div class="usecase-card-desc">Register AI agents with verifiable identity, capabilities, and authorization. Let any system confirm an agent's legitimacy before granting access.</div>
+            <div class="usecase-card-example"><strong>Example:</strong> An enterprise publishes its approved AI agents. Partner systems verify agent identity and permissions before accepting automated requests.</div>
+          </div>
         </div>
         <div class="usecases-note">
-          Not limited to these four. DeDi supports any type of public registry — issuers define their own schema and publish whatever registry they need.
+          Not limited to these five. DeDi supports any type of public registry — issuers define their own schema and publish whatever registry they need.
         </div>
       </div>
     </section>
