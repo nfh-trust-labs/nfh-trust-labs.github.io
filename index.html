@@ -14,19 +14,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DeDi — Decentralized Directory for Public Registries</title>
   <meta name="description"
-    content="DeDi is a decentralized directory protocol for public registries. Publish and verify public keys, membership lists, and revocation lists with cryptographic trust.">
+    content="DeDi is an open protocol for publishing public registries — public keys, membership lists, licences, and revocations — as signed files on your own domain, verifiable by anyone in milliseconds.">
   <meta name="theme-color" content="#fafaf9">
   <link rel="canonical" href="https://dedi.global/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dedi.global/">
   <meta property="og:title" content="DeDi — Decentralized Directory for Public Registries">
   <meta property="og:description"
-    content="Build trust infrastructure with DeDi. Publish and verify public keys, membership lists, and revocation lists with cryptographic guarantees.">
+    content="Protocol v2: adopt DeDi by publishing signed registry files on your own domain. No server to run. Verifiable by anyone, indexed by any DeDi server.">
   <meta property="og:image" content="https://dedi.global/dedi-logo.svg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="dedi-logo.svg">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"DeDi","url":"https://dedi.global","logo":"https://dedi.global/dedi-logo.svg","description":"DeDi is a decentralized directory protocol for public registries.","parentOrganization":{"@type":"Organization","name":"Linux Foundation Decentralized Trust","url":"https://www.lfdecentralizedtrust.org/"}}
+{"@context":"https://schema.org","@type":"Organization","name":"DeDi","url":"https://dedi.global","logo":"https://dedi.global/dedi-logo.svg","description":"DeDi is an open protocol for publishing public registries as signed, verifiable files.","parentOrganization":{"@type":"Organization","name":"Linux Foundation Decentralized Trust","url":"https://www.lfdecentralizedtrust.org/"}}
 </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -314,11 +314,12 @@
     .getstarted-section { padding: 100px 2rem; background: var(--bg); }
     .getstarted-inner { max-width: 1100px; margin: 0 auto; }
     .getstarted-header { margin-bottom: 4rem; }
-    .getstarted-tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+    .getstarted-tracks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 1.5rem; }
     .getstarted-track {
       border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface);
-      display: grid; grid-template-rows: subgrid; grid-row: span 5;
+      display: grid; grid-template-rows: subgrid; grid-row: span 5; min-width: 0;
     }
+    .track-step > div { min-width: 0; overflow-wrap: anywhere; }
     .track-header {
       padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; gap: 12px;
@@ -340,7 +341,8 @@
     .track-step a:hover { text-decoration: underline; }
     .track-cta { padding: 1.25rem 2rem; background: var(--bg); }
 
-    @media (max-width: 768px) { .getstarted-tracks { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .getstarted-tracks { grid-template-columns: 1fr; } .getstarted-track { margin-bottom: 1.5rem; } }
+    main code { font-family: var(--mono); font-size: 0.92em; background: var(--bg); padding: 2px 6px; border-radius: 2px; }
 
     /* ══════════════════════════════════════════════
        8. PRINCIPLES — Evidence, not abstract claims
@@ -445,7 +447,8 @@
     ══════════════════════════════════════════════ */
     .partners-bar { padding: 3rem 2rem; text-align: center; border-bottom: 1px solid var(--border); }
     .partners-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
-    .partners-inner img { height: 36px; opacity: 0.4; filter: grayscale(1); transition: all 0.2s; }
+    .partners-inner a { max-width: 100%; }
+    .partners-inner img { height: 36px; max-width: 100%; object-fit: contain; opacity: 0.4; filter: grayscale(1); transition: all 0.2s; }
     .partners-inner img:hover { opacity: 0.8; filter: none; }
 
     footer { padding: 3rem 2rem 2rem; }
@@ -462,10 +465,41 @@
 
     @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; } }
 
+
+    /* ══════════════════════════════════════════════
+       14. ANNOUNCE BAR + PROTOCOL V2
+    ══════════════════════════════════════════════ */
+    .announce-bar { background: var(--text); color: #fff; text-align: center; padding: 0.6rem 2rem; font-size: 0.8rem; line-height: 1.5; }
+    .announce-bar strong { font-weight: 600; }
+    .announce-bar a { color: #fff; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+    .announce-bar .tag { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; background: var(--amber); color: #fff; padding: 2px 8px; border-radius: var(--radius); margin-right: 10px; white-space: nowrap; }
+
+    .v2-section { padding: 100px 2rem; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .v2-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center; }
+    .v2-points { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .v2-point { display: flex; gap: 14px; align-items: flex-start; }
+    .v2-point-num { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--teal); min-width: 24px; padding-top: 3px; }
+    .v2-point h4 { font-size: 0.94rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .v2-point p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; }
+    .v2-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem; }
+    .v2-files { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+    .v2-files-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.25rem; }
+    .v2-file { padding: 12px 0; border-bottom: 1px solid var(--border-light); }
+    .v2-file:last-child { border-bottom: none; }
+    .v2-file .path { font-family: var(--mono); font-size: 0.8rem; color: var(--text); overflow-wrap: anywhere; }
+    .v2-file .path .hl { color: var(--teal); font-weight: 500; }
+    .v2-file .role { font-size: 0.74rem; color: var(--text-muted); margin-top: 4px; }
+    .v2-files-note { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.65; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+    .v2-files-note a { color: var(--amber); text-decoration: none; font-weight: 500; }
+    .v2-files-note a:hover { text-decoration: underline; }
+    @media (max-width: 900px) { .v2-inner { grid-template-columns: 1fr; gap: 2.5rem; } .nav-links .nav-link { display: none; } }
   </style>
 </head>
 
 <body>
+
+  <!-- ANNOUNCE BAR -->
+  <div class="announce-bar"><span class="tag">Protocol v2</span><strong>Adopt DeDi by publishing signed files on your own domain.</strong> No server to run, no account to create. <a href="#v2">See what changed &rarr;</a></div>
 
   <!-- NAV -->
   <nav>
@@ -477,6 +511,7 @@
       <div class="nav-links">
         <a href="#problem" class="nav-link">The Problem</a>
         <a href="#how" class="nav-link">How It Works</a>
+        <a href="#v2" class="nav-link">Protocol v2</a>
         <a href="#usecases" class="nav-link">Use Cases</a>
         <a href="#pricing" class="nav-link">Pricing</a>
         <a href="https://dedi-global.gitbook.io/docs" target="_blank" rel="noopener" class="nav-link">Docs</a>
@@ -495,10 +530,10 @@
         <div>
           <div class="hero-eyebrow"><span class="eyebrow-line"></span> Trust Infrastructure</div>
           <h1>One lookup to verify anyone, <em>anywhere.</em></h1>
-          <p class="hero-subtitle">DeDi makes public registries instantly verifiable. Publish membership lists, public keys, licenses, and revocations — and let anyone verify them in milliseconds.</p>
+          <p class="hero-subtitle">DeDi makes public registries instantly verifiable. Publish membership lists, public keys, licences, and revocations as signed files on your own domain — or on dedi.global — and let anyone verify them in milliseconds.</p>
           <div class="hero-actions">
             <a href="https://publish.dedi.global/" class="btn btn-primary">Start Publishing &#x2192;</a>
-            <a href="#how" class="btn btn-secondary">See how it works</a>
+            <a href="#v2" class="btn btn-secondary">Self-publish with v2</a>
           </div>
           <div class="hero-meta">A lab under <a href="https://www.lfdecentralizedtrust.org/">LF Decentralized Trust</a>. A <a href="https://networksforhumanity.org/">Networks for Humanity</a> initiative.</div>
         </div>
@@ -610,7 +645,7 @@
         <div class="how-header">
           <div class="eyebrow" style="color: var(--amber); display: flex; align-items: center; gap: 10px;"><span class="eyebrow-line"></span> How it works</div>
           <div class="section-title">Three steps. Any registry.</div>
-          <div class="section-subtitle">From publishing to verification — no blockchain knowledge required.</div>
+          <div class="section-subtitle">From publishing to verification — no server, no blockchain knowledge required.</div>
         </div>
         <div class="how-flow">
           <div class="how-card" data-step="publish">
@@ -621,7 +656,7 @@
               <line x1="12" y1="24" x2="20" y2="24"/>
             </svg>
             <div class="how-card-name">Publish</div>
-            <div class="how-card-desc">Upload your registry via the dashboard or API. Records are cryptographically signed and anchored automatically.</div>
+            <div class="how-card-desc">Publish your registry as signed files on a domain you control — or upload it via the dedi.global dashboard or API. Every record carries your organisation's signature.</div>
             <div class="how-card-who">
               Who publishes
               <p>Governments, regulators, central banks, trade associations, certificate authorities</p>
@@ -641,7 +676,7 @@
               <line x1="20" y1="20" x2="27" y2="27"/>
             </svg>
             <div class="how-card-name">Discover</div>
-            <div class="how-card-desc">Anyone can look up any record with a single API call. Results arrive in under 200ms from distributed infrastructure.</div>
+            <div class="how-card-desc">DeDi servers discover, verify, and index published files. Anyone can look up any record with a single API call — or fetch the file straight from the publisher.</div>
             <div class="how-card-who">
               What's discoverable
               <p>Public keys, membership lists, licenses, revocation records</p>
@@ -661,12 +696,68 @@
               <path d="M11.5 16l3 3 6-6"/>
             </svg>
             <div class="how-card-name">Verify</div>
-            <div class="how-card-desc">Every lookup result carries tamper-proof evidence. Systems can confirm authenticity automatically, without contacting the original source.</div>
+            <div class="how-card-desc">Every result carries the publisher's own signature, relayed unaltered. Systems confirm authenticity automatically, whether they read from a server or from the source.</div>
             <div class="how-card-who">
               Who verifies
               <p>Applications, compliance systems, AI agents, other registries, humans</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         4b. PROTOCOL V2 — Origin-hosted publishing
+    ════════════════════════════════════════ -->
+    <section class="v2-section" id="v2">
+      <div class="v2-inner">
+        <div>
+          <div class="eyebrow" style="color: var(--amber); display: flex; align-items: center; gap: 10px;"><span class="eyebrow-line"></span> Protocol v2 &middot; What's new</div>
+          <div class="section-title">Publish files.<br>You're on the network.</div>
+          <p class="section-subtitle">The latest DeDi protocol update makes adoption as simple as putting signed files on a domain you control. No server to run, no account to create, no API to integrate.</p>
+          <div class="v2-points">
+            <div class="v2-point">
+              <div class="v2-point-num">01</div>
+              <div>
+                <h4>Sign your registry</h4>
+                <p>One self-contained, signed DeDi file per registry, plus a signed manifest at <code>/.well-known/dedi.index.json</code> declaring your keys and listing the registries you offer.</p>
+              </div>
+            </div>
+            <div class="v2-point">
+              <div class="v2-point-num">02</div>
+              <div>
+                <h4>Host it anywhere you control</h4>
+                <p>Your website, a source repository, a public file host — or deposit it with a DeDi server. Where the bytes live carries no weight in the trust model: verifiers check <em>your</em> signature against <em>your</em> manifest.</p>
+              </div>
+            </div>
+            <div class="v2-point">
+              <div class="v2-point-num">03</div>
+              <div>
+                <h4>Get discovered</h4>
+                <p>Add your domain to the public discovery list. DeDi servers such as dedi.global crawl, verify, and index your files and serve them through the standard lookup and query APIs — relaying your signature, never substituting their own. Servers are caches and indexes, not authorities.</p>
+              </div>
+            </div>
+          </div>
+          <div class="v2-actions">
+            <a href="https://dedi-global.gitbook.io/docs/resources/publishing-dedi-files" class="btn btn-primary">Publishing guide &#x2192;</a>
+            <a href="https://github.com/LF-Decentralized-Trust-labs/decentralized-directory-protocol" class="btn btn-secondary">Protocol spec on GitHub</a>
+          </div>
+        </div>
+        <div class="v2-files">
+          <div class="v2-files-label">What a publisher serves</div>
+          <div class="v2-file">
+            <div class="path">https://example.org/<span class="hl">.well-known/dedi.index.json</span></div>
+            <div class="role">Signed manifest &middot; fixed path &middot; one per domain</div>
+          </div>
+          <div class="v2-file">
+            <div class="path">https://example.org/dedi/<span class="hl">dedi.public-keys.json</span></div>
+            <div class="role">One signed file per registry</div>
+          </div>
+          <div class="v2-file">
+            <div class="path">https://example.org/dedi/<span class="hl">dedi.revocations.json</span></div>
+            <div class="role">Same shape &middot; a negative list</div>
+          </div>
+          <div class="v2-files-note">Sign with your own Ed25519 key using <a href="https://github.com/nfh-trust-labs/dedi-cli">dedi-cli</a>. Keys never leave the publisher. Rotation and revocation are self-service: update your manifest and you're done. Existing dedi.global publishers need to change nothing — hosted and self-published registries are served through the same APIs.</div>
         </div>
       </div>
     </section>
@@ -727,7 +818,7 @@
         <div class="proof-stats">
           <div>
             <div class="proof-stat-value">99.99%</div>
-            <div class="proof-stat-label">Uptime SLA</div>
+            <div class="proof-stat-label">dedi.global uptime SLA</div>
           </div>
           <div>
             <div class="proof-stat-value">&lt;200ms</div>
@@ -752,18 +843,53 @@
       <div class="getstarted-inner">
         <div class="getstarted-header">
           <div class="section-title">Get started in minutes.</div>
-          <div class="section-subtitle">Whether you're publishing a registry or integrating with the API.</div>
+          <div class="section-subtitle">Three ways in: self-publish on your own domain, publish on dedi.global, or integrate with the API.</div>
         </div>
         <div class="getstarted-tracks">
 
-          <!-- Publisher track -->
+          <!-- Self-publish track (protocol v2) -->
+          <div class="getstarted-track">
+            <div class="track-header">
+              <svg class="track-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 4v6c0 4.5-3.5 8-8 9-4.5-1-8-4.5-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/>
+              </svg>
+              <span class="track-title">Self-publish</span>
+              <span class="track-subtitle">Protocol v2</span>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">01</div>
+              <div>
+                <h4>Generate a signing key</h4>
+                <p>Run <code>dedi-cli keygen</code>. Your private key stays with you.</p>
+              </div>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">02</div>
+              <div>
+                <h4>Write and sign your files</h4>
+                <p>Author the manifest and one DeDi file per registry, then sign each with <code>dedi-cli sign</code>.</p>
+              </div>
+            </div>
+            <div class="track-step">
+              <div class="track-step-num">03</div>
+              <div>
+                <h4>Host and get listed</h4>
+                <p>Serve the files on your domain and add it to the <a href="https://github.com/LF-Decentralized-Trust-labs/decentralized-directory-protocol/blob/main/domains.txt">discovery list</a>.</p>
+              </div>
+            </div>
+            <div class="track-cta">
+              <a href="https://dedi-global.gitbook.io/docs/resources/publishing-dedi-files" class="btn btn-primary" style="width: 100%; justify-content: center;">Publishing guide &#x2192;</a>
+            </div>
+          </div>
+
+          <!-- Hosted publisher track -->
           <div class="getstarted-track">
             <div class="track-header">
               <svg class="track-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 15v-6m0 0l-2.5 2.5M12 9l2.5 2.5"/><line x1="9" y1="18" x2="15" y2="18"/>
               </svg>
-              <span class="track-title">For publishers</span>
-              <span class="track-subtitle">No code required</span>
+              <span class="track-title">Publish on dedi.global</span>
+              <span class="track-subtitle">No code</span>
             </div>
             <div class="track-step">
               <div class="track-step-num">01</div>
@@ -797,7 +923,7 @@
               <svg class="track-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
               </svg>
-              <span class="track-title">For developers</span>
+              <span class="track-title">Integrate</span>
               <span class="track-subtitle">REST API</span>
             </div>
             <div class="track-step">
@@ -818,7 +944,7 @@
               <div class="track-step-num">03</div>
               <div>
                 <h4>Subscribe to changes</h4>
-                <p>Real-time push notifications on any revocation or update.</p>
+                <p>Webhook notifications from dedi.global on any revocation or update — for hosted and crawled registries alike.</p>
               </div>
             </div>
             <div class="track-cta">
@@ -843,13 +969,13 @@
           <div class="principle">
             <div class="principle-num">01</div>
             <h3>No single point of failure</h3>
-            <p>Registries are replicated across a distributed network. No vendor lock-in, no downtime dependency on any single organisation.</p>
-            <div class="principle-proof">99.99% uptime SLA</div>
+            <p>Publishers host their own signed files; any DeDi server can index them. No central API, no gatekeeper, no dependency on any single organisation — including us.</p>
+            <div class="principle-proof">Publisher-hosted, server-optional</div>
           </div>
           <div class="principle">
             <div class="principle-num">02</div>
             <h3>Tamper-proof by design</h3>
-            <p>Every record carries a cryptographic signature from the publisher. Verification is instant and works without contacting the original source.</p>
+            <p>Every record carries a cryptographic signature from the publisher, relayed unaltered by any server. Verification is instant and works without contacting the original source.</p>
             <div class="principle-proof">&lt;200ms verification time</div>
           </div>
           <div class="principle">
@@ -869,8 +995,8 @@
       <div class="inline-faq-inner">
         <div class="inline-faq-grid">
           <div class="inline-faq-card">
-            <h4>Do I need blockchain knowledge?</h4>
-            <p>No. If you can upload a file, you can use DeDi. All cryptographic complexity is handled automatically.</p>
+            <h4>Do I need to run anything?</h4>
+            <p>No. If you can put a file on your website, you can publish a DeDi registry. Prefer not to host at all? dedi.global publishes on your behalf.</p>
           </div>
           <div class="inline-faq-card">
             <h4>Is this only for financial services?</h4>
@@ -931,7 +1057,7 @@
         <div>
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)"><h3>What exactly is DeDi.global?</h3><span class="faq-toggle">+</span></button>
-            <div class="faq-a"><div class="faq-a-inner"><p>DeDi (Decentralized Directory) is infrastructure that transforms traditional public registries into instantly verifiable directories. Think of it as DNS for trust — a universal lookup layer for any public information your organisation needs to share.</p></div></div>
+            <div class="faq-a"><div class="faq-a-inner"><p>DeDi (Decentralized Directory) is an open protocol, stewarded under LF Decentralized Trust, for publishing public registries as signed, machine-readable files that anyone can discover and verify. dedi.global is a free, hosted DeDi server run by Networks for Humanity: it publishes registries for organisations that would rather not host files themselves, and indexes files published anywhere else. Think of it as DNS for trust — a universal lookup layer for any public information your organisation needs to share.</p></div></div>
           </div>
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)"><h3>How is this different from a regular database?</h3><span class="faq-toggle">+</span></button>
@@ -943,7 +1069,15 @@
           </div>
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)"><h3>Can I integrate with existing systems?</h3><span class="faq-toggle">+</span></button>
-            <div class="faq-a"><div class="faq-a-inner"><p>Yes. DeDi supports bulk imports from CSV, JSON, and XML. The REST API works with any language or platform. DeDi adds a verification layer alongside your existing infrastructure.</p></div></div>
+            <div class="faq-a"><div class="faq-a-inner"><p>Yes. If you already operate a public registry, publish its contents as signed DeDi files alongside it — no change to your existing systems is required. dedi.global also supports bulk imports from CSV, JSON, and XML, and the REST API works with any language or platform.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>What changed in protocol v2?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>Adoption no longer requires a server or an account. A publisher adopts DeDi by serving a signed manifest at <code>/.well-known/dedi.index.json</code> and one signed file per registry on a domain it controls. DeDi servers become an optional role: they discover, verify, and index published files and expose the lookup and query APIs across many publishers, relaying each publisher's signature unaltered. The information model — namespace, registry, record — is unchanged.</p></div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><h3>Do I have to use dedi.global?</h3><span class="faq-toggle">+</span></button>
+            <div class="faq-a"><div class="faq-a-inner"><p>No. Self-publish on your own domain and any DeDi server can index you. dedi.global is there for organisations that would rather not host files themselves, and for anyone who wants cross-registry search, version history, and availability guarantees on top of the files. Existing dedi.global publishers need to change nothing; hosted and self-published registries are served through the same lookup and query APIs.</p></div></div>
           </div>
           <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)"><h3>How will future pricing decisions be made?</h3><span class="faq-toggle">+</span></button>
@@ -958,9 +1092,10 @@
     ════════════════════════════════════════ -->
     <section class="bottom-cta">
       <h2>Ready to publish<br>your registry?</h2>
-      <p>Join organisations worldwide building verifiable trust infrastructure.</p>
+      <p>Sign two files on your own domain, or publish on dedi.global in under a minute.</p>
       <div class="bottom-cta-actions">
         <a href="https://publish.dedi.global/" class="btn btn-primary">Start Publishing &#x2192;</a>
+        <a href="https://dedi-global.gitbook.io/docs/resources/publishing-dedi-files" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">Self-publish guide</a>
         <a href="https://forms.gle/kWC1AmD2pKnQ7FjX8" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8);">Contact Team</a>
       </div>
     </section>
@@ -981,11 +1116,12 @@
     <div class="footer-inner">
       <div>
         <div class="footer-brand">DeDi <span class="footer-brand-sub">.global</span></div>
-        <p class="footer-desc">The trust infrastructure for the decentralized future. Universal, open, and free.</p>
+        <p class="footer-desc">An open protocol for verifiable public registries. Publisher-hosted, server-optional, free.</p>
         <p class="footer-nfh">Powered by <a href="https://networksforhumanity.org/">Networks for Humanity</a></p>
       </div>
       <div class="footer-col">
         <h5>Product</h5>
+        <a href="#v2">Protocol v2</a>
         <a href="#usecases">Use Cases</a>
         <a href="#pricing">Pricing</a>
         <a href="https://publish.dedi.global/">Get Started</a>
@@ -993,7 +1129,9 @@
       <div class="footer-col">
         <h5>Resources</h5>
         <a href="https://dedi-global.gitbook.io/docs">Documentation</a>
-        <a href="https://github.com/LF-Decentralized-Trust-labs/DeDi">GitHub</a>
+        <a href="https://dedi-global.gitbook.io/docs/resources/publishing-dedi-files">Publishing guide</a>
+        <a href="https://github.com/LF-Decentralized-Trust-labs/decentralized-directory-protocol">Protocol spec</a>
+        <a href="https://github.com/nfh-trust-labs/dedi-cli">dedi-cli</a>
         <a href="https://forms.gle/KcBNDhaCdUZ6kYa2A">Support</a>
       </div>
       <div class="footer-col">
